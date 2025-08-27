@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Futuristic Portfolio Design System - Inspired by dramatic lighting and professional aesthetics */
+
+@layer base {
+  :root {
+    /* Core Colors - Dark base with electric accents */
+    --background: 220 15% 6%;
+    --foreground: 210 40% 98%;
+    
+    /* Surface Colors */
+    --surface: 220 15% 8%;
+    --surface-elevated: 220 15% 12%;
+    --surface-glass: 220 15% 8%;
+    
+    /* Primary Brand Colors - Electric Blue/Violet */
+    --primary: 240 100% 70%;
+    --primary-dark: 245 95% 55%;
+    --primary-light: 235 100% 85%;
+    --primary-foreground: 220 15% 6%;
+    
+    /* Accent Colors - Neon highlights */
+    --accent-electric: 195 100% 75%;
+    --accent-violet: 280 100% 75%;
+    --accent-cyan: 180 100% 70%;
+    --accent-foreground: 220 15% 6%;
+    
+    /* UI State Colors */
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Interactive Elements */
+    --border: 220 15% 25%;
+    --border-glow: 240 100% 70%;
+    --input: 220 15% 12%;
+    --ring: 240 100% 70%;
+    
+    /* Glass Effect Variables - Apple-style liquid glass */
+    --glass-bg: hsla(0, 0%, 100%, 0.06);
+    --glass-border: hsla(0, 0%, 100%, 0.18);
+    --glass-shadow: rgba(0, 0, 0, 0.35);
+    
+    /* Glow Effects */
+    --glow-primary: hsla(240, 100%, 70%, 0.4);
+    --glow-accent: hsla(195, 100%, 75%, 0.3);
+    --glow-violet: hsla(280, 100%, 75%, 0.3);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(240, 100%, 70%), hsl(280, 100%, 75%));
+    --gradient-surface: linear-gradient(135deg, hsl(220, 15%, 8%), hsl(220, 15%, 12%));
+    --gradient-glow: radial-gradient(circle at center, hsl(240, 100%, 70% / 0.2), transparent 70%);
+    --gradient-hero: linear-gradient(135deg, hsl(222 36% 10%) 0%, hsl(247 32% 12%) 50%, hsl(222 36% 10%) 100%);
+    
+    /* Animation Variables */
+    --animation-speed-fast: 0.2s;
+    --animation-speed-medium: 0.4s;
+    --animation-speed-slow: 0.8s;
+    --animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Spacing & Layout */
+    --radius: 12px;
+    --radius-large: 20px;
+    --radius-small: 8px;
+    
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-wide: 0.025em;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-family: var(--font-primary);
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass Morphism Components */
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 12px 48px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* Animated glass sheen for Apple-like micro-interactions */
+  .glass-animated {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-animated::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .glass-animated:hover::before {
+    animation: sheen-sweep 1.6s ease-in-out;
+    opacity: 1;
+  }
+
+  /* Allow triggering sheen via JS once without hover */
+  .glass-animated.sheen-run::before {
+    animation: sheen-sweep 1.6s ease-in-out;
+    opacity: 1;
+  }
+
+  /* Interactive liquid glass hover spotlight */
+  .glass-hover {
+    position: relative;
+    overflow: hidden;
+    --mx: 50%; /* mouse x */
+    --my: 50%; /* mouse y */
+  }
+
+  .glass-hover::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background: radial-gradient(120px 120px at var(--mx) var(--my), rgba(255,255,255,0.25), rgba(255,255,255,0.10) 35%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0) 70%);
+    opacity: 0;
+    transition: opacity var(--animation-speed-medium) var(--animation-ease);
+    mix-blend-mode: screen;
+  }
+
+  .glass-hover:hover::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glass-hover::before { transition: none; }
+  }
+
+  .glass-input {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    transition: all var(--animation-speed-medium) var(--animation-ease);
+  }
+
+  .glass-input:focus {
+    border-color: rgba(255,255,255,0.28);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.08), 0 0 30px var(--glow-primary);
+  }
+
+  /* Glow Effects */
+  .glow-primary {
+    box-shadow: 0 0 20px var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px var(--glow-accent);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 20px var(--glow-violet);
+  }
+
+  /* Gradient Backgrounds */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-surface {
+    background: var(--gradient-surface);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  /* Floating Animations */
+  .float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  .float-medium {
+    animation: float-medium 4s ease-in-out infinite;
+  }
+
+  .float-fast {
+    animation: float-fast 3s ease-in-out infinite;
+  }
+
+  /* Text Glow Effects */
+  .text-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
+
+  .text-glow-primary {
+    text-shadow: 0 0 20px hsl(var(--primary));
+  }
+
+  /* Button Variants */
+  .btn-neon {
+    background: var(--gradient-primary);
+    border: 1px solid hsl(var(--primary));
+    position: relative;
+    overflow: hidden;
+    transition: all var(--animation-speed-medium) var(--animation-ease);
+  }
+
+  .btn-neon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left var(--animation-speed-slow) var(--animation-ease);
+  }
+
+  .btn-neon:hover::before {
+    left: 100%;
+  }
+
+  .btn-neon:hover {
+    box-shadow: 0 0 30px var(--glow-primary);
+    transform: translateY(-2px);
+  }
+
+  /* Orb Animation */
+  .orb {
+    border-radius: 50%;
+    position: absolute;
+    background: radial-gradient(circle, var(--glow-primary), transparent 70%);
+    filter: blur(1px);
+    opacity: 0.6;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-3deg); }
+  }
+
+  @keyframes float-fast {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px var(--glow-primary); }
+    50% { box-shadow: 0 0 40px var(--glow-primary); }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes sheen-sweep {
+    0% { transform: translateX(-120%) rotate(0.001deg); }
+    50% { transform: translateX(0%) rotate(0.001deg); }
+    100% { transform: translateX(120%) rotate(0.001deg); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .animate-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  /* Liquid wave animation for loader */
+  @keyframes wave-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes wave-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+}
+
+/* Preloader liquid bar helpers */
+.liquid-track {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.liquid-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(177,110,255,0.45), rgba(108,99,255,0.28));
+}
+
+.liquid-fill .wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 200%;
+  height: 200%;
+  opacity: 0.18;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  animation: wave-slide 12s linear infinite;
+  filter: blur(0.2px);
+}
+
+.liquid-fill::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: -6px;
+  width: 20px;
+  height: calc(100% + 12px);
+  background: radial-gradient(circle at left center, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%);
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: 0.6;
+}
+
+/* Top highlight wave (lighter) */
+.liquid-fill .wave-top {
+  opacity: 0.16;
+  animation-duration: 14s;
+  animation-timing-function: linear;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='100' viewBox='0 0 800 100'%3E%3Cpath fill='rgba(255,255,255,0.45)' d='M0,60 C150,20 250,100 400,60 C550,20 650,100 800,60 L800,100 L0,100 Z'/%3E%3C/svg%3E");
+}
+
+/* Bottom body wave (tinted) */
+.liquid-fill .wave-bottom {
+  opacity: 0.22;
+  animation-duration: 13s;
+  animation-timing-function: linear;
+  animation-direction: reverse;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='100' viewBox='0 0 800 100'%3E%3Cpath fill='rgba(166, 136, 255, 0.45)' d='M0,70 C150,30 250,110 400,70 C550,30 650,110 800,70 L800,100 L0,100 Z'/%3E%3C/svg%3E");
+}
+
+/* Subtle vertical bob */
+.liquid-fill .wave-bob {
+  animation-name: wave-slide;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
