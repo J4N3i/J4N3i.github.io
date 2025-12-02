@@ -55,7 +55,7 @@ const ChatBot = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hi! I'm Janeesha's AI assistant. Ask me anything about his skills, projects, or background!",
+            text: "Hi! I'm Thea, Janeesha's AI assistant. Ask me anything about his skills, projects, or background!",
             sender: 'bot',
             timestamp: new Date()
         }
@@ -187,7 +187,7 @@ const ChatBot = () => {
                                 <Sparkle size={20} className="text-white animate-pulse" weight="fill" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-foreground text-sm">AI Assistant</h3>
+                                <h3 className="font-semibold text-foreground text-sm">Thea</h3>
                                 <p className="text-xs text-muted-foreground flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                                     Online
@@ -284,13 +284,32 @@ const ChatBot = () => {
             {/* Toggle Button */}
             <button
                 onClick={toggleChat}
-                className="group relative w-14 h-14 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-110"
+                className="group relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 hover:scale-110 focus:outline-none"
             >
-                <div className="absolute inset-0 rounded-full bg-white/20 animate-ping opacity-75" />
-                {isOpen ? (
-                    <X size={28} className="text-white relative z-10" weight="bold" />
-                ) : (
-                    <ChatCircleDots size={28} className="text-white relative z-10" weight="fill" />
+                {/* Glass Container */}
+                <div className="absolute inset-0 rounded-full bg-white/5 backdrop-blur-[12px] border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] overflow-hidden group-hover:bg-white/10 transition-colors duration-500">
+                    {/* Internal Gradient/Liquid effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-accent-violet/50 to-accent-cyan/50 opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Shine reflection */}
+                    <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-t-full opacity-50" />
+
+                    {/* Bottom Glow */}
+                    <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent rounded-b-full opacity-30" />
+                </div>
+
+                {/* Icon */}
+                <div className="relative z-10 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:rotate-90">
+                    {isOpen ? (
+                        <X size={32} weight="bold" />
+                    ) : (
+                        <ChatCircleDots size={32} weight="fill" />
+                    )}
+                </div>
+
+                {/* External Glow/Pulse */}
+                {!isOpen && (
+                    <div className="absolute -inset-4 rounded-full bg-primary/20 animate-pulse blur-xl -z-10 opacity-50" />
                 )}
             </button>
         </div>

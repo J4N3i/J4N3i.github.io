@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUp } from 'phosphor-react';
+import { ArrowUp, GithubLogo, LinkedinLogo, EnvelopeSimple } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,119 +72,107 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="relative py-16 px-6 border-t border-border/20 overflow-hidden"
+      className="relative pt-20 pb-10 px-6 border-t border-white/10 bg-background/80 backdrop-blur-xl overflow-hidden"
     >
-      {/* Background Particles */}
+      {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="footer-particle orb w-32 h-32 top-1/4 left-1/4 opacity-5" />
-        <div className="footer-particle orb w-24 h-24 top-1/2 right-1/3 opacity-10" />
-        <div className="footer-particle orb w-40 h-40 bottom-1/4 right-1/4 opacity-5" />
-        <div className="footer-particle orb w-28 h-28 bottom-1/3 left-1/3 opacity-8" />
+        <div className="absolute top-0 left-1/4 w-96 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+        <div className="footer-particle orb w-96 h-96 -top-20 -right-20 opacity-10 float-slow blur-3xl" />
+        <div className="footer-particle orb w-64 h-64 bottom-0 left-0 opacity-5 float-medium blur-2xl" />
       </div>
 
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div
-          className="glass-card glass-hover glass-animated rounded-3xl p-10 md:p-12 border border-white/10"
-          onMouseMove={(e) => {
-            const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            (e.currentTarget as HTMLElement).style.setProperty('--mx', x + 'px');
-            (e.currentTarget as HTMLElement).style.setProperty('--my', y + 'px');
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.setProperty('--mx', '50%');
-            (e.currentTarget as HTMLElement).style.setProperty('--my', '50%');
-          }}
-        >
-          <div className="grid md:grid-cols-3 gap-12 items-start">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <div className="text-3xl font-bold tracking-tight text-glow-primary mb-4">
-                Janeesha Gamage
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Creating extraordinary digital experiences through innovative web development
-                and cutting-edge animations.
-              </p>
+      <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="grid md:grid-cols-12 gap-12 lg:gap-20 mb-16">
+          {/* Brand Column (Span 5) */}
+          <div className="md:col-span-5 space-y-6">
+            <div className="text-3xl font-bold tracking-tight text-white">
+              Janeesha <span className="text-primary">Gamage</span>
             </div>
-
-            {/* Navigation */}
-            <div className="md:col-span-1">
-              <h3 className="text-lg font-semibold text-foreground mb-6">Navigation</h3>
-              <nav className="space-y-3">
-                {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    onClick={() => scrollToSection(item.href)}
-                    className="glass-hover block text-left text-muted-foreground hover:text-foreground transition-colors duration-200 px-4 py-2 rounded-xl border border-transparent hover:border-white/15"
-                    onMouseMove={(e) => {
-                      const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
-                      const x = e.clientX - rect.left;
-                      const y = e.clientY - rect.top;
-                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
-                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
-                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
-                    }}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
-
-            {/* Contact Info */}
-            <div className="md:col-span-1">
-              <h3 className="text-lg font-semibold text-foreground mb-6">Get In Touch</h3>
-              <div className="space-y-4">
-                <a
-                  href="mailto:janeeshagamage02@gmail.com"
-                  className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
-                >
-                  <div className="p-2 rounded-lg bg-surface-elevated group-hover:bg-primary/20 transition-colors duration-300">
-                    <ArrowUp size={18} className="rotate-90" />
-                  </div>
-                  <span>janeeshagamage02@gmail.com</span>
-                </a>
-                <a
-                  href="tel:+94779593243"
-                  className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
-                >
-                  <div className="p-2 rounded-lg bg-surface-elevated group-hover:bg-primary/20 transition-colors duration-300">
-                    <ArrowUp size={18} className="rotate-45" />
-                  </div>
-                  <span>+94 77 959 3243</span>
-                </a>
-                <p className="text-sm text-muted-foreground pt-2">
-                  Available for freelance projects and collaborations.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className="mt-10 pt-6 border-t border-white/10">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              {/* Copyright */}
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <span>© 2024 Janeesha Gamage.</span>
-              </div>
-
-              {/* Back to Top */}
-              <button
-                onClick={scrollToTop}
-                className="group flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            <p className="text-muted-foreground leading-relaxed max-w-sm">
+              Crafting immersive digital experiences that merge creativity with technical precision.
+              Let's build the future of the web together.
+            </p>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/J4N3i"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
               >
-                <span>Back to top</span>
-                <div className="p-2 rounded-full bg-surface-elevated group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <ArrowUp size={16} weight="bold" />
-                </div>
-              </button>
+                <GithubLogo size={20} weight="fill" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/janeesha-gamage-522717298"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
+              >
+                <LinkedinLogo size={20} weight="fill" />
+              </a>
+              <a
+                href="mailto:janeeshagamage02@gmail.com"
+                className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
+              >
+                <EnvelopeSimple size={20} weight="fill" />
+              </a>
             </div>
           </div>
+
+          {/* Navigation Column (Span 3) */}
+          <div className="md:col-span-3 space-y-6">
+            <h3 className="text-lg font-semibold text-foreground">Navigation</h3>
+            <nav className="flex flex-col space-y-3">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-left text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact Column (Span 4) */}
+          <div className="md:col-span-4 space-y-6">
+            <h3 className="text-lg font-semibold text-foreground">Contact</h3>
+            <div className="space-y-4">
+              <a
+                href="mailto:janeeshagamage02@gmail.com"
+                className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-200 group p-3 rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/20"
+              >
+                <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+                  <EnvelopeSimple size={20} weight="duotone" />
+                </div>
+                <span className="text-sm">janeeshagamage02@gmail.com</span>
+              </a>
+
+              <div className="flex items-center gap-3 text-muted-foreground p-3 rounded-xl bg-surface-elevated/30 border border-white/5">
+                <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                  <ArrowUp size={20} weight="duotone" className="rotate-45" />
+                </div>
+                <span className="text-sm">Colombo, Sri Lanka</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Janeesha Gamage. All rights reserved.
+          </p>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 group"
+          >
+            <span>Back to top</span>
+            <div className="p-1.5 rounded-full bg-surface-elevated border border-white/5 group-hover:border-primary/30 transition-colors">
+              <ArrowUp size={14} weight="bold" className="group-hover:-translate-y-0.5 transition-transform" />
+            </div>
+          </button>
         </div>
       </div>
     </footer>
