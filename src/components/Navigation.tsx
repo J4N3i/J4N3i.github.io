@@ -59,7 +59,7 @@ const Navigation = () => {
 
   // Observe sections to update active nav on scroll
   useEffect(() => {
-    const ids = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
+    const ids = ['home', 'about', 'experience', 'skills', 'projects', 'certifications', 'contact'];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -109,6 +109,7 @@ const Navigation = () => {
   const navItems = [
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
+    { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#projects' },
     { label: 'Certifications', href: '#certifications' },

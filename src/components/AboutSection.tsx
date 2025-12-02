@@ -203,15 +203,19 @@ const AboutSection = () => {
                   {skills.filter(skill => skill.category === 'technical').map((skill) => (
                     <div
                       key={skill.name}
-                      className="skill-icon group relative overflow-hidden rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5"
+                      className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      {/* Top Shine */}
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Hover Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                       <div className="relative p-4 flex items-center gap-4">
-                        <div className={`p-2 rounded-lg bg-background/50 ${skill.color} group-hover:scale-110 transition-transform duration-500`}>
-                          <skill.icon size={24} weight="duotone" />
+                        <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                          <skill.icon size={26} weight="duotone" />
                         </div>
-                        <span className="font-medium text-foreground/90 group-hover:text-foreground transition-colors">
+                        <span className="font-medium tracking-wide text-base text-white/80 group-hover:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
@@ -236,15 +240,19 @@ const AboutSection = () => {
                   {skills.filter(skill => skill.category === 'soft').map((skill) => (
                     <div
                       key={skill.name}
-                      className="skill-icon group relative overflow-hidden rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5"
+                      className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      {/* Top Shine */}
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Hover Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                       <div className="relative p-4 flex items-center gap-4">
-                        <div className={`p-2 rounded-lg bg-background/50 ${skill.color} group-hover:scale-110 transition-transform duration-500`}>
-                          <skill.icon size={24} weight="duotone" />
+                        <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                          <skill.icon size={26} weight="duotone" />
                         </div>
-                        <span className="font-medium text-foreground/90 group-hover:text-foreground transition-colors">
+                        <span className="font-medium tracking-wide text-base text-white/80 group-hover:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
