@@ -38,14 +38,14 @@ const ProjectsSection = () => {
       duration: 1,
       ease: 'power2.out'
     })
-    .to('.project-card', {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power2.out',
-      stagger: 0.2
-    }, '-=0.5');
+      .to('.project-card', {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power2.out',
+        stagger: 0.2
+      }, '-=0.5');
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -54,10 +54,10 @@ const ProjectsSection = () => {
 
 
   return (
-    <section 
+    <section
       id="projects"
       ref={sectionRef}
-      className="py-32 px-6 relative overflow-hidden"
+      className="py-20 md:py-32 px-6 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -67,8 +67,8 @@ const ProjectsSection = () => {
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Title */}
-        <div className="text-center mb-20">
-          <h2 
+        <div className="text-center mb-12 md:mb-16">
+          <h2
             ref={titleRef}
             className="text-4xl lg:text-5xl font-bold text-glow-primary mb-6"
           >
@@ -79,54 +79,98 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* No Projects Message */}
-        <div 
+        <div
           ref={containerRef}
-          className="text-center py-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <div className="glass-card glass-hover p-12 rounded-2xl max-w-2xl mx-auto"
-               onMouseMove={(e) => {
-                 const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
-                 const x = e.clientX - rect.left; 
-                 const y = e.clientY - rect.top;
-                 (e.currentTarget as HTMLDivElement).style.setProperty('--mx', x + 'px');
-                 (e.currentTarget as HTMLDivElement).style.setProperty('--my', y + 'px');
-               }}
-               onMouseLeave={(e) => {
-                 (e.currentTarget as HTMLDivElement).style.setProperty('--mx', '50%');
-                 (e.currentTarget as HTMLDivElement).style.setProperty('--my', '50%');
-               }}
-          >
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-primary rounded-full mx-auto mb-4 flex items-center justify-center opacity-50">
-                <GithubLogo size={32} weight="bold" className="text-primary-foreground" />
+          {[
+            {
+              title: "DineEase Backend",
+              desc: "A robust backend system for a restaurant management and reservation platform. Handles user authentication, booking management, and menu data.",
+              tags: ["Node.js", "Express", "MongoDB", "API"],
+              link: "https://github.com/J4N3i/dinease_backend"
+            },
+            {
+              title: "Payment System Zookeeper",
+              desc: "A distributed payment processing system utilizing Apache Zookeeper for coordination and fault tolerance. Demonstrates distributed systems concepts.",
+              tags: ["Java", "Zookeeper", "Distributed Systems"],
+              link: "https://github.com/J4N3i/payment_system_zookeeper"
+            },
+            {
+              title: "Portfolio Website",
+              desc: "My personal portfolio website featuring a futuristic design, 3D elements, and an AI chatbot assistant. Built with modern web technologies.",
+              tags: ["React", "TypeScript", "GSAP", "Tailwind"],
+              link: "https://github.com/J4N3i/J4N3i.github.io"
+            },
+            {
+              title: "PPcom",
+              desc: "A communication or processing tool. (Description inferred from repository name).",
+              tags: ["C++", "Systems Programming"],
+              link: "https://github.com/J4N3i/PPcom"
+            },
+            {
+              title: "Worksheet-07",
+              desc: "Academic coursework or practical exercises demonstrating core programming concepts and problem-solving skills.",
+              tags: ["Java", "Algorithms"],
+              link: "https://github.com/J4N3i/Worksheet-07"
+            },
+            {
+              title: "Git Evaluate Base",
+              desc: "A base project template used for evaluating Git knowledge and workflow proficiency.",
+              tags: ["Git", "Workflow", "Template"],
+              link: "https://github.com/J4N3i/git-evaluate-base"
+            },
+            {
+              title: "GitHub Profile",
+              desc: "My personal GitHub profile configuration, showcasing my skills, stats, and a brief introduction.",
+              tags: ["Markdown", "Profile", "Config"],
+              link: "https://github.com/J4N3i/J4N3i"
+            }
+          ].map((project, index) => (
+            <a
+              key={index}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-card group relative flex flex-col h-full overflow-hidden rounded-2xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1"
+            >
+              {/* Hover Gradient Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative p-8 flex flex-col h-full z-10">
+                {/* Header */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="p-3 rounded-xl bg-background/50 border border-white/5 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-500">
+                    <GithubLogo size={24} weight="duotone" />
+                  </div>
+                  <div className="p-2 rounded-full text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
+                    <ArrowUpRight size={20} weight="bold" className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                  {project.title}
+                </h3>
+
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
+                  {project.desc}
+                </p>
+
+                {/* Tags */}
+                <div className="mt-auto pt-6 border-t border-white/5 flex flex-wrap gap-2">
+                  {project.tags.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold bg-white/5 rounded-full text-muted-foreground border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 transition-all duration-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Work in Progress
-            </h3>
-            
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              I'm currently crafting several pieces that explore the intersection of performance, 
-              motion, and user experience. New work will appear here soon.
-            </p>
-            
-            <div className="flex flex-wrap gap-2 justify-center">
-              <span className="px-4 py-2 text-sm font-medium bg-surface-elevated rounded-full text-muted-foreground border border-border">
-                React
-              </span>
-              <span className="px-4 py-2 text-sm font-medium bg-surface-elevated rounded-full text-muted-foreground border border-border">
-                TypeScript
-              </span>
-              <span className="px-4 py-2 text-sm font-medium bg-surface-elevated rounded-full text-muted-foreground border border-border">
-                GSAP
-              </span>
-              <span className="px-4 py-2 text-sm font-medium bg-surface-elevated rounded-full text-muted-foreground border border-border">
-                Tailwind CSS
-              </span>
-            </div>
-          </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>

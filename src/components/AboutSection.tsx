@@ -41,21 +41,21 @@ const AboutSection = () => {
       duration: 1,
       ease: 'power2.out'
     })
-    .to(content, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1,
-      ease: 'power2.out'
-    }, '-=0.7')
-    .to('.skill-icon', {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.5,
-      ease: 'back.out(1.7)',
-      stagger: 0.1
-    }, '-=0.5');
+      .to(content, {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power2.out'
+      }, '-=0.7')
+      .to('.skill-icon', {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'back.out(1.7)',
+        stagger: 0.1
+      }, '-=0.5');
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -80,10 +80,10 @@ const AboutSection = () => {
   ];
 
   return (
-    <section 
+    <section
       id="about"
       ref={sectionRef}
-      className="py-32 px-6 relative overflow-hidden"
+      className="py-20 md:py-32 px-6 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -92,98 +92,149 @@ const AboutSection = () => {
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Profile Image */}
-          <div ref={imageRef} className="relative flex justify-center lg:justify-start">
-            <div className="relative w-80 h-80">
+          <div ref={imageRef} className="relative flex justify-center lg:justify-start order-2 lg:order-1">
+            <div className="relative w-72 h-72 lg:w-96 lg:h-96">
               {/* Glowing Ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 blur-xl animate-pulse-glow" />
-              <div className="absolute inset-4 rounded-full bg-gradient-primary opacity-30 blur-lg" />
-              
+              <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 blur-3xl animate-pulse-glow" />
+              <div className="absolute inset-4 rounded-full bg-gradient-primary opacity-20 blur-2xl" />
+
               {/* Image Container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden glass-card border-2 border-primary/30 hover:scale-105 transition-transform duration-500">
-                <img 
+              <div className="relative w-full h-full rounded-full overflow-hidden glass-card border border-white/10 hover:border-primary/30 transition-colors duration-500 group shadow-2xl shadow-primary/5">
+                <img
                   src="/lovable-uploads/30872b2d-0d86-4a0b-846f-852771a82f6e.png"
                   alt="Janeesha Gamage - Web Developer"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
                 />
-                
+
                 {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
+              </div>
+
+              {/* Floating Badge */}
+              <div className="absolute -bottom-4 -right-4 glass-card px-6 py-3 rounded-full border border-white/10 shadow-xl animate-float-slow hidden md:block">
+                <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                  <Sparkle weight="fill" className="text-accent-electric" />
+                  Open to Work
+                </span>
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div ref={contentRef} className="space-y-8 text-center lg:text-left">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-glow-primary">
-                About Me
+          <div ref={contentRef} className="space-y-10 text-center lg:text-left order-1 lg:order-2">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium uppercase tracking-wider">
+                <Users size={14} weight="bold" />
+                Who I Am
+              </div>
+
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                Turning Vision Into <br />
+                <span className="text-glow-primary">Digital Reality</span>
               </h2>
-              <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  I'm a passionate web developer and an undergraduate at SLIIT (Sri Lanka Institute of Information Technology) 
-                  studying Computer Science. Currently serving as the Vice President of the Computer Sciences Student Committee at SLIIT, 
-                  I transform ideas into immersive digital experiences with expertise in modern technologies and a keen eye for design, 
-                  creating websites that not only look stunning but perform exceptionally.
+
+              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+                <p className="font-medium text-foreground/90 text-xl">
+                  I'm a passionate web developer and Computer Science undergraduate at SLIIT, currently serving as the Vice President of the Computer Sciences Student Committee.
                 </p>
                 <p>
-                  My journey in web development has led me to master cutting-edge tools like React, 
-                  GSAP, and advanced animation libraries. I believe in the power of seamless user 
-                  experiences and the magic of perfectly timed animations, combining academic knowledge 
-                  with practical development skills and leadership experience in the tech community.
+                  My journey is defined by a relentless pursuit of excellence in digital craftsmanship. I specialize in transforming complex requirements into seamless, immersive web experiences using cutting-edge technologies like React and GSAP.
                 </p>
               </div>
             </div>
 
-            {/* Skills Grid */}
-            <div ref={skillsRef} className="space-y-8">
-              <h3 className="text-2xl font-semibold text-foreground text-center lg:text-left">
-                Technologies & Skills
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/5">
+              <div className="space-y-1">
+                <h4 className="text-2xl font-bold text-foreground">3+</h4>
+                <p className="text-sm text-muted-foreground">Years of Coding</p>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-2xl font-bold text-foreground">10+</h4>
+                <p className="text-sm text-muted-foreground">Projects Completed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Skills Grid - Professional Layout */}
+        <div ref={skillsRef} className="mt-32 relative">
+          {/* Section Divider */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+          <div className="pt-16 space-y-16">
+            <div className="text-center space-y-4">
+              <h3 className="text-3xl md:text-4xl font-bold text-foreground">
+                Technologies & <span className="text-primary">Expertise</span>
               </h3>
-              
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                A curated toolkit that empowers me to build scalable, high-performance, and visually stunning digital experiences.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-16">
               {/* Technical Skills */}
-              <div>
-                <h4 className="text-lg font-medium text-muted-foreground mb-4 text-center lg:text-left">Technical Skills</h4>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                  {skills.filter(skill => skill.category === 'technical').map((skill, index) => (
-                    <div 
+              <div className="space-y-8">
+                <div className="flex items-center gap-4 justify-center md:justify-start">
+                  <div className="p-3 rounded-xl bg-surface-elevated/50 border border-white/5 backdrop-blur-sm">
+                    <Code size={24} className="text-accent-electric" weight="duotone" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-foreground">Technical Prowess</h4>
+                    <p className="text-sm text-muted-foreground">Core technologies & frameworks</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {skills.filter(skill => skill.category === 'technical').map((skill) => (
+                    <div
                       key={skill.name}
-                      className="skill-icon group cursor-pointer"
+                      className="skill-icon group relative overflow-hidden rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5"
                     >
-                      <div className="glass-card p-4 rounded-xl hover:scale-110 transition-all duration-300 hover:glow-primary">
-                        <skill.icon 
-                          size={28} 
-                          className={`${skill.color} mb-2 group-hover:scale-110 transition-transform duration-300 mx-auto`}
-                          weight="light"
-                        />
-                        <p className="text-xs font-medium text-foreground text-center">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <div className="relative p-4 flex items-center gap-4">
+                        <div className={`p-2 rounded-lg bg-background/50 ${skill.color} group-hover:scale-110 transition-transform duration-500`}>
+                          <skill.icon size={24} weight="duotone" />
+                        </div>
+                        <span className="font-medium text-foreground/90 group-hover:text-foreground transition-colors">
                           {skill.name}
-                        </p>
+                        </span>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Soft Skills */}
-              <div>
-                <h4 className="text-lg font-medium text-muted-foreground mb-4 text-center lg:text-left">Professional Skills</h4>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                  {skills.filter(skill => skill.category === 'soft').map((skill, index) => (
-                    <div 
+              {/* Professional Skills */}
+              <div className="space-y-8">
+                <div className="flex items-center gap-4 justify-center md:justify-start">
+                  <div className="p-3 rounded-xl bg-surface-elevated/50 border border-white/5 backdrop-blur-sm">
+                    <Users size={24} className="text-accent-violet" weight="duotone" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-foreground">Professional Skills</h4>
+                    <p className="text-sm text-muted-foreground">Leadership & soft skills</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {skills.filter(skill => skill.category === 'soft').map((skill) => (
+                    <div
                       key={skill.name}
-                      className="skill-icon group cursor-pointer"
+                      className="skill-icon group relative overflow-hidden rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5"
                     >
-                      <div className="glass-card p-4 rounded-xl hover:scale-110 transition-all duration-300 hover:glow-primary">
-                        <skill.icon 
-                          size={28} 
-                          className={`${skill.color} mb-2 group-hover:scale-110 transition-transform duration-300 mx-auto`}
-                          weight="light"
-                        />
-                        <p className="text-xs font-medium text-foreground text-center">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <div className="relative p-4 flex items-center gap-4">
+                        <div className={`p-2 rounded-lg bg-background/50 ${skill.color} group-hover:scale-110 transition-transform duration-500`}>
+                          <skill.icon size={24} weight="duotone" />
+                        </div>
+                        <span className="font-medium text-foreground/90 group-hover:text-foreground transition-colors">
                           {skill.name}
-                        </p>
+                        </span>
                       </div>
                     </div>
                   ))}

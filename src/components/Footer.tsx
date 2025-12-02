@@ -58,7 +58,8 @@ const Footer = () => {
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Contact', href: '#contact' },
+    { label: 'Resume', href: '#resume' }
   ];
 
   const scrollToSection = (href: string) => {
@@ -69,7 +70,7 @@ const Footer = () => {
   };
 
   return (
-    <footer 
+    <footer
       ref={footerRef}
       className="relative py-16 px-6 border-t border-border/20 overflow-hidden"
     >
@@ -82,7 +83,7 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
-        <div 
+        <div
           className="glass-card glass-hover glass-animated rounded-3xl p-10 md:p-12 border border-white/10"
           onMouseMove={(e) => {
             const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
@@ -96,88 +97,94 @@ const Footer = () => {
             (e.currentTarget as HTMLElement).style.setProperty('--my', '50%');
           }}
         >
-        <div className="grid md:grid-cols-3 gap-12 items-start">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="text-3xl font-bold tracking-tight text-glow-primary mb-4">
-              Janeesha Gamage
-            </div>
-            <p className="text-muted-foreground leading-relaxed">
-              Creating extraordinary digital experiences through innovative web development 
-              and cutting-edge animations.
-            </p>
-          </div>
-
-          {/* Navigation */}
-          <div className="md:col-span-1">
-            <h3 className="text-lg font-semibold text-foreground mb-6">Navigation</h3>
-            <nav className="space-y-3">
-              {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="glass-hover block text-left text-muted-foreground hover:text-foreground transition-colors duration-200 px-4 py-2 rounded-xl border border-transparent hover:border-white/15"
-                  onMouseMove={(e) => {
-                    const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact Info */}
-          <div className="md:col-span-1">
-            <h3 className="text-lg font-semibold text-foreground mb-6">Get In Touch</h3>
-            <div className="space-y-3">
-              <a 
-                href="mailto:janeeshagamage02@gmail.com"
-                className="block text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                janeeshagamage02@gmail.com
-              </a>
-              <a 
-                href="tel:+94779593243"
-                className="block text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                +94 77 959 3243
-              </a>
-              <p className="text-muted-foreground">
-                Available for freelance projects
+          <div className="grid md:grid-cols-3 gap-12 items-start">
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <div className="text-3xl font-bold tracking-tight text-glow-primary mb-4">
+                Janeesha Gamage
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Creating extraordinary digital experiences through innovative web development
+                and cutting-edge animations.
               </p>
             </div>
-          </div>
-        </div>
 
-        {/* Bottom Section */}
-        <div className="mt-10 pt-6 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Copyright */}
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <span>© 2024 Janeesha Gamage.</span>
+            {/* Navigation */}
+            <div className="md:col-span-1">
+              <h3 className="text-lg font-semibold text-foreground mb-6">Navigation</h3>
+              <nav className="space-y-3">
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className="glass-hover block text-left text-muted-foreground hover:text-foreground transition-colors duration-200 px-4 py-2 rounded-xl border border-transparent hover:border-white/15"
+                    onMouseMove={(e) => {
+                      const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
             </div>
 
-            {/* Back to Top */}
-            <button
-              onClick={scrollToTop}
-              className="group flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              <span>Back to top</span>
-              <div className="p-2 rounded-full bg-surface-elevated group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                <ArrowUp size={16} weight="bold" />
+            {/* Contact Info */}
+            <div className="md:col-span-1">
+              <h3 className="text-lg font-semibold text-foreground mb-6">Get In Touch</h3>
+              <div className="space-y-4">
+                <a
+                  href="mailto:janeeshagamage02@gmail.com"
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
+                >
+                  <div className="p-2 rounded-lg bg-surface-elevated group-hover:bg-primary/20 transition-colors duration-300">
+                    <ArrowUp size={18} className="rotate-90" />
+                  </div>
+                  <span>janeeshagamage02@gmail.com</span>
+                </a>
+                <a
+                  href="tel:+94779593243"
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
+                >
+                  <div className="p-2 rounded-lg bg-surface-elevated group-hover:bg-primary/20 transition-colors duration-300">
+                    <ArrowUp size={18} className="rotate-45" />
+                  </div>
+                  <span>+94 77 959 3243</span>
+                </a>
+                <p className="text-sm text-muted-foreground pt-2">
+                  Available for freelance projects and collaborations.
+                </p>
               </div>
-            </button>
+            </div>
           </div>
-        </div>
+
+          {/* Bottom Section */}
+          <div className="mt-10 pt-6 border-t border-white/10">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              {/* Copyright */}
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <span>© 2024 Janeesha Gamage.</span>
+              </div>
+
+              {/* Back to Top */}
+              <button
+                onClick={scrollToTop}
+                className="group flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                <span>Back to top</span>
+                <div className="p-2 rounded-full bg-surface-elevated group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <ArrowUp size={16} weight="bold" />
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

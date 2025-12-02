@@ -13,7 +13,7 @@ const Navigation = () => {
     if (!nav) return;
 
     // Initial nav animation
-    gsap.fromTo(nav, 
+    gsap.fromTo(nav,
       { y: -100, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, delay: 3.5, ease: 'power2.out' }
     );
@@ -80,7 +80,8 @@ const Navigation = () => {
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Contact', href: '#contact' },
+    { label: 'Resume', href: '#resume' }
   ];
 
   const scrollToSection = (href: string) => {
@@ -94,7 +95,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav 
+      <nav
         ref={navRef}
         className="fixed top-0 left-0 right-0 z-40 glass-card glass-hover glass-animated backdrop-blur-md"
         onMouseMove={(e) => {
@@ -138,7 +139,7 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
-              
+
               {/* Social Links */}
               <div className="flex items-center space-x-4 ml-8">
                 <a
@@ -205,7 +206,7 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
-            
+
             {/* Social Links */}
             <div className="flex items-center space-x-6 pt-8 border-t border-border/20">
               <a

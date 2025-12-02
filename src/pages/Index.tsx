@@ -6,6 +6,7 @@ import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+import ChatBot from '../components/ChatBot';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +32,7 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Preloader */}
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      
+
       {/* Main Content */}
       <div className={isLoading ? 'hidden' : 'block'}>
         <Navigation />
@@ -42,6 +43,7 @@ const Index = () => {
           <ContactSection />
         </main>
         <Footer />
+        <ChatBot />
       </div>
     </div>
   );

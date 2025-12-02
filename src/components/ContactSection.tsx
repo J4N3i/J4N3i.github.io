@@ -53,28 +53,28 @@ const ContactSection = () => {
       duration: 1,
       ease: 'power2.out'
     })
-    .to(form, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1,
-      ease: 'power2.out'
-    }, '-=0.7')
-    .to('.contact-input', {
-      opacity: 1,
-      x: 0,
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.1
-    }, '-=0.5')
-    .to('.social-icon', {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.5,
-      ease: 'back.out(1.7)',
-      stagger: 0.1
-    }, '-=0.3');
+      .to(form, {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power2.out'
+      }, '-=0.7')
+      .to('.contact-input', {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.1
+      }, '-=0.5')
+      .to('.social-icon', {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'back.out(1.7)',
+        stagger: 0.1
+      }, '-=0.3');
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -90,11 +90,11 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Check if EmailJS is configured
-    if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' || 
-        EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || 
-        EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+    if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' ||
+      EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' ||
+      EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
       toast({
         title: "Configuration Required",
         description: "Please configure your EmailJS credentials in the ContactSection component.",
@@ -104,7 +104,7 @@ const ContactSection = () => {
     }
 
     setIsSubmitting(true);
-    
+
     // Animate submit button
     gsap.to('.submit-btn', {
       scale: 1.1,
@@ -132,7 +132,7 @@ const ContactSection = () => {
         title: "Message Sent!",
         description: "Thank you for your message. I'll get back to you soon!",
       });
-      
+
       // Reset form
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
@@ -148,31 +148,31 @@ const ContactSection = () => {
   };
 
   const socialLinks = [
-    { 
-      name: 'GitHub', 
-      icon: GithubLogo, 
-      href: 'https://github.com/J4N3i', 
-      color: 'hover:text-accent-electric' 
+    {
+      name: 'GitHub',
+      icon: GithubLogo,
+      href: 'https://github.com/J4N3i',
+      color: 'hover:text-accent-electric'
     },
-    { 
-      name: 'LinkedIn', 
-      icon: LinkedinLogo, 
-      href: 'https://www.linkedin.com/in/janeesha-gamage-522717298', 
-      color: 'hover:text-accent-violet' 
+    {
+      name: 'LinkedIn',
+      icon: LinkedinLogo,
+      href: 'https://www.linkedin.com/in/janeesha-gamage-522717298',
+      color: 'hover:text-accent-violet'
     },
-    { 
-      name: 'Email', 
-      icon: EnvelopeSimple, 
-      href: 'mailto:janeeshagamage02@gmail.com', 
-      color: 'hover:text-accent-cyan' 
+    {
+      name: 'Email',
+      icon: EnvelopeSimple,
+      href: 'mailto:janeeshagamage02@gmail.com',
+      color: 'hover:text-accent-cyan'
     }
   ];
 
   return (
-    <section 
+    <section
       id="contact"
       ref={sectionRef}
-      className="py-32 px-6 relative overflow-hidden"
+      className="py-20 md:py-32 px-6 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -180,116 +180,130 @@ const ContactSection = () => {
         <div className="orb w-56 h-56 bottom-1/3 left-1/4 opacity-15 float-medium" />
       </div>
 
-      <div className="container mx-auto max-w-4xl relative z-10">
-        {/* Title */}
-        <div className="text-center mb-20">
-          <h2 
-            ref={titleRef}
-            className="text-4xl lg:text-5xl font-bold text-glow-primary mb-6"
-          >
-            Let's build something together
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Share your vision. I'll help bring it to life with thoughtful design and clean code.
-          </p>
-        </div>
-
-        <div ref={formRef} className="max-w-2xl mx-auto">
-          {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Name Input */}
-            <div className="contact-input">
-              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-3">
-                Your Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                className="glass-input w-full px-6 py-4 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none"
-                placeholder="Enter your full name"
-              />
-            </div>
-
-            {/* Email Input */}
-            <div className="contact-input">
-              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-3">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="glass-input w-full px-6 py-4 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none"
-                placeholder="your.email@example.com"
-              />
-            </div>
-
-            {/* Message Input */}
-            <div className="contact-input">
-              <label htmlFor="message" className="block text-sm font-medium text-foreground mb-3">
-                Project Details
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={6}
-                className="glass-input w-full px-6 py-4 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none resize-none"
-                placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="text-center">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="submit-btn px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center space-x-3 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed glass-card glass-hover hover:scale-105"
-                onMouseMove={(e) => {
-                  const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
-                }}
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left Column: Info & Socials */}
+          <div className="space-y-8">
+            <div>
+              <h2
+                ref={titleRef}
+                className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight"
               >
-                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                <PaperPlaneTilt size={20} weight="bold" />
-              </button>
+                Let's build something <br />
+                <span className="text-glow-primary">extraordinary</span>
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Whether you have a groundbreaking idea or just want to say hi, I'm always open to discussing new projects and opportunities.
+              </p>
             </div>
-          </form>
 
-          {/* Social Links */}
-          <div className="mt-16 text-center">
-            <p className="text-muted-foreground mb-8">
-              Or connect with me on social media
-            </p>
-            <div className="flex justify-center items-center space-x-8">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`social-icon p-4 rounded-full glass-card hover:scale-110 transition-all duration-300 text-muted-foreground ${social.color} hover:glow-primary group`}
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-surface-elevated/30 border border-white/5 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                  <EnvelopeSimple size={24} weight="duotone" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Email Me</p>
+                  <a href="mailto:janeeshagamage02@gmail.com" className="text-foreground font-medium hover:text-primary transition-colors">
+                    janeeshagamage02@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-surface-elevated/30 border border-white/5 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                  <GithubLogo size={24} weight="duotone" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Check my code</p>
+                  <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                    github.com/J4N3i
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-surface-elevated/30 border border-white/5 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300">
+                <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                  <LinkedinLogo size={24} weight="duotone" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Connect professionally</p>
+                  <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                    linkedin.com/in/janeesha-gamage
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Form */}
+          <div ref={formRef} className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl blur-2xl" />
+            <div className="relative bg-surface-elevated/30 border border-white/10 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl">
+              <h3 className="text-2xl font-bold text-foreground mb-6">Send a Message</h3>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Input */}
+                <div className="contact-input space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium text-foreground/80 ml-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                {/* Email Input */}
+                <div className="contact-input space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-foreground/80 ml-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                {/* Message Input */}
+                <div className="contact-input space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-foreground/80 ml-1">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 resize-none"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="submit-btn w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <social.icon size={24} weight="bold" />
-                  <span className="sr-only">{social.name}</span>
-                </a>
-              ))}
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                  <PaperPlaneTilt size={20} weight="bold" />
+                </button>
+              </form>
             </div>
           </div>
         </div>
