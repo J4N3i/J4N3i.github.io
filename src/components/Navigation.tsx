@@ -29,7 +29,7 @@ const Navigation = () => {
 
   // Observe sections to update active nav on scroll
   useEffect(() => {
-    const ids = ['home', 'about', 'projects', 'contact'];
+    const ids = ['home', 'about', 'skills', 'projects', 'contact'];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -79,6 +79,7 @@ const Navigation = () => {
   const navItems = [
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#projects' },
     { label: 'Contact', href: '#contact' },
     { label: 'Resume', href: '#resume' }
@@ -97,68 +98,58 @@ const Navigation = () => {
     <>
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-40 glass-card glass-hover glass-animated backdrop-blur-md"
-        onMouseMove={(e) => {
-          const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          (e.currentTarget as HTMLElement).style.setProperty('--mx', x + 'px');
-          (e.currentTarget as HTMLElement).style.setProperty('--my', y + 'px');
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.setProperty('--mx', '50%');
-          (e.currentTarget as HTMLElement).style.setProperty('--my', '50%');
-        }}
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full border border-white/20 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/50 transition-all duration-300 overflow-hidden"
       >
-        <div className="container mx-auto px-6 py-4">
+        {/* Top Shine Reflection */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
+
+        {/* Bottom Glow */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-30" />
+
+        <div className="px-6 py-3 relative z-10">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="text-2xl font-bold tracking-tight text-glow-primary">
-              JG
+            <div className="text-xl font-bold tracking-tight text-white flex items-center gap-2 cursor-pointer group" onClick={() => scrollToSection('#home')}>
+              <span className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/80 to-accent-violet/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xs shadow-lg group-hover:scale-110 transition-transform duration-300">JG</span>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className={`glass-hover px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 relative group border ${activeHref === item.href ? 'text-foreground border-white/20 bg-white/10' : 'text-muted-foreground border-transparent hover:text-foreground'}`}
-                  onMouseMove={(e) => {
-                    const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
-                    (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
-                  }}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeHref === item.href
+                      ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   {item.label}
                 </button>
               ))}
 
+              {/* Vertical Divider */}
+              <div className="h-6 w-px bg-white/10 mx-4" />
+
               {/* Social Links */}
-              <div className="flex items-center space-x-4 ml-8">
+              <div className="flex items-center gap-3">
                 <a
                   href="https://github.com/J4N3i"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-accent-electric transition-colors duration-200"
+                  className="text-white/60 hover:text-white hover:scale-110 transition-all duration-300"
                   title="GitHub"
                 >
-                  <GithubLogo size={20} weight="bold" />
+                  <GithubLogo size={20} weight="fill" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/janeesha-gamage-522717298"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-accent-violet transition-colors duration-200"
+                  className="text-white/60 hover:text-white hover:scale-110 transition-all duration-300"
                   title="LinkedIn"
                 >
-                  <LinkedinLogo size={20} weight="bold" />
+                  <LinkedinLogo size={20} weight="fill" />
                 </a>
               </div>
             </div>
@@ -166,7 +157,7 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+              className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
             >
               {isMenuOpen ? <X size={24} /> : <List size={24} />}
             </button>
