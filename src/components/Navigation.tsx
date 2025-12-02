@@ -5,8 +5,38 @@ import { gsap } from 'gsap';
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string>('#home');
+  const lastScrollY = useRef(0);
   const navRef = useRef<HTMLElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show at the very top (with a small buffer)
+      if (currentScrollY < 50) {
+        gsap.to(nav, { y: 0, opacity: 1, duration: 0.3 });
+      } else {
+        // Show if scrolling up, hide if scrolling down
+        if (currentScrollY > lastScrollY.current) {
+          // Hide
+          gsap.to(nav, { y: -150, opacity: 0, duration: 0.3 });
+        } else {
+          // Show
+          gsap.to(nav, { y: 0, opacity: 1, duration: 0.3 });
+        }
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', controlNavbar);
+    return () => {
+      window.removeEventListener('scroll', controlNavbar);
+    };
+  }, []);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -29,7 +59,7 @@ const Navigation = () => {
 
   // Observe sections to update active nav on scroll
   useEffect(() => {
-    const ids = ['home', 'about', 'skills', 'projects', 'contact'];
+    const ids = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -81,6 +111,7 @@ const Navigation = () => {
     { label: 'About', href: '#about' },
     { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#projects' },
+    { label: 'Certifications', href: '#certifications' },
     { label: 'Contact', href: '#contact' },
     { label: 'Resume', href: '#resume' }
   ];
@@ -120,8 +151,8 @@ const Navigation = () => {
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeHref === item.href
-                      ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                    ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {item.label}
