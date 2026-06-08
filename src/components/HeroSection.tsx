@@ -130,7 +130,7 @@ const HeroSection = () => {
           className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight cursor-default"
         >
           <span className="block text-foreground mb-4 drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.02] transform origin-center">
-            Janeesha Gamage
+            Janeesha Vishwaprabha
           </span>
           <span className="block text-3xl md:text-4xl lg:text-5xl font-light text-muted-foreground">
             Building the <span className="text-glow-primary font-semibold text-foreground animate-pulse-glow">Digital Future</span>
@@ -141,9 +141,9 @@ const HeroSection = () => {
           ref={subtitleRef}
           className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Computer Science Undergraduate & Web Developer.
+          Computer Science Undergraduate. Full-Stack Developer &amp; DevOps Enthusiast.
           <br className="hidden md:block" />
-          Specializing in high-performance React applications and immersive user experiences.
+          Building scalable systems — from distributed architectures to immersive web experiences.
         </p>
 
         {/* CTAs */}

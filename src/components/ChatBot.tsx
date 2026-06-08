@@ -11,30 +11,33 @@ interface Message {
 
 // Knowledge Base
 const PORTFOLIO_DATA = {
-    name: "Janeesha Gamage",
-    role: "Undergraduate Computer Science Student",
+    name: "Janeesha Vishwaprabha",
+    role: "Undergraduate Computer Science Student & Full-Stack Developer",
     university: "SLIIT (Sri Lanka Institute of Information Technology)",
     skills: {
-        frontend: ["React", "TypeScript", "Tailwind CSS", "GSAP", "HTML5", "CSS3"],
-        backend: ["Node.js", "Java", "C++", "Python"],
-        tools: ["Git", "VS Code", "Figma"]
+        languages: ["Java", "Python", "C#", "JavaScript", "TypeScript", "C", "C++"],
+        frontend: ["React", "TypeScript", "Tailwind CSS", "GSAP", "HTML5", "CSS3", "Vite"],
+        backend: ["ASP.NET Core", "Spring Boot", "FastAPI", "Node.js", "RESTful APIs"],
+        databases: ["MySQL", "MongoDB", "SQLite"],
+        cloud: ["Microsoft Azure", "Docker", "Proxmox VE", "TrueNAS", "Tailscale", "Apache ZooKeeper", "GitHub Actions"],
+        concepts: ["DevOps", "CI/CD", "Distributed Systems", "Clean Architecture", "Zero-Trust Security", "OOP"]
     },
     projects: [
-        { name: "DineEase Backend", desc: "A robust backend system for a restaurant management platform using Node.js and MongoDB." },
-        { name: "Payment System Zookeeper", desc: "A distributed payment processing system utilizing Apache Zookeeper for fault tolerance." },
-        { name: "Portfolio Website", desc: "My personal portfolio featuring a futuristic design, 3D elements, and this AI assistant." },
-        { name: "PPcom", desc: "A C++ based communication or processing tool." },
-        { name: "Worksheet-07", desc: "Academic coursework demonstrating core Java programming concepts." },
-        { name: "Git Evaluate Base", desc: "A template project for evaluating Git workflow proficiency." },
-        { name: "GitHub Profile", desc: "My GitHub profile configuration with stats and bio." }
+        { name: "Enterprise DevOps Lab & Private Cloud", desc: "A zero-trust private cloud using Proxmox VE, TrueNAS SCALE, Docker, and Tailscale VPN. Includes a full CI/CD pipeline via GitHub Actions and observability with Prometheus and Grafana." },
+        { name: "Internova — Internship Matching Portal", desc: "A 3-tier internship portal on Azure using ASP.NET Core, React (Vite), MySQL with JWT auth and RBAC." },
+        { name: "DS-Pay — Distributed Payments System", desc: "A distributed payments prototype with ZooKeeper leader election, WAL replication, FastAPI nodes, and Lamport logical clocks." },
+        { name: "TestLang Compiler (PPcom)", desc: "A custom language compiler in Java using JFlex and CUP to generate an AST, integrated with a Spring Boot REST API." },
+        { name: "Exodus — 3D Interactive Environment", desc: "A Unity game with custom AI agent behaviours using baked NavMesh navigation and dynamic interactive object scripts." },
+        { name: "Portfolio Website", desc: "This very portfolio — built with React 18, TypeScript, Vite, GSAP ScrollTrigger, a Spline 3D background, and a custom AI chatbot." }
     ],
     contact: {
         email: "janeeshagamage02@gmail.com",
         phone: "+94 77 959 3243",
+        website: "https://janeeshagamage.me",
         linkedin: "https://www.linkedin.com/in/janeesha-gamage-522717298",
         github: "https://github.com/J4N3i"
     },
-    bio: "I'm a passionate web developer and undergraduate at SLIIT. I love creating immersive digital experiences that combine beautiful design with powerful functionality. I'm currently serving as the Vice President of the CS Student Committee."
+    bio: "I'm a Computer Science undergraduate at SLIIT and Vice President of the Computer Sciences Student Community. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security."
 };
 
 // Intent System
@@ -55,7 +58,7 @@ const ChatBot = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hi! I'm Thea, Janeesha's AI assistant. Ask me anything about his skills, projects, or background!",
+            text: "Hi! I'm Thea, Janeesha's AI assistant. Ask me anything about his skills, projects, experience, or background!",
             sender: 'bot',
             timestamp: new Date()
         }
@@ -147,7 +150,7 @@ const ChatBot = () => {
                 return greetings[Math.floor(Math.random() * greetings.length)];
 
             case 'skills':
-                return `Janeesha is a versatile developer. \n\nFrontend: ${PORTFOLIO_DATA.skills.frontend.join(', ')}. \nBackend: ${PORTFOLIO_DATA.skills.backend.join(', ')}.`;
+                return `Janeesha is a versatile full-stack developer & DevOps engineer! \n\nLanguages: ${PORTFOLIO_DATA.skills.languages.join(', ')}. \nFrontend: ${PORTFOLIO_DATA.skills.frontend.join(', ')}. \nBackend: ${PORTFOLIO_DATA.skills.backend.join(', ')}. \nCloud & Tools: ${PORTFOLIO_DATA.skills.cloud.join(', ')}.`;
 
             case 'projects':
                 return `He has worked on some cool stuff! For example: \n1. ${PORTFOLIO_DATA.projects[0].name} - ${PORTFOLIO_DATA.projects[0].desc} \n2. ${PORTFOLIO_DATA.projects[1].name} - ${PORTFOLIO_DATA.projects[1].desc}`;

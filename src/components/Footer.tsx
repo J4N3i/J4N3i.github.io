@@ -152,7 +152,7 @@ const Footer = () => {
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <ArrowUp size={20} weight="duotone" className="rotate-45" />
                 </div>
-                <span className="text-sm">Colombo, Sri Lanka</span>
+                <span className="text-sm">Udagama, Embilipitiya, Sri Lanka</span>
               </div>
             </div>
           </div>

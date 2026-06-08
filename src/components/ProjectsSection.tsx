@@ -44,7 +44,7 @@ const ProjectsSection = () => {
         scale: 1,
         duration: 0.8,
         ease: 'power2.out',
-        stagger: 0.2
+        stagger: 0.15
       }, '-=0.5');
 
     return () => {
@@ -52,6 +52,45 @@ const ProjectsSection = () => {
     };
   }, []);
 
+  const projects = [
+    {
+      title: "Enterprise DevOps Lab & Private Cloud",
+      desc: "Architected a zero-trust private cloud using Proxmox VE for virtualisation and TrueNAS SCALE for ZFS-backed RAID 1 storage. Deployed a containerised microservices stack (Nextcloud, Pi-hole, n8n, Nginx) and an automated CI/CD pipeline via GitHub Actions deploying to Azure/AWS.",
+      tags: ["Proxmox", "TrueNAS", "Docker", "Tailscale", "GitHub Actions", "Grafana"],
+      link: "https://github.com/J4N3i",
+      featured: true,
+    },
+    {
+      title: "Internova — Internship Matching Portal",
+      desc: "Engineered a 3-tier architecture deployed on Microsoft Azure using an ASP.NET Core Web API backend and a React.js (Vite) frontend. Implemented JWT authentication, Role-Based Access Control (RBAC), and a 3NF normalised database on Azure Flexible Server.",
+      tags: [".NET 8", "React", "Azure", "MySQL", "JWT", "RBAC"],
+      link: "https://github.com/J4N3i/Internova",
+    },
+    {
+      title: "DS-Pay — Distributed Payments System",
+      desc: "Designed a distributed payments prototype demonstrating leader election via Apache ZooKeeper, WAL replication, and idempotent transactions. Built a multi-node FastAPI cluster with Lamport logical clocks and Berkeley-style time synchronisation.",
+      tags: ["Python", "FastAPI", "ZooKeeper", "SQLite", "Distributed Systems"],
+      link: "https://github.com/J4N3i/payment_system_zookeeper",
+    },
+    {
+      title: "TestLang Compiler (PPcom)",
+      desc: "Developed a custom language compiler in Java using JFlex for lexical analysis and CUP for parsing to generate an Abstract Syntax Tree (AST). Integrated with a Spring Boot REST API to process and execute custom language scripts via a web interface.",
+      tags: ["Java", "JFlex", "CUP", "Spring Boot", "AST", "REST API"],
+      link: "https://github.com/J4N3i/PPcom",
+    },
+    {
+      title: "Exodus — 3D Interactive Environment",
+      desc: "Programmed custom AI agent behaviours and navigation tracking using Unity's baked NavMesh system. Integrated custom 3D models alongside dynamic interactive object scripts for an immersive interactive environment.",
+      tags: ["Unity", "C#", "AI Navigation", "NavMesh", "3D Modelling"],
+      link: "https://github.com/J4N3i/Exodus",
+    },
+    {
+      title: "Personal Portfolio Website",
+      desc: "Designed and built this animated personal portfolio using React 18, TypeScript, and Vite. Integrated GSAP ScrollTrigger animations, shadcn-ui components, a Spline 3D background, and a custom AI chatbot assistant — deployed live at janeeshagamage.me.",
+      tags: ["React", "TypeScript", "GSAP", "Tailwind CSS", "Vite", "Spline"],
+      link: "https://github.com/J4N3i/J4N3i.github.io",
+    },
+  ];
 
   return (
     <section
@@ -75,7 +114,7 @@ const ProjectsSection = () => {
             Projects
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A curated collection of work that reflects my approach to design and development.
+            A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media.
           </p>
         </div>
 
@@ -83,57 +122,25 @@ const ProjectsSection = () => {
           ref={containerRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {[
-            {
-              title: "DineEase Backend",
-              desc: "A robust backend system for a restaurant management and reservation platform. Handles user authentication, booking management, and menu data.",
-              tags: ["Node.js", "Express", "MongoDB", "API"],
-              link: "https://github.com/J4N3i/dinease_backend"
-            },
-            {
-              title: "Payment System Zookeeper",
-              desc: "A distributed payment processing system utilizing Apache Zookeeper for coordination and fault tolerance. Demonstrates distributed systems concepts.",
-              tags: ["Java", "Zookeeper", "Distributed Systems"],
-              link: "https://github.com/J4N3i/payment_system_zookeeper"
-            },
-            {
-              title: "Portfolio Website",
-              desc: "My personal portfolio website featuring a futuristic design, 3D elements, and an AI chatbot assistant. Built with modern web technologies.",
-              tags: ["React", "TypeScript", "GSAP", "Tailwind"],
-              link: "https://github.com/J4N3i/J4N3i.github.io"
-            },
-            {
-              title: "PPcom",
-              desc: "A communication or processing tool. (Description inferred from repository name).",
-              tags: ["C++", "Systems Programming"],
-              link: "https://github.com/J4N3i/PPcom"
-            },
-            {
-              title: "Worksheet-07",
-              desc: "Academic coursework or practical exercises demonstrating core programming concepts and problem-solving skills.",
-              tags: ["Java", "Algorithms"],
-              link: "https://github.com/J4N3i/Worksheet-07"
-            },
-            {
-              title: "Git Evaluate Base",
-              desc: "A base project template used for evaluating Git knowledge and workflow proficiency.",
-              tags: ["Git", "Workflow", "Template"],
-              link: "https://github.com/J4N3i/git-evaluate-base"
-            },
-            {
-              title: "GitHub Profile",
-              desc: "My personal GitHub profile configuration, showcasing my skills, stats, and a brief introduction.",
-              tags: ["Markdown", "Profile", "Config"],
-              link: "https://github.com/J4N3i/J4N3i"
-            }
-          ].map((project, index) => (
+          {projects.map((project, index) => (
             <a
               key={index}
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card group relative flex flex-col h-full overflow-hidden rounded-2xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1"
+              className={`project-card group relative flex flex-col h-full overflow-hidden rounded-2xl border transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${
+                project.featured
+                  ? 'bg-gradient-to-br from-primary/10 via-surface-elevated/40 to-surface-elevated/20 border-primary/20 hover:border-primary/40 hover:shadow-primary/10'
+                  : 'bg-surface-elevated/30 border-white/5 hover:border-primary/30 hover:shadow-primary/5'
+              }`}
             >
+              {/* Featured badge */}
+              {project.featured && (
+                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest z-10">
+                  Featured
+                </div>
+              )}
+
               {/* Hover Gradient Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -149,11 +156,11 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 leading-tight">
                   {project.title}
                 </h3>
 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-4">
                   {project.desc}
                 </p>
 

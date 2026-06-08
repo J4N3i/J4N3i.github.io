@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code, Globe, Palette, Rocket, Database, Sparkle, Coffee, Users, ChatCircle, Lightbulb, Handshake, Brain } from 'phosphor-react';
+import { Code, Globe, Palette, Rocket, Database, Sparkle, Coffee, Users, ChatCircle, Lightbulb, Handshake, Brain, Lightning, ShareNetwork, Monitor, Gear } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,21 +62,26 @@ const AboutSection = () => {
     };
   }, []);
 
-  const skills = [
-    // Technical Skills
-    { name: 'Frontend', icon: Code, color: 'text-accent-electric', category: 'technical' },
-    { name: 'React', icon: Globe, color: 'text-accent-violet', category: 'technical' },
-    { name: 'Java', icon: Coffee, color: 'text-primary', category: 'technical' },
-    { name: 'C/C++', icon: Database, color: 'text-accent-cyan', category: 'technical' },
-    { name: 'OOP', icon: Brain, color: 'text-accent-electric', category: 'technical' },
-    { name: 'Design Patterns', icon: Palette, color: 'text-accent-violet', category: 'technical' },
-    { name: 'Animation', icon: Sparkle, color: 'text-primary', category: 'technical' },
-    { name: 'Performance', icon: Rocket, color: 'text-accent-cyan', category: 'technical' },
-    // Soft Skills
-    { name: 'Leadership', icon: Users, color: 'text-accent-electric', category: 'soft' },
-    { name: 'Communication', icon: ChatCircle, color: 'text-accent-violet', category: 'soft' },
-    { name: 'Problem Solving', icon: Lightbulb, color: 'text-primary', category: 'soft' },
-    { name: 'Sales & Negotiation', icon: Handshake, color: 'text-accent-cyan', category: 'soft' }
+  const technicalSkills = [
+    { name: 'React / TypeScript', icon: Globe, color: 'text-accent-violet' },
+    { name: 'Java / Spring Boot', icon: Coffee, color: 'text-primary' },
+    { name: 'C# / ASP.NET Core', icon: Monitor, color: 'text-accent-electric' },
+    { name: 'Python / FastAPI', icon: Lightning, color: 'text-accent-cyan' },
+    { name: 'C / C++', icon: Gear, color: 'text-accent-electric' },
+    { name: 'Docker / DevOps', icon: Database, color: 'text-accent-violet' },
+    { name: 'Azure / Cloud', icon: Globe, color: 'text-primary' },
+    { name: 'Distributed Systems', icon: ShareNetwork, color: 'text-accent-cyan' },
+    { name: 'GSAP / Animation', icon: Sparkle, color: 'text-primary' },
+    { name: 'Clean Architecture', icon: Rocket, color: 'text-accent-electric' },
+    { name: 'OOP / Design Patterns', icon: Brain, color: 'text-accent-violet' },
+    { name: 'Zero-Trust / Security', icon: Palette, color: 'text-accent-cyan' },
+  ];
+
+  const softSkills = [
+    { name: 'Leadership & Coordination', icon: Users, color: 'text-accent-electric' },
+    { name: 'Written Communication', icon: ChatCircle, color: 'text-accent-violet' },
+    { name: 'Analytical Thinking', icon: Lightbulb, color: 'text-primary' },
+    { name: 'Time Management', icon: Handshake, color: 'text-accent-cyan' },
   ];
 
   return (
@@ -103,7 +108,7 @@ const AboutSection = () => {
               <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/5 ring-1 ring-white/10 shadow-2xl shadow-black/50 transition-all duration-500 group-hover:border-primary/20 group-hover:ring-primary/20">
                 <img
                   src="/lovable-uploads/30872b2d-0d86-4a0b-846f-852771a82f6e.png"
-                  alt="Janeesha Gamage - Web Developer"
+                  alt="Janeesha Vishwaprabha - Full-Stack Developer"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-[1.02]"
                 />
 
@@ -149,23 +154,27 @@ const AboutSection = () => {
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                 <p className="font-medium text-foreground/90 text-xl">
-                  I'm a passionate web developer and Computer Science undergraduate at SLIIT, currently serving as the Vice President of the Computer Sciences Student Committee.
+                  I'm a Computer Science undergraduate at SLIIT, currently serving as Vice President of the Computer Sciences Student Community.
                 </p>
                 <p>
-                  My journey is defined by a relentless pursuit of excellence in digital craftsmanship. I specialize in transforming complex requirements into seamless, immersive web experiences using cutting-edge technologies like React and GSAP.
+                  I design and build systems across the full stack — from immersive React frontends with GSAP to distributed backends, cloud infrastructure on Microsoft Azure, and private self-hosted labs running Proxmox, Docker, and TrueNAS. I'm passionate about clean architecture, DevOps, and zero-trust security.
                 </p>
               </div>
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/5">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/5">
               <div className="space-y-1">
                 <h4 className="text-2xl font-bold text-foreground">3+</h4>
                 <p className="text-sm text-muted-foreground">Years of Coding</p>
               </div>
               <div className="space-y-1">
-                <h4 className="text-2xl font-bold text-foreground">10+</h4>
-                <p className="text-sm text-muted-foreground">Projects Completed</p>
+                <h4 className="text-2xl font-bold text-foreground">6+</h4>
+                <p className="text-sm text-muted-foreground">Projects</p>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-2xl font-bold text-foreground">5+</h4>
+                <p className="text-sm text-muted-foreground">Leadership Roles</p>
               </div>
             </div>
           </div>
@@ -179,10 +188,10 @@ const AboutSection = () => {
           <div className="pt-16 space-y-16">
             <div className="text-center space-y-4">
               <h3 className="text-3xl md:text-4xl font-bold text-foreground">
-                Technologies & <span className="text-primary">Expertise</span>
+                Technologies &amp; <span className="text-primary">Expertise</span>
               </h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                A curated toolkit that empowers me to build scalable, high-performance, and visually stunning digital experiences.
+                A curated toolkit spanning frontend, backend, cloud infrastructure, and distributed systems — built to deliver scalable, high-performance experiences.
               </p>
             </div>
 
@@ -195,12 +204,12 @@ const AboutSection = () => {
                   </div>
                   <div>
                     <h4 className="text-xl font-bold text-foreground">Technical Prowess</h4>
-                    <p className="text-sm text-muted-foreground">Core technologies & frameworks</p>
+                    <p className="text-sm text-muted-foreground">Languages, frameworks &amp; tools</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {skills.filter(skill => skill.category === 'technical').map((skill) => (
+                  {technicalSkills.map((skill) => (
                     <div
                       key={skill.name}
                       className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
@@ -215,7 +224,7 @@ const AboutSection = () => {
                         <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
                           <skill.icon size={26} weight="duotone" />
                         </div>
-                        <span className="font-medium tracking-wide text-base text-white/80 group-hover:text-white transition-colors">
+                        <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
@@ -232,12 +241,12 @@ const AboutSection = () => {
                   </div>
                   <div>
                     <h4 className="text-xl font-bold text-foreground">Professional Skills</h4>
-                    <p className="text-sm text-muted-foreground">Leadership & soft skills</p>
+                    <p className="text-sm text-muted-foreground">Leadership &amp; soft skills</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {skills.filter(skill => skill.category === 'soft').map((skill) => (
+                  {softSkills.map((skill) => (
                     <div
                       key={skill.name}
                       className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
@@ -252,12 +261,29 @@ const AboutSection = () => {
                         <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
                           <skill.icon size={26} weight="duotone" />
                         </div>
-                        <span className="font-medium tracking-wide text-base text-white/80 group-hover:text-white transition-colors">
+                        <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
                     </div>
                   ))}
+                </div>
+
+                {/* Education Card */}
+                <div className="skill-icon mt-4 relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-accent-violet/5 backdrop-blur-xl border border-primary/20 shadow-lg p-6 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-primary/20 border border-primary/10">
+                      <Brain size={22} weight="duotone" className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Education</p>
+                      <p className="text-sm font-bold text-foreground">SLIIT, Sri Lanka</p>
+                    </div>
+                  </div>
+                  <div className="space-y-1 pl-1">
+                    <p className="text-sm font-semibold text-foreground/90">BSc (Hons) in Computer Science</p>
+                    <p className="text-xs text-muted-foreground">2024 – Present · Coursework: Distributed Systems, Compiler Design, Software Engineering, Database Management</p>
+                  </div>
                 </div>
               </div>
             </div>
