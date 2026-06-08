@@ -55,11 +55,11 @@ const Footer = () => {
   };
 
   const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'Resume', href: '#resume' }
+    { label: 'Home', href: '#home', download: false },
+    { label: 'About', href: '#about', download: false },
+    { label: 'Projects', href: '#projects', download: false },
+    { label: 'Contact', href: '#contact', download: false },
+    { label: 'Resume', href: '/Janeesha_Vishwaprabha_CV.pdf', download: true },
   ];
 
   const scrollToSection = (href: string) => {
@@ -123,13 +123,25 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-foreground">Navigation</h3>
             <nav className="flex flex-col space-y-3">
               {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-left text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
-                >
-                  {item.label}
-                </button>
+                item.download ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    download
+                    className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
+                  >
+                    {item.label}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </a>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-left text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
             </nav>
           </div>

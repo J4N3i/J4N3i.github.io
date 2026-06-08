@@ -107,14 +107,14 @@ const Navigation = () => {
   }, [isMenuOpen]);
 
   const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'Resume', href: '#resume' }
+    { label: 'Home', href: '#home', download: false },
+    { label: 'About', href: '#about', download: false },
+    { label: 'Experience', href: '#experience', download: false },
+    { label: 'Skills', href: '#skills', download: false },
+    { label: 'Projects', href: '#projects', download: false },
+    { label: 'Certifications', href: '#certifications', download: false },
+    { label: 'Contact', href: '#contact', download: false },
+    { label: 'Resume', href: '/Janeesha_Vishwaprabha_CV.pdf', download: true },
   ];
 
   const scrollToSection = (href: string) => {
@@ -148,16 +148,29 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeHref === item.href
-                    ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
-                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                item.download ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    download
+                    className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 text-white/60 hover:text-white hover:bg-white/5 flex items-center gap-1.5"
+                  >
+                    {item.label}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </a>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeHref === item.href
+                        ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
+                        : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
-                >
-                  {item.label}
-                </button>
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
 
               {/* Vertical Divider */}
@@ -210,25 +223,38 @@ const Navigation = () => {
         <div className="p-8 pt-20">
           <div className="flex flex-col space-y-6">
             {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => scrollToSection(item.href)}
-                className={`glass-hover text-left text-lg font-medium transition-colors duration-200 px-4 py-3 rounded-xl border ${activeHref === item.href ? 'text-foreground border-white/20 bg-white/10' : 'text-muted-foreground border-transparent hover:text-foreground'}`}
-                onMouseMove={(e) => {
-                  const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
-                  (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
+                item.download ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    download
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-2 text-left text-lg font-medium transition-colors duration-200 px-4 py-3 rounded-xl border text-muted-foreground border-transparent hover:text-foreground"
+                  >
+                    {item.label}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </a>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className={`glass-hover text-left text-lg font-medium transition-colors duration-200 px-4 py-3 rounded-xl border ${activeHref === item.href ? 'text-foreground border-white/20 bg-white/10' : 'text-muted-foreground border-transparent hover:text-foreground'}`}
+                    onMouseMove={(e) => {
+                      const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', x + 'px');
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', y + 'px');
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--mx', '50%');
+                      (e.currentTarget as HTMLButtonElement).style.setProperty('--my', '50%');
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                )
+              ))}
 
             {/* Social Links */}
             <div className="flex items-center space-x-6 pt-8 border-t border-border/20">
