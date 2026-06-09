@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, GithubLogo } from 'phosphor-react';
+import { ArrowUpRight, GithubLogo, FolderOpen } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -107,12 +107,17 @@ const ProjectsSection = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Title */}
         <div className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
+            <FolderOpen size={14} weight="bold" />
+            Selected Work
+          </div>
           <h2
             ref={titleRef}
-            className="text-4xl lg:text-5xl font-bold text-glow-primary mb-6"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70"
           >
-            Projects
+            Featured <span className="text-primary">Projects</span>
           </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50 mb-6" />
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media.
           </p>

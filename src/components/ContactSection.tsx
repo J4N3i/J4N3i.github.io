@@ -185,13 +185,18 @@ const ContactSection = () => {
           {/* Left Column: Info & Socials */}
           <div className="space-y-8">
             <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
+                <PaperPlaneTilt size={14} weight="bold" />
+                Get In Touch
+              </div>
               <h2
                 ref={titleRef}
-                className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight"
+                className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 leading-tight"
               >
-                Let's build something <br />
-                <span className="text-glow-primary">extraordinary</span>
+                Let's Build Something <br />
+                <span className="text-primary">Extraordinary</span>
               </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet rounded-full opacity-50 mb-6" />
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Whether you have a groundbreaking idea or just want to say hi, I'm always open to discussing new projects and opportunities.
               </p>

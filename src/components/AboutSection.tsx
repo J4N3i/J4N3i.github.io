@@ -187,9 +187,14 @@ const AboutSection = () => {
 
           <div className="pt-16 space-y-16">
             <div className="text-center space-y-4">
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground">
-                Technologies &amp; <span className="text-primary">Expertise</span>
-              </h3>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider">
+                <Code size={14} weight="bold" />
+                Technical Stack
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
+                Technologies & <span className="text-primary">Expertise</span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50" />
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 A curated toolkit spanning frontend, backend, cloud infrastructure, and distributed systems — built to deliver scalable, high-performance experiences.
               </p>

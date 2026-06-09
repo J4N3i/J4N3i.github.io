@@ -96,6 +96,10 @@ const CertificationsSection = () => {
                 <div className="max-w-5xl mx-auto">
                     {/* Section Header */}
                     <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
+                            <Medal size={14} weight="bold" />
+                            Credentials
+                        </div>
                         <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
                             Certifications & <span className="text-accent-cyan">Learning</span>
                         </h2>
