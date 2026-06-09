@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Medal, BookOpen, CheckCircle, ArrowUpRight, GraduationCap } from 'phosphor-react';
+import { Medal, GraduationCap } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,36 +53,27 @@ const CertificationsSection = () => {
     const certifications = [
         {
             id: 1,
-            name: "Meta Front-End Developer Professional Certificate",
-            issuer: "Coursera",
-            date: "2023",
-            skills: ["React", "JavaScript", "UI/UX"],
+            name: "Front-End Web Development",
+            issuer: "University of Moratuwa",
+            date: "May 2025",
+            credentialId: "2cfUeLWXMJ",
+            skills: ["HTML", "CSS", "JavaScript", "React"],
+            color: "text-accent-cyan",
+            border: "hover:border-accent-cyan/30",
+            gradient: "from-accent-cyan/5",
             icon: <Medal size={24} weight="fill" className="text-accent-cyan" />
         },
         {
             id: 2,
-            name: "AWS Certified Cloud Practitioner",
-            issuer: "Amazon Web Services",
-            date: "2023",
-            skills: ["Cloud Computing", "Security", "AWS Services"],
+            name: "Web Design for Beginners",
+            issuer: "University of Moratuwa",
+            date: "May 2024",
+            credentialId: "uSKz4mM5S8",
+            skills: ["UI Design", "Typography", "Color Theory", "Figma"],
+            color: "text-primary",
+            border: "hover:border-primary/30",
+            gradient: "from-primary/5",
             icon: <Medal size={24} weight="fill" className="text-primary" />
-        }
-    ];
-
-    const ongoingCourses = [
-        {
-            id: 1,
-            name: "Advanced React Patterns & Performance",
-            platform: "Udemy",
-            progress: "75%",
-            icon: <BookOpen size={24} weight="fill" className="text-accent-violet" />
-        },
-        {
-            id: 2,
-            name: "Machine Learning A-Z: AI, Python & R",
-            platform: "Udemy",
-            progress: "40%",
-            icon: <BookOpen size={24} weight="fill" className="text-accent-electric" />
         }
     ];
 
@@ -106,90 +97,48 @@ const CertificationsSection = () => {
                         <div className="h-1 w-24 bg-gradient-to-r from-accent-cyan to-primary mx-auto rounded-full opacity-50" />
                     </div>
 
-                    <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        {/* Certifications Column */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                                    <Medal size={24} weight="fill" />
-                                </div>
-                                <h3 className="text-2xl font-semibold text-white">Professional Certificates</h3>
-                            </div>
+                    <div ref={containerRef} className="space-y-6">
+                        {certifications.map((cert) => (
+                            <div key={cert.id} className={`group relative p-7 rounded-3xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 ${cert.border} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden`}>
+                                {/* Top Shine */}
+                                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                {/* Hover Gradient */}
+                                <div className={`absolute inset-0 bg-gradient-to-r ${cert.gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
 
-                            <div className="space-y-4">
-                                {certifications.map((cert) => (
-                                    <div key={cert.id} className="group relative p-6 rounded-2xl bg-surface-elevated/30 border border-white/5 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                                        {/* Hover Gradient */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+                                    {/* Icon */}
+                                    <div className="p-4 rounded-2xl bg-black/20 border border-white/5 group-hover:scale-110 transition-transform duration-500 shadow-inner flex-shrink-0">
+                                        {cert.icon}
+                                    </div>
 
-                                        <div className="relative z-10 flex gap-4">
-                                            <div className="p-3 h-fit rounded-xl bg-black/20 border border-white/5 group-hover:scale-110 transition-transform duration-300">
-                                                {cert.icon}
+                                    {/* Content */}
+                                    <div className="flex-1 w-full">
+                                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-3">
+                                            <div>
+                                                <h3 className={`text-xl font-bold text-white group-hover:${cert.color} transition-colors mb-1`}>{cert.name}</h3>
+                                                <div className="flex items-center gap-2">
+                                                    <GraduationCap size={14} className="text-white/40" />
+                                                    <span className="text-sm font-semibold text-white/70">{cert.issuer}</span>
+                                                </div>
                                             </div>
-                                            <div className="flex-1">
-                                                <div className="flex justify-between items-start">
-                                                    <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors">{cert.name}</h4>
-                                                    <ArrowUpRight size={16} className="text-white/20 group-hover:text-primary transition-colors" />
-                                                </div>
-                                                <p className="text-white/60 text-sm mt-1 mb-3">{cert.issuer} • {cert.date}</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {cert.skills.map((skill, idx) => (
-                                                        <span key={idx} className="px-2 py-1 rounded-md bg-white/5 border border-white/5 text-xs text-white/50">
-                                                            {skill}
-                                                        </span>
-                                                    ))}
-                                                </div>
+                                            <div className="flex flex-col items-start md:items-end gap-1 flex-shrink-0">
+                                                <span className="text-xs font-medium text-white/50 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Issued {cert.date}</span>
+                                                <span className="text-xs text-white/30 font-mono">ID: {cert.credentialId}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
 
-                        {/* Ongoing Courses Column */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-accent-violet/10 text-accent-violet">
-                                    <GraduationCap size={24} weight="fill" />
-                                </div>
-                                <h3 className="text-2xl font-semibold text-white">Courses in Progress</h3>
-                            </div>
-
-                            <div className="space-y-4">
-                                {ongoingCourses.map((course) => (
-                                    <div key={course.id} className="group relative p-6 rounded-2xl bg-surface-elevated/30 border border-white/5 hover:border-accent-violet/30 transition-all duration-300 hover:-translate-y-1">
-                                        <div className="flex gap-4 items-center">
-                                            <div className="p-3 rounded-xl bg-black/20 border border-white/5 group-hover:scale-110 transition-transform duration-300">
-                                                {course.icon}
-                                            </div>
-                                            <div className="flex-1">
-                                                <h4 className="text-lg font-bold text-white group-hover:text-accent-violet transition-colors mb-1">{course.name}</h4>
-                                                <p className="text-white/60 text-sm mb-3">{course.platform}</p>
-
-                                                {/* Progress Bar */}
-                                                <div className="space-y-1">
-                                                    <div className="flex justify-between text-xs text-white/40">
-                                                        <span>Progress</span>
-                                                        <span>{course.progress}</span>
-                                                    </div>
-                                                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                                                        <div
-                                                            className="h-full bg-gradient-to-r from-accent-violet to-accent-electric rounded-full"
-                                                            style={{ width: course.progress }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        {/* Skills Tags */}
+                                        <div className="flex flex-wrap gap-2 mt-3">
+                                            {cert.skills.map((skill, idx) => (
+                                                <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-white/50 hover:text-white/80 hover:bg-white/10 transition-colors">
+                                                    {skill}
+                                                </span>
+                                            ))}
                                         </div>
                                     </div>
-                                ))}
-
-                                {/* "More" Placeholder */}
-                                <div className="p-6 rounded-2xl border border-white/5 border-dashed flex items-center justify-center text-white/30 hover:text-white/60 hover:border-white/20 transition-all cursor-pointer">
-                                    <span className="text-sm font-medium">View All Learning Activity</span>
                                 </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
