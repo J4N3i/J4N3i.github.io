@@ -269,22 +269,7 @@ const AboutSection = () => {
                   ))}
                 </div>
 
-                {/* Education Card */}
-                <div className="skill-icon mt-4 relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-accent-violet/5 backdrop-blur-xl border border-primary/20 shadow-lg p-6 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-primary/20 border border-primary/10">
-                      <Brain size={22} weight="duotone" className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Education</p>
-                      <p className="text-sm font-bold text-foreground">SLIIT, Sri Lanka</p>
-                    </div>
-                  </div>
-                  <div className="space-y-1 pl-1">
-                    <p className="text-sm font-semibold text-foreground/90">BSc (Hons) in Computer Science</p>
-                    <p className="text-xs text-muted-foreground">2024 – Present · Coursework: Distributed Systems, Compiler Design, Software Engineering, Database Management</p>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

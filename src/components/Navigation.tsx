@@ -86,7 +86,7 @@ const Navigation = () => {
 
   // Observe sections to update active nav on scroll
   useEffect(() => {
-    const ids = ['home', 'about', 'experience', 'skills', 'projects', 'certifications', 'contact'];
+    const ids = ['home', 'about', 'education', 'experience', 'skills', 'projects', 'certifications', 'contact'];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -147,8 +147,8 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
+    { label: 'Education', href: '#education' },
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
     { label: 'Projects', href: '#projects' },
@@ -177,16 +177,16 @@ const Navigation = () => {
     <>
       <nav
         ref={navRef}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full border border-white/20 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/50 transition-all duration-300"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full border border-white/20 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/50 transition-all duration-300"
       >
         {/* Top Shine Reflection */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
         {/* Bottom Glow */}
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-30" />
 
-        <div className="px-6 py-3 relative z-10">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
+        <div className="px-4 py-3 relative z-10">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
+            {/* Logo — left col */}
             <div
               className="text-xl font-bold tracking-tight text-white flex items-center gap-2 cursor-pointer group"
               onClick={() => scrollToSection('#home')}
@@ -194,13 +194,13 @@ const Navigation = () => {
               <span className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/80 to-accent-violet/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xs shadow-lg group-hover:scale-110 transition-transform duration-300">JG</span>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Desktop Navigation — center col, truly centered */}
+            <div className="hidden md:flex items-center justify-center gap-0.5">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                     activeHref === item.href
                       ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
                       : 'text-white/60 hover:text-white hover:bg-white/5'
@@ -217,8 +217,7 @@ const Navigation = () => {
                   onClick={() => {
                     if (!isResumeOpen && resumeBtnRef.current) {
                       const rect = resumeBtnRef.current.getBoundingClientRect();
-                      const dropdownWidth = 256; // w-64 = 16rem = 256px
-                      // right-align dropdown to button's right edge, clamped to viewport
+                      const dropdownWidth = 256;
                       const left = Math.min(
                         rect.right - dropdownWidth,
                         window.innerWidth - dropdownWidth - 16
@@ -230,7 +229,7 @@ const Navigation = () => {
                     }
                     setIsResumeOpen(!isResumeOpen);
                   }}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 text-white/60 hover:text-white hover:bg-white/5"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 text-white/60 hover:text-white hover:bg-white/5 whitespace-nowrap"
                 >
                   Resume
                   <CaretDown
@@ -248,12 +247,9 @@ const Navigation = () => {
                     style={{ top: dropdownPos.top, left: dropdownPos.left }}
                     className="fixed w-64 rounded-2xl border border-white/10 bg-background/90 backdrop-blur-2xl shadow-2xl shadow-black/60 overflow-hidden z-[60]"
                   >
-                    {/* Header */}
                     <div className="px-4 py-3 border-b border-white/5">
                       <p className="text-xs font-semibold text-white/40 uppercase tracking-widest">Download CV</p>
                     </div>
-
-                    {/* Options */}
                     {CV_OPTIONS.map((cv) => (
                       <a
                         key={cv.href}
@@ -275,28 +271,29 @@ const Navigation = () => {
                   </div>
                 )}
               </div>
-
-              {/* Vertical Divider */}
-              <div className="h-6 w-px bg-white/10 mx-4" />
-
-              {/* Social Links */}
-              <div className="flex items-center gap-3">
-                <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white hover:scale-110 transition-all duration-300" title="GitHub">
-                  <GithubLogo size={20} weight="fill" />
-                </a>
-                <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white hover:scale-110 transition-all duration-300" title="LinkedIn">
-                  <LinkedinLogo size={20} weight="fill" />
-                </a>
-              </div>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
-            >
-              {isMenuOpen ? <X size={24} /> : <List size={24} />}
-            </button>
+            {/* Right col — socials + mobile hamburger */}
+            <div className="flex items-center gap-1">
+              {/* Social Links (desktop only) */}
+              <div className="hidden md:flex items-center gap-1">
+                <div className="h-6 w-px bg-white/10 mx-2" />
+                <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300" title="GitHub">
+                  <GithubLogo size={18} weight="fill" />
+                </a>
+                <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300" title="LinkedIn">
+                  <LinkedinLogo size={18} weight="fill" />
+                </a>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              >
+                {isMenuOpen ? <X size={24} /> : <List size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
