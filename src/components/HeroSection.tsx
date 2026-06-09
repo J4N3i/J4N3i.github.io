@@ -9,12 +9,16 @@ const HeroSection = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const splineRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const hero = heroRef.current;
     const headline = headlineRef.current;
     const subtitle = subtitleRef.current;
     const spline = splineRef.current;
+    const cta = ctaRef.current;
+    const scrollIndicator = scrollIndicatorRef.current;
 
     if (!hero || !headline || !subtitle || !spline) return;
 
@@ -48,7 +52,36 @@ const HeroSection = () => {
         x: 0,
         duration: 1.5,
         ease: 'power2.out'
-      }, '-=1');
+      }, '-=1')
+      .fromTo(cta,
+        { opacity: 0, y: 30, filter: 'blur(8px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power2.out' },
+        '-=0.5'
+      )
+      .fromTo(scrollIndicator,
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        '-=0.2'
+      );
+
+    // Scroll indicator bounce loop
+    gsap.to(scrollIndicator, {
+      y: 8,
+      duration: 1.2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power1.inOut',
+      delay: 5
+    });
+
+    // Hide scroll indicator when user scrolls
+    const hideOnScroll = () => {
+      if (window.scrollY > 100 && scrollIndicator) {
+        gsap.to(scrollIndicator, { opacity: 0, duration: 0.4 });
+      }
+    };
+    window.addEventListener('scroll', hideOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', hideOnScroll);
 
     // Floating background elements
     gsap.to('.hero-orb-1', {
@@ -147,7 +180,7 @@ const HeroSection = () => {
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 animate-fade-in-up" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0">
           <a
             href="#projects"
             className="px-8 py-4 rounded-full bg-primary text-white font-semibold text-lg hover:bg-primary/90 hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/25 ring-offset-2 focus:ring-2 ring-primary"
@@ -160,6 +193,15 @@ const HeroSection = () => {
           >
             Contact Me
           </a>
+        </div>
+
+        {/* Scroll Down Indicator */}
+        <div ref={scrollIndicatorRef} className="mt-16 flex flex-col items-center gap-2 opacity-0 cursor-pointer" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
+          <span className="text-xs font-medium text-white/30 uppercase tracking-widest">Scroll</span>
+          <div className="w-[1px] h-8 bg-gradient-to-b from-white/30 to-transparent" />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/30">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </div>
       </div>
 
