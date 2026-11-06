@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { profile } from '@/data';
+import { HeroBackground } from './hero/HeroBackground';
+import { HeroCTA } from './hero/HeroCTA';
+import { HeroScrollIndicator } from './hero/HeroScrollIndicator';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,31 +18,6 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-
-  // Render Spline 3D model only on desktop (>=1024px) after idle callback
-  const [showSpline, setShowSpline] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (window.innerWidth < 1024) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const enableSpline = () => setShowSpline(true);
-
-    if ('requestIdleCallback' in window) {
-      const handle = (window as unknown as { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(enableSpline);
-      return () => {
-        if ('cancelIdleCallback' in window) {
-          (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(handle);
-        }
-      };
-    } else {
-      const timer = setTimeout(enableSpline, 300);
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   useEffect(() => {
     if (!ready) return;
@@ -119,33 +97,6 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
         });
       }
 
-      // Floating background elements
-      gsap.to('.hero-orb-1', {
-        y: -20,
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
-      });
-
-      gsap.to('.hero-orb-2', {
-        y: -30,
-        x: 15,
-        duration: 8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
-      });
-
-      gsap.to('.hero-orb-3', {
-        y: -15,
-        x: -10,
-        duration: 5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
-      });
-
       // Parallax effect on scroll
       gsap.to(hero, {
         yPercent: -30,
@@ -179,31 +130,7 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero"
     >
-      {/* Background Spline 3D Model - desktop only and loaded after idle */}
-      {showSpline && (
-        <div className="absolute inset-0 z-0 opacity-60">
-          <iframe
-            src="https://my.spline.design/particles-IuAKpPmPEpw3YI7I2p09F8CM/"
-            frameBorder="0"
-            width="100%"
-            height="100%"
-            className="w-full h-full"
-            title="3D Particles Background"
-            loading="lazy"
-            aria-hidden="true"
-          />
-        </div>
-      )}
-
-      {/* Floating Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="hero-orb-1 orb w-64 h-64 top-1/4 left-1/4 opacity-20 blur-3xl" />
-        <div className="hero-orb-2 orb w-32 h-32 top-1/2 right-1/4 opacity-15 blur-2xl" />
-        <div className="hero-orb-3 orb w-48 h-48 bottom-1/3 left-1/2 opacity-20 blur-3xl" />
-      </div>
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/90 z-10" />
+      <HeroBackground />
 
       {/* Main Content */}
       <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
@@ -238,45 +165,13 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
         </p>
 
         {/* CTAs */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a
-            href="#projects"
-            className="px-8 py-4 rounded-full bg-primary text-white font-semibold text-lg hover:bg-primary/90 hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/25 ring-offset-2 focus:ring-2 ring-primary focus:outline-none"
-          >
-            View My Work
-          </a>
-          <a
-            href={profile.cvs.devops.href}
-            download={profile.cvs.devops.href.replace('/', '')}
-            className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-foreground font-semibold text-lg hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm focus:ring-2 ring-primary ring-offset-2 focus:outline-none"
-          >
-            Download CV
-          </a>
-        </div>
+        <HeroCTA ref={ctaRef} />
 
         {/* Scroll Down Indicator */}
-        <div
+        <HeroScrollIndicator
           ref={scrollIndicatorRef}
-          className="mt-16 flex flex-col items-center gap-2 cursor-pointer"
           onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <span className="text-xs font-medium text-white/70 uppercase tracking-widest">Scroll</span>
-          <div className="w-[1px] h-8 bg-gradient-to-b from-white/30 to-transparent" />
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-white/70"
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
+        />
       </div>
     </section>
   );
