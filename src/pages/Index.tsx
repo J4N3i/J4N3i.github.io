@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import Preloader from '../components/Preloader';
-import Navigation from '../components/Navigation';
-import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
-import ExperienceSection from '../components/ExperienceSection';
-import EducationSection from '../components/EducationSection';
-import ProjectsSection from '../components/ProjectsSection';
-import CertificationsSection from '../components/CertificationsSection';
-import ContactSection from '../components/ContactSection';
-import Footer from '../components/Footer';
-import ChatBot from '../components/ChatBot';
+import Preloader from '@/components/Preloader';
+import Navigation from '@/components/Navigation';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import EducationSection from '@/components/EducationSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import CertificationsSection from '@/components/CertificationsSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import ChatBot from '@/components/ChatBot';
 
 const Index = () => {
   // Preloader renders only on the client after hydration so prerendered HTML has no overlay

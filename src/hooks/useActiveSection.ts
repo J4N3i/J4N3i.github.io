@@ -11,7 +11,9 @@ const DEFAULT_SECTION_IDS = [
   'contact',
 ];
 
-export function useActiveSection(sectionIds: string[] = DEFAULT_SECTION_IDS): [string, (href: string) => void] {
+export function useActiveSection(
+  sectionIds: string[] = DEFAULT_SECTION_IDS
+): [string, (href: string) => void] {
   const [activeHref, setActiveHref] = useState<string>('#home');
 
   useEffect(() => {

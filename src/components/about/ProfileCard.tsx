@@ -8,7 +8,10 @@ interface ProfileCardProps {
 
 export const ProfileCard = ({ imageRef }: ProfileCardProps) => {
   return (
-    <div ref={imageRef} className="relative flex justify-center lg:justify-start order-2 lg:order-1">
+    <div
+      ref={imageRef}
+      className="relative flex justify-center lg:justify-start order-2 lg:order-1"
+    >
       <div className="relative w-72 h-72 lg:w-96 lg:h-96 group">
         {/* Ambient Glow (Static & Subtle) */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-accent-violet/20 blur-[60px] opacity-40" />

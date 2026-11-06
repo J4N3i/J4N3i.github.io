@@ -1,6 +1,7 @@
 import { profile, projects } from '@/data';
 
-export type Intent = 'greeting' | 'skills' | 'projects' | 'contact' | 'about' | 'resume' | 'unknown';
+export type Intent =
+  'greeting' | 'skills' | 'projects' | 'contact' | 'about' | 'resume' | 'unknown';
 
 export interface ChatMessageItem {
   id: string;
@@ -11,7 +12,17 @@ export interface ChatMessageItem {
 
 export const INTENT_KEYWORDS: Record<Intent, string[]> = {
   greeting: ['hello', 'hi', 'hey', 'greetings', 'morning', 'afternoon', 'evening'],
-  skills: ['skill', 'stack', 'tech', 'technology', 'language', 'framework', 'react', 'java', 'typescript'],
+  skills: [
+    'skill',
+    'stack',
+    'tech',
+    'technology',
+    'language',
+    'framework',
+    'react',
+    'java',
+    'typescript',
+  ],
   projects: ['project', 'work', 'portfolio', 'build', 'created', 'app', 'website'],
   contact: ['contact', 'email', 'phone', 'reach', 'message', 'talk', 'hire'],
   about: ['who', 'about', 'bio', 'yourself', 'background', 'student', 'sliit', 'study'],

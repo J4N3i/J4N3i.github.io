@@ -5,7 +5,11 @@ import { profile } from '@/data';
 import { ContactForm } from './contact/ContactForm';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { SectionHeader } from '@/components/common/SectionHeader';
-import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
+import {
+  ANIMATION_DURATION,
+  ANIMATION_EASING,
+  SCROLL_TRIGGER_POINTS,
+} from '@/constants/animations';
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,18 +31,45 @@ const ContactSection = () => {
       },
     });
 
-    tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: ANIMATION_DURATION.slow, ease: ANIMATION_EASING.power2Out })
-      .to(form, { opacity: 1, y: 0, filter: 'blur(0px)', duration: ANIMATION_DURATION.slow, ease: ANIMATION_EASING.power2Out }, '-=0.7')
-      .to('.contact-input', { opacity: 1, x: 0, duration: 0.6, ease: ANIMATION_EASING.power2Out, stagger: 0.1 }, '-=0.5')
-      .to('.social-icon', { opacity: 1, scale: 1, y: 0, duration: ANIMATION_DURATION.fast, ease: ANIMATION_EASING.backOut, stagger: 0.1 }, '-=0.3');
+    tl.to(title, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: ANIMATION_DURATION.slow,
+      ease: ANIMATION_EASING.power2Out,
+    })
+      .to(
+        form,
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: ANIMATION_DURATION.slow,
+          ease: ANIMATION_EASING.power2Out,
+        },
+        '-=0.7'
+      )
+      .to(
+        '.contact-input',
+        { opacity: 1, x: 0, duration: 0.6, ease: ANIMATION_EASING.power2Out, stagger: 0.1 },
+        '-=0.5'
+      )
+      .to(
+        '.social-icon',
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: ANIMATION_DURATION.fast,
+          ease: ANIMATION_EASING.backOut,
+          stagger: 0.1,
+        },
+        '-=0.3'
+      );
   });
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="section-padding"
-    >
+    <section id="contact" ref={sectionRef} className="section-padding">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="orb w-80 h-80 top-1/4 right-1/4 opacity-10 float-slow" />
@@ -55,13 +86,18 @@ const ContactSection = () => {
                 align="left"
                 badgeIcon={PaperPlaneTilt}
                 badgeText="Get In Touch"
-                titleNormal={<>Let's Build Something <br /></>}
+                titleNormal={
+                  <>
+                    Let's Build Something <br />
+                  </>
+                }
                 titleAccent="Extraordinary"
                 headingClassName="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 leading-tight"
                 dividerClassName="mb-6"
               />
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Whether you have a groundbreaking idea or just want to say hi, I'm always open to discussing new projects and opportunities.
+                Whether you have a groundbreaking idea or just want to say hi, I'm always open to
+                discussing new projects and opportunities.
               </p>
             </div>
 
@@ -72,7 +108,10 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email Me</p>
-                  <a href={`mailto:${profile.email}`} className="text-foreground font-medium hover:text-primary transition-colors">
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="text-foreground font-medium hover:text-primary transition-colors"
+                  >
                     {profile.email}
                   </a>
                 </div>
@@ -84,7 +123,12 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Check my code</p>
-                  <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                  <a
+                    href={profile.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground font-medium hover:text-primary transition-colors"
+                  >
                     {profile.githubUrl.replace('https://', '')}
                   </a>
                 </div>
@@ -96,7 +140,12 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Connect professionally</p>
-                  <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                  <a
+                    href={profile.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground font-medium hover:text-primary transition-colors"
+                  >
                     {profile.linkedinUrl.replace('https://www.', '').replace('https://', '')}
                   </a>
                 </div>

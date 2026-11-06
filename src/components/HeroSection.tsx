@@ -159,7 +159,10 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
             {profile.name}
           </span>
           <span className="block text-3xl md:text-4xl lg:text-5xl font-light text-muted-foreground">
-            Building the <span className="text-glow-primary font-semibold text-foreground animate-pulse-glow">Digital Future</span>
+            Building the{' '}
+            <span className="text-glow-primary font-semibold text-foreground animate-pulse-glow">
+              Digital Future
+            </span>
           </span>
         </h1>
 

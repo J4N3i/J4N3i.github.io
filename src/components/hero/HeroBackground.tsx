@@ -14,10 +14,14 @@ export const HeroBackground = () => {
     if (window.innerWidth >= 1024 && !prefersReducedMotion) {
       const enableSpline = () => setShowSpline(true);
       if ('requestIdleCallback' in window) {
-        const handle = (window as unknown as { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(enableSpline);
+        const handle = (
+          window as unknown as { requestIdleCallback: (cb: () => void) => number }
+        ).requestIdleCallback(enableSpline);
         return () => {
           if ('cancelIdleCallback' in window) {
-            (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(handle);
+            (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(
+              handle
+            );
           }
         };
       } else {
@@ -34,8 +38,22 @@ export const HeroBackground = () => {
 
     const ctx = gsap.context(() => {
       gsap.to('.hero-orb-1', { y: -20, duration: 6, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-      gsap.to('.hero-orb-2', { y: -30, x: 15, duration: 8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-      gsap.to('.hero-orb-3', { y: -15, x: -10, duration: 5, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+      gsap.to('.hero-orb-2', {
+        y: -30,
+        x: 15,
+        duration: 8,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+      });
+      gsap.to('.hero-orb-3', {
+        y: -15,
+        x: -10,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+      });
     }, containerRef);
 
     return () => ctx.revert();

@@ -5,7 +5,11 @@ import { profile } from '@/data';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ProfileCard } from './about/ProfileCard';
 import { SkillsGrid } from './about/SkillsGrid';
-import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
+import {
+  ANIMATION_DURATION,
+  ANIMATION_EASING,
+  SCROLL_TRIGGER_POINTS,
+} from '@/constants/animations';
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -63,11 +67,7 @@ const AboutSection = () => {
   });
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="section-padding"
-    >
+    <section id="about" ref={sectionRef} className="section-padding">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="orb w-96 h-96 top-1/4 -right-48 opacity-10 float-slow" />
@@ -94,7 +94,10 @@ const AboutSection = () => {
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                 {profile.aboutParagraphs.map((paragraph, idx) => (
-                  <p key={idx} className={idx === 0 ? 'font-medium text-foreground/90 text-xl' : undefined}>
+                  <p
+                    key={idx}
+                    className={idx === 0 ? 'font-medium text-foreground/90 text-xl' : undefined}
+                  >
                     {paragraph}
                   </p>
                 ))}

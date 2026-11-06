@@ -21,18 +21,23 @@ try {
   const appHtml = render();
 
   let template = fs.readFileSync(indexPath, 'utf-8');
-  
+
   // Replace <div id="root"></div> with the rendered HTML
   const rootTag = '<div id="root"></div>';
   if (template.includes(rootTag)) {
     template = template.replace(rootTag, `<div id="root">${appHtml}</div>`);
   } else {
     // In case there's whitespace or attributes
-    template = template.replace(/<div id="root"[^>]*>([\s\S]*?)<\/div>/, `<div id="root">${appHtml}</div>`);
+    template = template.replace(
+      /<div id="root"[^>]*>([\s\S]*?)<\/div>/,
+      `<div id="root">${appHtml}</div>`
+    );
   }
 
   fs.writeFileSync(indexPath, template, 'utf-8');
-  console.log(`[prerender] Prerendered HTML injected into ${indexPath} (${appHtml.length} characters)`);
+  console.log(
+    `[prerender] Prerendered HTML injected into ${indexPath} (${appHtml.length} characters)`
+  );
 
   // Clean up dist-ssr
   fs.rmSync(path.resolve(rootDir, 'dist-ssr'), { recursive: true, force: true });
@@ -40,4 +45,3 @@ try {
   console.error('[prerender] Error during prerender:', err);
   process.exit(1);
 }
-

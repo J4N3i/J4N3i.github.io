@@ -87,9 +87,18 @@ export const ChatWindow = ({
               <Robot size={16} className="text-white" weight="fill" />
             </div>
             <div className="bg-surface-elevated p-3 rounded-2xl rounded-tl-none flex items-center gap-1">
-              <div className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <div className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <div className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div
+                className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce"
+                style={{ animationDelay: '0ms' }}
+              />
+              <div
+                className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce"
+                style={{ animationDelay: '150ms' }}
+              />
+              <div
+                className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full animate-bounce"
+                style={{ animationDelay: '300ms' }}
+              />
             </div>
           </div>
         )}

@@ -67,9 +67,7 @@ export const SectionHeader = forwardRef<HTMLHeadingElement, SectionHeaderProps>(
           />
         )}
 
-        {subtitle && (
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>}
       </div>
     );
   }

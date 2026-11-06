@@ -51,10 +51,7 @@ export const ResumeDropdown = ({ options }: ResumeDropdownProps) => {
     if (!isOpen && resumeBtnRef.current) {
       const rect = resumeBtnRef.current.getBoundingClientRect();
       const dropdownWidth = 256;
-      const left = Math.min(
-        rect.right - dropdownWidth,
-        window.innerWidth - dropdownWidth - 16
-      );
+      const left = Math.min(rect.right - dropdownWidth, window.innerWidth - dropdownWidth - 16);
       setDropdownPos({
         top: rect.bottom + 8,
         left: Math.max(left, 8),
@@ -87,7 +84,9 @@ export const ResumeDropdown = ({ options }: ResumeDropdownProps) => {
           className="fixed w-64 rounded-2xl border border-white/10 bg-background/90 backdrop-blur-2xl shadow-2xl shadow-black/60 overflow-hidden z-[60]"
         >
           <div className="px-4 py-3 border-b border-white/5">
-            <p className="text-xs font-semibold text-white/70 uppercase tracking-widest">Download CV</p>
+            <p className="text-xs font-semibold text-white/70 uppercase tracking-widest">
+              Download CV
+            </p>
           </div>
           {options.map((cv) => (
             <a
@@ -97,13 +96,29 @@ export const ResumeDropdown = ({ options }: ResumeDropdownProps) => {
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition-colors duration-200 group"
             >
-              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-200`} />
+              <span
+                className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-200`}
+              />
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-semibold ${cv.color} group-hover:brightness-125 transition-all`}>{cv.label}</p>
+                <p
+                  className={`text-sm font-semibold ${cv.color} group-hover:brightness-125 transition-all`}
+                >
+                  {cv.label}
+                </p>
                 <p className="text-xs text-white/70 truncate">{cv.desc}</p>
               </div>
               <span className="opacity-0 group-hover:opacity-60 transition-opacity text-white/60">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />

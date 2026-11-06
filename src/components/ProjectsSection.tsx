@@ -4,7 +4,11 @@ import { ArrowUpRight, GithubLogo, FolderOpen } from 'phosphor-react';
 import { projects } from '@/data';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { SectionHeader } from '@/components/common/SectionHeader';
-import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
+import {
+  ANIMATION_DURATION,
+  ANIMATION_EASING,
+  SCROLL_TRIGGER_POINTS,
+} from '@/constants/animations';
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -50,11 +54,7 @@ const ProjectsSection = () => {
   });
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="section-padding"
-    >
+    <section id="projects" ref={sectionRef} className="section-padding">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="orb w-72 h-72 top-1/3 -left-36 opacity-10 float-medium" />
@@ -72,10 +72,7 @@ const ProjectsSection = () => {
           subtitle="A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media."
         />
 
-        <div
-          ref={containerRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <a
               key={index}
@@ -105,7 +102,11 @@ const ProjectsSection = () => {
                     <GithubLogo size={24} weight="duotone" />
                   </div>
                   <div className="p-2 rounded-full text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
-                    <ArrowUpRight size={20} weight="bold" className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                    <ArrowUpRight
+                      size={20}
+                      weight="bold"
+                      className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                    />
                   </div>
                 </div>
 

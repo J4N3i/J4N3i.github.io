@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { ChatCircleDots, X } from 'phosphor-react';
 import { ChatWindow } from './chatbot/ChatWindow';
-import {
-  INITIAL_MESSAGES,
-  generateBotResponse,
-  type ChatMessageItem,
-} from '@/lib/chatbot';
+import { INITIAL_MESSAGES, generateBotResponse, type ChatMessageItem } from '@/lib/chatbot';
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);

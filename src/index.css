@@ -101,7 +101,9 @@
 
   /* Respect prefers-reduced-motion globally */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -111,13 +113,14 @@
 }
 
 @layer components {
-
   /* Glass Morphism Components */
   .glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    box-shadow: 0 12px 48px var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 12px 48px var(--glass-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
   }
@@ -135,7 +138,12 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+    background: linear-gradient(
+      115deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 60%
+    );
     transform: translateX(-100%);
     opacity: 0;
     pointer-events: none;
@@ -167,7 +175,13 @@
     position: absolute;
     inset: -1px;
     pointer-events: none;
-    background: radial-gradient(120px 120px at var(--mx) var(--my), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.10) 35%, rgba(255, 255, 255, 0.04) 55%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(
+      120px 120px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.1) 35%,
+      rgba(255, 255, 255, 0.04) 55%,
+      rgba(255, 255, 255, 0) 70%
+    );
     opacity: 0;
     transition: opacity var(--animation-speed-medium) var(--animation-ease);
     mix-blend-mode: screen;
@@ -193,7 +207,9 @@
 
   .glass-input:focus {
     border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 30px var(--glow-primary);
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.08),
+      0 0 30px var(--glow-primary);
   }
 
   /* Glow Effects */
@@ -289,10 +305,8 @@
 }
 
 @layer utilities {
-
   /* Custom animations */
   @keyframes float-slow {
-
     0%,
     100% {
       transform: translateY(0px) rotate(0deg);
@@ -304,7 +318,6 @@
   }
 
   @keyframes float-medium {
-
     0%,
     100% {
       transform: translateY(0px) rotate(0deg);
@@ -316,7 +329,6 @@
   }
 
   @keyframes float-fast {
-
     0%,
     100% {
       transform: translateY(0px);
@@ -328,7 +340,6 @@
   }
 
   @keyframes pulse-glow {
-
     0%,
     100% {
       box-shadow: 0 0 20px var(--glow-primary);
@@ -395,7 +406,6 @@
   }
 
   @keyframes wave-bob {
-
     0%,
     100% {
       transform: translateY(0);
@@ -444,7 +454,11 @@
   top: -6px;
   width: 20px;
   height: calc(100% + 12px);
-  background: radial-gradient(circle at left center, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 60%);
+  background: radial-gradient(
+    circle at left center,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0) 60%
+  );
   pointer-events: none;
   filter: blur(2px);
   opacity: 0.6;

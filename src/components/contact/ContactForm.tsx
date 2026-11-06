@@ -55,7 +55,13 @@ export const ContactForm = () => {
     setIsSubmitting(true);
     setStatus('idle');
 
-    gsap.to('.submit-btn', { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    gsap.to('.submit-btn', {
+      scale: 1.05,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.inOut',
+    });
 
     try {
       await sendContactEmail({ name, email, message, toName: profile.name.split(' ')[0] });
@@ -97,12 +103,24 @@ export const ContactForm = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6" noValidate>
           {/* Honeypot */}
-          <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
-            <input type="text" name="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+          <div
+            style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+            aria-hidden="true"
+          >
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
           </div>
 
           <div className="contact-input space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-foreground/80 ml-1">Your Name</label>
+            <label htmlFor="name" className="text-sm font-medium text-foreground/80 ml-1">
+              Your Name
+            </label>
             <input
               type="text"
               id="name"
@@ -117,7 +135,9 @@ export const ContactForm = () => {
           </div>
 
           <div className="contact-input space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-foreground/80 ml-1">Email Address</label>
+            <label htmlFor="email" className="text-sm font-medium text-foreground/80 ml-1">
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -132,7 +152,9 @@ export const ContactForm = () => {
           </div>
 
           <div className="contact-input space-y-2">
-            <label htmlFor="message" className="text-sm font-medium text-foreground/80 ml-1">Message</label>
+            <label htmlFor="message" className="text-sm font-medium text-foreground/80 ml-1">
+              Message
+            </label>
             <textarea
               id="message"
               name="message"
@@ -155,7 +177,14 @@ export const ContactForm = () => {
             {isSubmitting ? (
               <>
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
                 <span>Sending…</span>

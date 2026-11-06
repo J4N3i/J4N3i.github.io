@@ -23,7 +23,8 @@ export const SkillsGrid = ({ skillsRef }: SkillsGridProps) => {
           </h3>
           <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            A curated toolkit spanning frontend, backend, cloud infrastructure, and distributed systems — built to deliver scalable, high-performance experiences.
+            A curated toolkit spanning frontend, backend, cloud infrastructure, and distributed
+            systems — built to deliver scalable, high-performance experiences.
           </p>
         </div>
 
@@ -52,7 +53,9 @@ export const SkillsGrid = ({ skillsRef }: SkillsGridProps) => {
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="relative p-4 flex items-center gap-4">
-                      <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                      <div
+                        className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}
+                      >
                         <IconComponent size={26} weight="duotone" />
                       </div>
                       <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
@@ -89,7 +92,9 @@ export const SkillsGrid = ({ skillsRef }: SkillsGridProps) => {
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="relative p-4 flex items-center gap-4">
-                      <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                      <div
+                        className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}
+                      >
                         <IconComponent size={26} weight="duotone" />
                       </div>
                       <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">

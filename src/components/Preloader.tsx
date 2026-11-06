@@ -42,31 +42,35 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
           onComplete: () => {
             container.style.display = 'none';
             onComplete();
-          }
+          },
         });
-      }
+      },
     });
 
     tl.to(text, {
       opacity: 1,
       y: 0,
       duration: 0.3,
-      ease: 'power3.out'
+      ease: 'power3.out',
     })
-      .to(progress, {
-        opacity: 1,
-        duration: 0.2
-      }, '-=0.1')
+      .to(
+        progress,
+        {
+          opacity: 1,
+          duration: 0.2,
+        },
+        '-=0.1'
+      )
       .to(bar, {
         scaleX: 1,
         duration: 0.5,
-        ease: 'power2.inOut'
+        ease: 'power2.inOut',
       })
       .to([text, progress], {
         opacity: 0,
         y: -20,
         duration: 0.2,
-        ease: 'power2.in'
+        ease: 'power2.in',
       });
 
     return () => {
@@ -82,19 +86,17 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
     >
       <div className="relative z-10 flex flex-col items-center">
         <div ref={textRef} className="text-center mb-8">
-          <p className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2" aria-hidden="true">
+          <p
+            className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2"
+            aria-hidden="true"
+          >
             {profile.shortName}
           </p>
-          <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase">
-            {profile.name}
-          </p>
+          <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase">{profile.name}</p>
         </div>
 
         <div ref={progressRef} className="w-48 h-[2px] bg-secondary rounded-full overflow-hidden">
-          <div
-            ref={barRef}
-            className="h-full w-full bg-primary"
-          />
+          <div ref={barRef} className="h-full w-full bg-primary" />
         </div>
       </div>
     </div>
