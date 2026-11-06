@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { PaperPlaneTilt, CheckCircle, WarningCircle, Timer } from 'phosphor-react';
+import { PaperPlaneTilt, Timer } from 'phosphor-react';
 import { gsap } from 'gsap';
 import { sendContactEmail } from '@/lib/email';
 import { profile } from '@/data';
+import { FormStatusBanner } from './FormStatusBanner';
 
 const COOLDOWN_MS = 30_000;
 let lastSubmitTime = 0;
@@ -86,20 +87,7 @@ export const ContactForm = () => {
       <div className="relative bg-surface-elevated/30 border border-white/10 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl">
         <h3 className="text-2xl font-bold text-foreground mb-6">Send a Message</h3>
 
-        {status === 'success' && (
-          <div className="mb-6 flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400">
-            <CheckCircle size={20} weight="fill" />
-            <span className="text-sm font-medium">Message sent! I'll get back to you soon 🎉</span>
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="mb-6 flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400">
-            <WarningCircle size={20} weight="fill" />
-            <span className="text-sm font-medium">
-              Failed to send. Please email me directly at {profile.email}
-            </span>
-          </div>
-        )}
+        <FormStatusBanner status={status} />
 
         <form onSubmit={handleSubmit} className="space-y-6" noValidate>
           {/* Honeypot */}
