@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Medal, GraduationCap } from 'phosphor-react';
+import { certifications } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,33 +58,6 @@ const CertificationsSection = () => {
         return () => ctx.revert();
     }, []);
 
-    const certifications = [
-        {
-            id: 1,
-            name: "Front-End Web Development",
-            issuer: "University of Moratuwa",
-            date: "May 2025",
-            credentialId: "2cfUeLWXMJ",
-            skills: ["HTML", "CSS", "JavaScript", "React"],
-            color: "text-accent-cyan",
-            border: "hover:border-accent-cyan/30",
-            gradient: "from-accent-cyan/5",
-            icon: <Medal size={24} weight="fill" className="text-accent-cyan" />
-        },
-        {
-            id: 2,
-            name: "Web Design for Beginners",
-            issuer: "University of Moratuwa",
-            date: "May 2024",
-            credentialId: "uSKz4mM5S8",
-            skills: ["UI Design", "Typography", "Color Theory", "Figma"],
-            color: "text-primary",
-            border: "hover:border-primary/30",
-            gradient: "from-primary/5",
-            icon: <Medal size={24} weight="fill" className="text-primary" />
-        }
-    ];
-
     return (
         <section id="certifications" ref={sectionRef} className="py-32 relative overflow-hidden">
             {/* Background Elements */}
@@ -99,53 +73,56 @@ const CertificationsSection = () => {
                             Credentials
                         </div>
                         <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
-                            Certifications & <span className="text-accent-cyan">Learning</span>
+                            Certifications &amp; <span className="text-accent-cyan">Learning</span>
                         </h2>
                         <div className="h-1 w-24 bg-gradient-to-r from-accent-cyan to-primary mx-auto rounded-full opacity-50" />
                     </div>
 
                     <div ref={containerRef} className="space-y-6">
-                        {certifications.map((cert) => (
-                            <div key={cert.id} className={`group relative p-7 rounded-3xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 ${cert.border} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden`}>
-                                {/* Top Shine */}
-                                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                {/* Hover Gradient */}
-                                <div className={`absolute inset-0 bg-gradient-to-r ${cert.gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
+                        {certifications.map((cert) => {
+                            const IconComponent = cert.icon;
+                            return (
+                                <div key={cert.id} className={`group relative p-7 rounded-3xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 ${cert.border} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden`}>
+                                    {/* Top Shine */}
+                                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    {/* Hover Gradient */}
+                                    <div className={`absolute inset-0 bg-gradient-to-r ${cert.gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
 
-                                <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start">
-                                    {/* Icon */}
-                                    <div className="p-4 rounded-2xl bg-black/20 border border-white/5 group-hover:scale-110 transition-transform duration-500 shadow-inner flex-shrink-0">
-                                        {cert.icon}
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="flex-1 w-full">
-                                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-3">
-                                            <div>
-                                                <h3 className={`text-xl font-bold text-white group-hover:${cert.color} transition-colors mb-1`}>{cert.name}</h3>
-                                                <div className="flex items-center gap-2">
-                                                    <GraduationCap size={14} className="text-white/70" />
-                                                    <span className="text-sm font-semibold text-white/70">{cert.issuer}</span>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-start md:items-end gap-1 flex-shrink-0">
-                                                <span className="text-xs font-medium text-white/50 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Issued {cert.date}</span>
-                                                <span className="text-xs text-white/70 font-mono">ID: {cert.credentialId}</span>
-                                            </div>
+                                    <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start">
+                                        {/* Icon */}
+                                        <div className="p-4 rounded-2xl bg-black/20 border border-white/5 group-hover:scale-110 transition-transform duration-500 shadow-inner flex-shrink-0">
+                                            <IconComponent size={24} weight="fill" className={cert.color} />
                                         </div>
 
-                                        {/* Skills Tags */}
-                                        <div className="flex flex-wrap gap-2 mt-3">
-                                            {cert.skills.map((skill, idx) => (
-                                                <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-white/50 hover:text-white/80 hover:bg-white/10 transition-colors">
-                                                    {skill}
-                                                </span>
-                                            ))}
+                                        {/* Content */}
+                                        <div className="flex-1 w-full">
+                                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-3">
+                                                <div>
+                                                    <h3 className={`text-xl font-bold text-white group-hover:${cert.color} transition-colors mb-1`}>{cert.name}</h3>
+                                                    <div className="flex items-center gap-2">
+                                                        <GraduationCap size={14} className="text-white/70" />
+                                                        <span className="text-sm font-semibold text-white/70">{cert.issuer}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col items-start md:items-end gap-1 flex-shrink-0">
+                                                    <span className="text-xs font-medium text-white/50 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Issued {cert.date}</span>
+                                                    <span className="text-xs text-white/70 font-mono">ID: {cert.credentialId}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Skills Tags */}
+                                            <div className="flex flex-wrap gap-2 mt-3">
+                                                {cert.skills.map((skill, idx) => (
+                                                    <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-white/50 hover:text-white/80 hover:bg-white/10 transition-colors">
+                                                        {skill}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>

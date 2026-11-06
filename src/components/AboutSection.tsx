@@ -1,8 +1,8 @@
-
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code, Globe, Palette, Rocket, Database, Sparkle, Coffee, Users, ChatCircle, Lightbulb, Handshake, Brain, Lightning, ShareNetwork, Monitor, Gear } from 'phosphor-react';
+import { Code, Users, Handshake } from 'phosphor-react';
+import { profile, technicalSkills, softSkills } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,28 +65,6 @@ const AboutSection = () => {
     return () => ctx.revert();
   }, []);
 
-  const technicalSkills = [
-    { name: 'React / TypeScript', icon: Globe, color: 'text-accent-violet' },
-    { name: 'Java / Spring Boot', icon: Coffee, color: 'text-primary' },
-    { name: 'C# / ASP.NET Core', icon: Monitor, color: 'text-accent-electric' },
-    { name: 'Python / FastAPI', icon: Lightning, color: 'text-accent-cyan' },
-    { name: 'C / C++', icon: Gear, color: 'text-accent-electric' },
-    { name: 'Docker / DevOps', icon: Database, color: 'text-accent-violet' },
-    { name: 'Azure / Cloud', icon: Globe, color: 'text-primary' },
-    { name: 'Distributed Systems', icon: ShareNetwork, color: 'text-accent-cyan' },
-    { name: 'GSAP / Animation', icon: Sparkle, color: 'text-primary' },
-    { name: 'Clean Architecture', icon: Rocket, color: 'text-accent-electric' },
-    { name: 'OOP / Design Patterns', icon: Brain, color: 'text-accent-violet' },
-    { name: 'Zero-Trust / Security', icon: Palette, color: 'text-accent-cyan' },
-  ];
-
-  const softSkills = [
-    { name: 'Leadership & Coordination', icon: Users, color: 'text-accent-electric' },
-    { name: 'Written Communication', icon: ChatCircle, color: 'text-accent-violet' },
-    { name: 'Analytical Thinking', icon: Lightbulb, color: 'text-primary' },
-    { name: 'Time Management', icon: Handshake, color: 'text-accent-cyan' },
-  ];
-
   return (
     <section
       id="about"
@@ -111,7 +89,7 @@ const AboutSection = () => {
               <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/5 ring-1 ring-white/10 shadow-2xl shadow-black/50 transition-all duration-500 group-hover:border-primary/20 group-hover:ring-primary/20">
                 <img
                   src="/lovable-uploads/30872b2d-0d86-4a0b-846f-852771a82f6e.png"
-                  alt="Janeesha Vishwaprabha — CS undergraduate at SLIIT, Full-Stack Developer and DevOps Engineer"
+                  alt={`${profile.name} — CS undergraduate at SLIIT, Full-Stack Developer and DevOps Engineer`}
                   width="384"
                   height="384"
                   loading="lazy"
@@ -159,34 +137,27 @@ const AboutSection = () => {
               </h2>
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                <p className="font-medium text-foreground/90 text-xl">
-                  I'm a Computer Science undergraduate at SLIIT, currently serving as Vice President of the Computer Sciences Student Community.
-                </p>
-                <p>
-                  I design and build systems across the full stack — from immersive React frontends with GSAP to distributed backends, cloud infrastructure on Microsoft Azure, and private self-hosted labs running Proxmox, Docker, and TrueNAS. I'm passionate about clean architecture, DevOps, and zero-trust security.
-                </p>
+                {profile.aboutParagraphs.map((paragraph, idx) => (
+                  <p key={idx} className={idx === 0 ? "font-medium text-foreground/90 text-xl" : undefined}>
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/5">
-              <div className="space-y-1">
-                <h4 className="text-2xl font-bold text-foreground">3+</h4>
-                <p className="text-sm text-muted-foreground">Years of Coding</p>
-              </div>
-              <div className="space-y-1">
-                <h4 className="text-2xl font-bold text-foreground">6+</h4>
-                <p className="text-sm text-muted-foreground">Projects</p>
-              </div>
-              <div className="space-y-1">
-                <h4 className="text-2xl font-bold text-foreground">5+</h4>
-                <p className="text-sm text-muted-foreground">Leadership Roles</p>
-              </div>
+              {profile.quickStats.map((stat, idx) => (
+                <div key={idx} className="space-y-1">
+                  <h4 className="text-2xl font-bold text-foreground">{stat.value}</h4>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Skills Grid - Professional Layout */}
+        {/* Skills Grid */}
         <div id="skills" ref={skillsRef} className="mt-32 relative">
           {/* Section Divider */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
@@ -198,7 +169,7 @@ const AboutSection = () => {
                 Technical Stack
               </div>
               <h3 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
-                Technologies & <span className="text-primary">Expertise</span>
+                Technologies &amp; <span className="text-primary">Expertise</span>
               </h3>
               <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50" />
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -220,27 +191,30 @@ const AboutSection = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {technicalSkills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
-                    >
-                      {/* Top Shine */}
-                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {technicalSkills.map((skill) => {
+                    const IconComponent = skill.icon;
+                    return (
+                      <div
+                        key={skill.name}
+                        className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
+                      >
+                        {/* Top Shine */}
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                      {/* Hover Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        {/* Hover Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                      <div className="relative p-4 flex items-center gap-4">
-                        <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
-                          <skill.icon size={26} weight="duotone" />
+                        <div className="relative p-4 flex items-center gap-4">
+                          <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                            <IconComponent size={26} weight="duotone" />
+                          </div>
+                          <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
+                            {skill.name}
+                          </span>
                         </div>
-                        <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
-                          {skill.name}
-                        </span>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -257,30 +231,31 @@ const AboutSection = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {softSkills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
-                    >
-                      {/* Top Shine */}
-                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {softSkills.map((skill) => {
+                    const IconComponent = skill.icon;
+                    return (
+                      <div
+                        key={skill.name}
+                        className="skill-icon group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 hover:border-white/20"
+                      >
+                        {/* Top Shine */}
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                      {/* Hover Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        {/* Hover Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                      <div className="relative p-4 flex items-center gap-4">
-                        <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
-                          <skill.icon size={26} weight="duotone" />
+                        <div className="relative p-4 flex items-center gap-4">
+                          <div className={`p-2.5 rounded-xl bg-black/20 border border-white/5 ${skill.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                            <IconComponent size={26} weight="duotone" />
+                          </div>
+                          <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
+                            {skill.name}
+                          </span>
                         </div>
-                        <span className="font-medium tracking-wide text-sm text-white/80 group-hover:text-white transition-colors">
-                          {skill.name}
-                        </span>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
-
-
               </div>
             </div>
           </div>

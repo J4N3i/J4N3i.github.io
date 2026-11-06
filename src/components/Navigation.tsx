@@ -1,31 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { List, X, GithubLogo, LinkedinLogo, CaretDown } from 'phosphor-react';
 import { gsap } from 'gsap';
-
-// CV options — add the matching PDF files to /public/
-const CV_OPTIONS = [
-  {
-    label: 'General CV',
-    desc: 'Full-stack & software engineering',
-    href: '/Janeesha_Vishwaprabha_CV.pdf',
-    color: 'text-primary',
-    dot: 'bg-primary',
-  },
-  {
-    label: 'DevOps / Cloud CV',
-    desc: 'Infrastructure, CI/CD & cloud',
-    href: '/Janeesha_Vishwaprabha_CV_DevOps.pdf',
-    color: 'text-accent-cyan',
-    dot: 'bg-accent-cyan',
-  },
-  {
-    label: 'AI / ML CV',
-    desc: 'Machine learning & data science',
-    href: '/Janeesha_Vishwaprabha_CV_AI.pdf',
-    color: 'text-accent-violet',
-    dot: 'bg-accent-violet',
-  },
-];
+import { profile, cvOptions, navItems } from '@/data';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -149,16 +125,6 @@ const Navigation = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const navItems = [
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Education', href: '#education' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Contact', href: '#contact' },
-  ];
-
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -253,7 +219,7 @@ const Navigation = () => {
                     <div className="px-4 py-3 border-b border-white/5">
                       <p className="text-xs font-semibold text-white/70 uppercase tracking-widest">Download CV</p>
                     </div>
-                    {CV_OPTIONS.map((cv) => (
+                    {cvOptions.map((cv) => (
                       <a
                         key={cv.href}
                         href={cv.href}
@@ -281,10 +247,10 @@ const Navigation = () => {
               {/* Social Links (desktop only) */}
               <div className="hidden md:flex items-center gap-1">
                 <div className="h-6 w-px bg-white/10 mx-2" />
-                <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="GitHub" aria-label="GitHub profile">
+                <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="GitHub" aria-label="GitHub profile">
                   <GithubLogo size={18} weight="fill" />
                 </a>
-                <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="LinkedIn" aria-label="LinkedIn profile">
+                <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="LinkedIn" aria-label="LinkedIn profile">
                   <LinkedinLogo size={18} weight="fill" />
                 </a>
               </div>
@@ -349,7 +315,7 @@ const Navigation = () => {
 
               {isMobileResumeOpen && (
                 <div className="border-t border-white/5 divide-y divide-white/5">
-                  {CV_OPTIONS.map((cv) => (
+                  {cvOptions.map((cv) => (
                     <a
                       key={cv.href}
                       href={cv.href}
@@ -373,11 +339,11 @@ const Navigation = () => {
 
             {/* Social Links */}
             <div className="flex items-center space-x-6 pt-6 mt-2 border-t border-border/20">
-              <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent-electric transition-colors duration-200 flex items-center space-x-2">
+              <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent-electric transition-colors duration-200 flex items-center space-x-2">
                 <GithubLogo size={20} weight="bold" />
                 <span>GitHub</span>
               </a>
-              <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent-violet transition-colors duration-200 flex items-center space-x-2">
+              <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent-violet transition-colors duration-200 flex items-center space-x-2">
                 <LinkedinLogo size={20} weight="bold" />
                 <span>LinkedIn</span>
               </a>

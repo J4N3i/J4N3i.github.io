@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChatCircleDots, PaperPlaneTilt, X, Robot, User, Sparkle } from 'phosphor-react';
 import { gsap } from 'gsap';
+import { profile, projects } from '@/data';
 
 interface Message {
     id: string;
@@ -11,9 +12,9 @@ interface Message {
 
 // Knowledge Base
 const PORTFOLIO_DATA = {
-    name: "Janeesha Vishwaprabha",
+    name: profile.name,
     role: "Undergraduate Computer Science Student & Full-Stack Developer",
-    university: "SLIIT (Sri Lanka Institute of Information Technology)",
+    university: profile.university,
     skills: {
         languages: ["Java", "Python", "C#", "JavaScript", "TypeScript", "C", "C++"],
         frontend: ["React", "TypeScript", "Tailwind CSS", "GSAP", "HTML5", "CSS3", "Vite"],
@@ -22,22 +23,15 @@ const PORTFOLIO_DATA = {
         cloud: ["Microsoft Azure", "Docker", "Proxmox VE", "TrueNAS", "Tailscale", "Apache ZooKeeper", "GitHub Actions"],
         concepts: ["DevOps", "CI/CD", "Distributed Systems", "Clean Architecture", "Zero-Trust Security", "OOP"]
     },
-    projects: [
-        { name: "Enterprise DevOps Lab & Private Cloud", desc: "A zero-trust private cloud using Proxmox VE, TrueNAS SCALE, Docker, and Tailscale VPN. Includes a full CI/CD pipeline via GitHub Actions and observability with Prometheus and Grafana." },
-        { name: "Internova — Internship Matching Portal", desc: "A 3-tier internship portal on Azure using ASP.NET Core, React (Vite), MySQL with JWT auth and RBAC." },
-        { name: "DS-Pay — Distributed Payments System", desc: "A distributed payments prototype with ZooKeeper leader election, WAL replication, FastAPI nodes, and Lamport logical clocks." },
-        { name: "TestLang Compiler (PPcom)", desc: "A custom language compiler in Java using JFlex and CUP to generate an AST, integrated with a Spring Boot REST API." },
-        { name: "Exodus — 3D Interactive Environment", desc: "A Unity game with custom AI agent behaviours using baked NavMesh navigation and dynamic interactive object scripts." },
-        { name: "Portfolio Website", desc: "This very portfolio — built with React 18, TypeScript, Vite, GSAP ScrollTrigger, a Spline 3D background, and a custom AI chatbot." }
-    ],
+    projects: projects.map((p) => ({ name: p.title, desc: p.desc })),
     contact: {
-        email: "janeeshagamage02@gmail.com",
-        phone: "+94 77 959 3243",
-        website: "https://janeeshagamage.com",
-        linkedin: "https://www.linkedin.com/in/janeesha-gamage-522717298",
-        github: "https://github.com/J4N3i"
+        email: profile.email,
+        phone: profile.phone,
+        website: profile.siteUrl,
+        linkedin: profile.linkedinUrl,
+        github: profile.githubUrl
     },
-    bio: "I'm a Computer Science undergraduate at SLIIT and Vice President of the Computer Sciences Student Community. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security."
+    bio: profile.bio
 };
 
 // Intent System
@@ -141,13 +135,14 @@ const ChatBot = () => {
         const intent = determineIntent(input);
 
         switch (intent) {
-            case 'greeting':
+            case 'greeting': {
                 const greetings = [
                     "Hello! How can I help you today?",
                     "Hi there! Interested in Janeesha's work?",
                     "Greetings! Feel free to ask me anything."
                 ];
                 return greetings[Math.floor(Math.random() * greetings.length)];
+            }
 
             case 'skills':
                 return `Janeesha is a versatile full-stack developer & DevOps engineer! \n\nLanguages: ${PORTFOLIO_DATA.skills.languages.join(', ')}. \nFrontend: ${PORTFOLIO_DATA.skills.frontend.join(', ')}. \nBackend: ${PORTFOLIO_DATA.skills.backend.join(', ')}. \nCloud & Tools: ${PORTFOLIO_DATA.skills.cloud.join(', ')}.`;

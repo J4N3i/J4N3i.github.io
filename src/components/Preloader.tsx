@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { profile } from '@/data';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -82,10 +83,10 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
       <div className="relative z-10 flex flex-col items-center">
         <div ref={textRef} className="text-center mb-8">
           <p className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2" aria-hidden="true">
-            JG
+            {profile.shortName}
           </p>
           <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase">
-            Janeesha Vishwaprabha
+            {profile.name}
           </p>
         </div>
 

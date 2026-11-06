@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { profile } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -220,7 +221,7 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
           className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight cursor-default"
         >
           <span className="block text-foreground mb-4 drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.02] transform origin-center">
-            Janeesha Vishwaprabha
+            {profile.name}
           </span>
           <span className="block text-3xl md:text-4xl lg:text-5xl font-light text-muted-foreground">
             Building the <span className="text-glow-primary font-semibold text-foreground animate-pulse-glow">Digital Future</span>
@@ -231,7 +232,7 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
           ref={subtitleRef}
           className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Computer Science Undergraduate. Full-Stack Developer &amp; DevOps Enthusiast.
+          {profile.tagline}
           <br className="hidden md:block" />
           Building scalable systems — from distributed architectures to immersive web experiences.
         </p>
@@ -245,8 +246,8 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
             View My Work
           </a>
           <a
-            href="/Janeesha_Vishwaprabha_CV_DevOps.pdf"
-            download="Janeesha_Vishwaprabha_CV_DevOps.pdf"
+            href={profile.cvs.devops.href}
+            download={profile.cvs.devops.href.replace('/', '')}
             className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-foreground font-semibold text-lg hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm focus:ring-2 ring-primary ring-offset-2 focus:outline-none"
           >
             Download CV

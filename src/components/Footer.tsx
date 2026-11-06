@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, GithubLogo, LinkedinLogo, EnvelopeSimple } from 'phosphor-react';
+import { profile, navItems as baseNavItems } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,7 +63,7 @@ const Footer = () => {
     { label: 'About', href: '#about', download: false },
     { label: 'Projects', href: '#projects', download: false },
     { label: 'Contact', href: '#contact', download: false },
-    { label: 'Resume', href: '/Janeesha_Vishwaprabha_CV.pdf', download: true },
+    { label: 'Resume', href: profile.cvs.general.href, download: true },
   ];
 
   const scrollToSection = (href: string) => {
@@ -97,23 +98,26 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/J4N3i"
+                href={profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHub profile"
                 className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
               >
                 <GithubLogo size={20} weight="fill" />
               </a>
               <a
-                href="https://www.linkedin.com/in/janeesha-gamage-522717298"
+                href={profile.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
                 className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
               >
                 <LinkedinLogo size={20} weight="fill" />
               </a>
               <a
-                href="mailto:janeeshagamage02@gmail.com"
+                href={`mailto:${profile.email}`}
+                aria-label="Send email"
                 className="p-3 rounded-full bg-surface-elevated border border-white/5 text-muted-foreground hover:text-white hover:bg-primary/20 hover:border-primary/20 transition-all duration-300"
               >
                 <EnvelopeSimple size={20} weight="fill" />
@@ -154,20 +158,20 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-foreground">Contact</h3>
             <div className="space-y-4">
               <a
-                href="mailto:janeeshagamage02@gmail.com"
+                href={`mailto:${profile.email}`}
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-200 group p-3 rounded-xl bg-surface-elevated/30 border border-white/5 hover:border-primary/20"
               >
                 <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
                   <EnvelopeSimple size={20} weight="duotone" />
                 </div>
-                <span className="text-sm">janeeshagamage02@gmail.com</span>
+                <span className="text-sm">{profile.email}</span>
               </a>
 
               <div className="flex items-center gap-3 text-muted-foreground p-3 rounded-xl bg-surface-elevated/30 border border-white/5">
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <ArrowUp size={20} weight="duotone" className="rotate-45" />
                 </div>
-                <span className="text-sm">Udagama, Embilipitiya, Sri Lanka</span>
+                <span className="text-sm">{profile.location}</span>
               </div>
             </div>
           </div>
@@ -176,7 +180,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Janeesha Gamage. All rights reserved.
+            © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
 
           <button

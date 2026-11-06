@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PaperPlaneTilt, GithubLogo, LinkedinLogo, EnvelopeSimple, CheckCircle, WarningCircle, Timer } from 'phosphor-react';
 import emailjs from '@emailjs/browser';
+import { profile } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -178,8 +179,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email Me</p>
-                  <a href="mailto:janeeshagamage02@gmail.com" className="text-foreground font-medium hover:text-primary transition-colors">
-                    janeeshagamage02@gmail.com
+                  <a href={`mailto:${profile.email}`} className="text-foreground font-medium hover:text-primary transition-colors">
+                    {profile.email}
                   </a>
                 </div>
               </div>
@@ -190,8 +191,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Check my code</p>
-                  <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
-                    github.com/J4N3i
+                  <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                    {profile.githubUrl.replace('https://', '')}
                   </a>
                 </div>
               </div>
@@ -202,8 +203,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Connect professionally</p>
-                  <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
-                    linkedin.com/in/janeesha-gamage
+                  <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary transition-colors">
+                    {profile.linkedinUrl.replace('https://www.', '').replace('https://', '')}
                   </a>
                 </div>
               </div>
@@ -226,7 +227,7 @@ const ContactSection = () => {
               {status === 'error' && (
                 <div className="mb-6 flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400">
                   <WarningCircle size={20} weight="fill" />
-                  <span className="text-sm font-medium">Failed to send. Please email me directly at janeeshagamage02@gmail.com</span>
+                  <span className="text-sm font-medium">Failed to send. Please email me directly at {profile.email}</span>
                 </div>
               )}
 
