@@ -57,8 +57,8 @@ export function useSectionReveal(
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      animate(ctx);
+    const ctx = gsap.context((self) => {
+      animate(self);
     }, element);
 
     return () => {
