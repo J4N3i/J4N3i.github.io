@@ -17,37 +17,44 @@ const CertificationsSection = () => {
 
         if (!section || !title || !container) return;
 
-        // Title Animation
-        gsap.fromTo(title,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 80%',
-                }
-            }
-        );
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-        // Content Animation
-        const children = Array.from(container.children);
-        gsap.fromTo(children,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: container,
-                    start: 'top 85%',
+        const ctx = gsap.context(() => {
+            // Title Animation
+            gsap.fromTo(title,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                    }
                 }
-            }
-        );
+            );
+
+            // Content Animation
+            const children = Array.from(container.children);
+            gsap.fromTo(children,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: container,
+                        start: 'top 85%',
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     const certifications = [
@@ -117,13 +124,13 @@ const CertificationsSection = () => {
                                             <div>
                                                 <h3 className={`text-xl font-bold text-white group-hover:${cert.color} transition-colors mb-1`}>{cert.name}</h3>
                                                 <div className="flex items-center gap-2">
-                                                    <GraduationCap size={14} className="text-white/40" />
+                                                    <GraduationCap size={14} className="text-white/70" />
                                                     <span className="text-sm font-semibold text-white/70">{cert.issuer}</span>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col items-start md:items-end gap-1 flex-shrink-0">
                                                 <span className="text-xs font-medium text-white/50 bg-white/5 border border-white/10 px-3 py-1 rounded-full">Issued {cert.date}</span>
-                                                <span className="text-xs text-white/30 font-mono">ID: {cert.credentialId}</span>
+                                                <span className="text-xs text-white/70 font-mono">ID: {cert.credentialId}</span>
                                             </div>
                                         </div>
 

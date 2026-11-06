@@ -17,37 +17,44 @@ const EducationSection = () => {
 
         if (!section || !title || !container) return;
 
-        // Title Animation
-        gsap.fromTo(title,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 80%',
-                }
-            }
-        );
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-        // Cards Animation
-        const children = Array.from(container.children);
-        gsap.fromTo(children,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: container,
-                    start: 'top 85%',
+        const ctx = gsap.context(() => {
+            // Title Animation
+            gsap.fromTo(title,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                    }
                 }
-            }
-        );
+            );
+
+            // Cards Animation
+            const children = Array.from(container.children);
+            gsap.fromTo(children,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: container,
+                        start: 'top 85%',
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     const education = [

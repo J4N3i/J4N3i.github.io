@@ -17,39 +17,42 @@ const ProjectsSection = () => {
 
     if (!section || !title || !container) return;
 
-    // Initial states
-    gsap.set(title, { opacity: 0, y: 50, filter: 'blur(10px)' });
-    gsap.set('.project-card', { opacity: 0, y: 60, scale: 0.9 });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    // Scroll triggered animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        toggleActions: 'play none none reverse'
-      }
-    });
+    const ctx = gsap.context(() => {
+      // Initial states set via JS (content visible if JS fails)
+      gsap.set(title, { opacity: 0, y: 50, filter: 'blur(10px)' });
+      gsap.set('.project-card', { opacity: 0, y: 60, scale: 0.9 });
 
-    tl.to(title, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1,
-      ease: 'power2.out'
-    })
-      .to('.project-card', {
+      // Scroll triggered animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      tl.to(title, {
         opacity: 1,
         y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-        stagger: 0.15
-      }, '-=0.5');
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power2.out'
+      })
+        .to('.project-card', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          stagger: 0.15
+        }, '-=0.5');
+    }, sectionRef);
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   const projects = [
@@ -86,7 +89,7 @@ const ProjectsSection = () => {
     },
     {
       title: "Personal Portfolio Website",
-      desc: "Designed and built this animated personal portfolio using React 18, TypeScript, and Vite. Integrated GSAP ScrollTrigger animations, shadcn-ui components, a Spline 3D background, and a custom AI chatbot assistant — deployed live at janeeshagamage.me.",
+      desc: "Designed and built this animated personal portfolio using React 18, TypeScript, and Vite. Integrated GSAP ScrollTrigger animations, shadcn-ui components, a Spline 3D background, and a custom AI chatbot assistant — deployed live at janeeshagamage.com.",
       tags: ["React", "TypeScript", "GSAP", "Tailwind CSS", "Vite", "Spline"],
       link: "https://github.com/J4N3i/J4N3i.github.io",
     },
@@ -141,7 +144,7 @@ const ProjectsSection = () => {
             >
               {/* Featured badge */}
               {project.featured && (
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest z-10">
+                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest z-10">
                   Featured
                 </div>
               )}
@@ -174,7 +177,7 @@ const ProjectsSection = () => {
                   {project.tags.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold bg-white/5 rounded-full text-muted-foreground border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 transition-all duration-300"
+                      className="px-3 py-1 text-xs uppercase tracking-wider font-semibold bg-white/5 rounded-full text-muted-foreground border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 transition-all duration-300"
                     >
                       {tech}
                     </span>

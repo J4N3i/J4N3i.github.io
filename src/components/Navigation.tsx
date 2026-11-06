@@ -71,15 +71,18 @@ const Navigation = () => {
     const nav = navRef.current;
     if (!nav) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     gsap.fromTo(nav,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 3.5, ease: 'power2.out' }
+      { y: 0, opacity: 1, duration: 1, delay: 1.2, ease: 'power2.out' }
     );
 
     const sheenTimeout = setTimeout(() => {
       nav.classList.add('sheen-run');
       setTimeout(() => nav.classList.remove('sheen-run'), 1700);
-    }, 4200);
+    }, 1800);
 
     return () => clearTimeout(sheenTimeout);
   }, []);
@@ -248,7 +251,7 @@ const Navigation = () => {
                     className="fixed w-64 rounded-2xl border border-white/10 bg-background/90 backdrop-blur-2xl shadow-2xl shadow-black/60 overflow-hidden z-[60]"
                   >
                     <div className="px-4 py-3 border-b border-white/5">
-                      <p className="text-xs font-semibold text-white/40 uppercase tracking-widest">Download CV</p>
+                      <p className="text-xs font-semibold text-white/70 uppercase tracking-widest">Download CV</p>
                     </div>
                     {CV_OPTIONS.map((cv) => (
                       <a
@@ -261,7 +264,7 @@ const Navigation = () => {
                         <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-200`} />
                         <div className="flex-1 min-w-0">
                           <p className={`text-sm font-semibold ${cv.color} group-hover:brightness-125 transition-all`}>{cv.label}</p>
-                          <p className="text-xs text-white/40 truncate">{cv.desc}</p>
+                          <p className="text-xs text-white/70 truncate">{cv.desc}</p>
                         </div>
                         <span className="opacity-0 group-hover:opacity-60 transition-opacity text-white/60">
                           <DownloadIcon />
@@ -278,10 +281,10 @@ const Navigation = () => {
               {/* Social Links (desktop only) */}
               <div className="hidden md:flex items-center gap-1">
                 <div className="h-6 w-px bg-white/10 mx-2" />
-                <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300" title="GitHub">
+                <a href="https://github.com/J4N3i" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="GitHub" aria-label="GitHub profile">
                   <GithubLogo size={18} weight="fill" />
                 </a>
-                <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/janeesha-gamage-522717298" target="_blank" rel="noopener noreferrer" className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary" title="LinkedIn" aria-label="LinkedIn profile">
                   <LinkedinLogo size={18} weight="fill" />
                 </a>
               </div>
@@ -289,7 +292,8 @@ const Navigation = () => {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+                aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               >
                 {isMenuOpen ? <X size={24} /> : <List size={24} />}
               </button>
@@ -356,7 +360,7 @@ const Navigation = () => {
                       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-70`} />
                       <div>
                         <p className={`text-sm font-semibold ${cv.color}`}>{cv.label}</p>
-                        <p className="text-xs text-white/40">{cv.desc}</p>
+                        <p className="text-xs text-white/70">{cv.desc}</p>
                       </div>
                       <span className="ml-auto opacity-40 group-hover:opacity-70 transition-opacity text-white">
                         <DownloadIcon />

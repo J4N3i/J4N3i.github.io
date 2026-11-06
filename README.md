@@ -1,4 +1,4 @@
-# Janeesha Gamage Portfolio
+# Janeesha Vishwaprabha Portfolio
 
 Modern personal portfolio built with React, TypeScript, Vite, Tailwind CSS, GSAP animations, and shadcn-ui.
 

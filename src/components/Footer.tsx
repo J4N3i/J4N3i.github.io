@@ -12,39 +12,42 @@ const Footer = () => {
     const footer = footerRef.current;
     if (!footer) return;
 
-    // Initial state
-    gsap.set(footer, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    // Scroll triggered animation
-    gsap.to(footer, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: footer,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      }
-    });
+    const ctx = gsap.context(() => {
+      // Initial state
+      gsap.set(footer, { opacity: 0, y: 60, filter: 'blur(10px)' });
 
-    // Floating particles animation
-    gsap.to('.footer-particle', {
-      y: -20,
-      duration: 6,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-      stagger: {
-        each: 2,
-        from: 'random'
-      }
-    });
+      // Scroll triggered animation
+      gsap.to(footer, {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      });
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+      // Floating particles animation
+      gsap.to('.footer-particle', {
+        y: -20,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+        stagger: {
+          each: 2,
+          from: 'random'
+        }
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
   }, []);
 
   const scrollToTop = () => {

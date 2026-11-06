@@ -19,56 +19,63 @@ const ExperienceSection = () => {
 
         if (!section || !title || !container) return;
 
-        // Title Animation
-        gsap.fromTo(title,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 80%',
-                }
-            }
-        );
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-        // Cards Animation
-        const children = Array.from(container.children);
-        gsap.fromTo(children,
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: container,
-                    start: 'top 85%',
-                }
-            }
-        );
-
-        // Other Experience animation
-        if (other) {
-            const otherChildren = Array.from(other.children);
-            gsap.fromTo(otherChildren,
-                { y: 40, opacity: 0 },
+        const ctx = gsap.context(() => {
+            // Title Animation
+            gsap.fromTo(title,
+                { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.7,
-                    stagger: 0.15,
+                    duration: 0.8,
                     ease: 'power3.out',
                     scrollTrigger: {
-                        trigger: other,
-                        start: 'top 90%',
+                        trigger: section,
+                        start: 'top 80%',
                     }
                 }
             );
-        }
+
+            // Cards Animation
+            const children = Array.from(container.children);
+            gsap.fromTo(children,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: container,
+                        start: 'top 85%',
+                    }
+                }
+            );
+
+            // Other Experience animation
+            if (other) {
+                const otherChildren = Array.from(other.children);
+                gsap.fromTo(otherChildren,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.7,
+                        stagger: 0.15,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: other,
+                            start: 'top 90%',
+                        }
+                    }
+                );
+            }
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     const experiences = [
@@ -193,7 +200,7 @@ const ExperienceSection = () => {
                                     <div className="flex-1 min-w-0">
                                         <div className="flex flex-col gap-1 mb-2">
                                             <h3 className="text-lg font-bold text-white group-hover:text-white transition-colors tracking-tight leading-tight">{exp.role}</h3>
-                                            <div className="flex items-center gap-1.5 text-white/40 text-xs font-medium bg-white/5 px-2 py-0.5 rounded-full border border-white/5 w-fit">
+                                            <div className="flex items-center gap-1.5 text-white/70 text-xs font-medium bg-white/5 px-2 py-0.5 rounded-full border border-white/5 w-fit">
                                                 <CalendarBlank size={11} weight="bold" />
                                                 <span>{exp.period}</span>
                                             </div>

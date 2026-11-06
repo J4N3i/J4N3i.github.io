@@ -20,46 +20,49 @@ const AboutSection = () => {
 
     if (!section || !image || !content || !skills) return;
 
-    // Initial states
-    gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
-    gsap.set('.skill-icon', { opacity: 0, scale: 0.5, y: 30 });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    // Scroll triggered animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        toggleActions: 'play none none reverse'
-      }
-    });
+    const ctx = gsap.context(() => {
+      // Initial states set via JS (content visible if JS fails)
+      gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
+      gsap.set('.skill-icon', { opacity: 0, scale: 0.5, y: 30 });
 
-    tl.to(image, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1,
-      ease: 'power2.out'
-    })
-      .to(content, {
+      // Scroll triggered animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      tl.to(image, {
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
         duration: 1,
         ease: 'power2.out'
-      }, '-=0.7')
-      .to('.skill-icon', {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.5,
-        ease: 'back.out(1.7)',
-        stagger: 0.1
-      }, '-=0.5');
+      })
+        .to(content, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1,
+          ease: 'power2.out'
+        }, '-=0.7')
+        .to('.skill-icon', {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'back.out(1.7)',
+          stagger: 0.1
+        }, '-=0.5');
+    }, sectionRef);
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   const technicalSkills = [
@@ -108,7 +111,10 @@ const AboutSection = () => {
               <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/5 ring-1 ring-white/10 shadow-2xl shadow-black/50 transition-all duration-500 group-hover:border-primary/20 group-hover:ring-primary/20">
                 <img
                   src="/lovable-uploads/30872b2d-0d86-4a0b-846f-852771a82f6e.png"
-                  alt="Janeesha Vishwaprabha - Full-Stack Developer"
+                  alt="Janeesha Vishwaprabha — CS undergraduate at SLIIT, Full-Stack Developer and DevOps Engineer"
+                  width="384"
+                  height="384"
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-[1.02]"
                 />
 
@@ -191,9 +197,9 @@ const AboutSection = () => {
                 <Code size={14} weight="bold" />
                 Technical Stack
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
+              <h3 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
                 Technologies & <span className="text-primary">Expertise</span>
-              </h2>
+              </h3>
               <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50" />
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 A curated toolkit spanning frontend, backend, cloud infrastructure, and distributed systems — built to deliver scalable, high-performance experiences.

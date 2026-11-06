@@ -33,7 +33,7 @@ const PORTFOLIO_DATA = {
     contact: {
         email: "janeeshagamage02@gmail.com",
         phone: "+94 77 959 3243",
-        website: "https://janeeshagamage.me",
+        website: "https://janeeshagamage.com",
         linkedin: "https://www.linkedin.com/in/janeesha-gamage-522717298",
         github: "https://github.com/J4N3i"
     },

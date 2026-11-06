@@ -37,25 +37,30 @@ const ContactSection = () => {
     const title   = titleRef.current;
     if (!section || !form || !title) return;
 
-    gsap.set([title, form], { opacity: 0, y: 50, filter: 'blur(10px)' });
-    gsap.set('.contact-input', { opacity: 0, x: -30 });
-    gsap.set('.social-icon',   { opacity: 0, scale: 0.5, y: 20 });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        toggleActions: 'play none none reverse',
-      },
-    });
+    const ctx = gsap.context(() => {
+      gsap.set([title, form], { opacity: 0, y: 50, filter: 'blur(10px)' });
+      gsap.set('.contact-input', { opacity: 0, x: -30 });
+      gsap.set('.social-icon',   { opacity: 0, scale: 0.5, y: 20 });
 
-    tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' })
-      .to(form,  { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1,   ease: 'power2.out' }, '-=0.7')
-      .to('.contact-input', { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1 }, '-=0.5')
-      .to('.social-icon',   { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)', stagger: 0.1 }, '-=0.3');
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse',
+        },
+      });
 
-    return () => { ScrollTrigger.getAll().forEach(t => t.kill()); };
+      tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' })
+        .to(form,  { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1,   ease: 'power2.out' }, '-=0.7')
+        .to('.contact-input', { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1 }, '-=0.5')
+        .to('.social-icon',   { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)', stagger: 0.1 }, '-=0.3');
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   // Countdown timer for rate-limit UI

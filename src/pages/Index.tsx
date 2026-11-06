@@ -12,15 +12,26 @@ import Footer from '../components/Footer';
 import ChatBot from '../components/ChatBot';
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // Preloader renders only on the client after hydration so prerendered HTML has no overlay
+  const [showPreloader, setShowPreloader] = useState(false);
+  const [isHeroReady, setIsHeroReady] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setIsHeroReady(true);
+      return;
+    }
+    setShowPreloader(true);
+  }, []);
 
   const handlePreloaderComplete = () => {
-    setIsLoading(false);
+    setShowPreloader(false);
+    setIsHeroReady(true);
   };
 
   useEffect(() => {
-    // Prevent scrolling during loading
-    if (isLoading) {
+    if (showPreloader) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -29,18 +40,18 @@ const Index = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isLoading]);
+  }, [showPreloader]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* Preloader */}
-      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+      {/* Preloader - client-only, skipped in SSR and reduced-motion */}
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
 
       {/* Main Content */}
-      <div className={isLoading ? 'hidden' : 'block'}>
+      <div>
         <Navigation />
         <main>
-          <HeroSection />
+          <HeroSection ready={isHeroReady} />
           <AboutSection />
           <ExperienceSection />
           <EducationSection />
