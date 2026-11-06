@@ -1,54 +1,43 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PaperPlaneTilt, GithubLogo, LinkedinLogo, EnvelopeSimple } from 'phosphor-react';
 import { profile } from '@/data';
 import { ContactForm } from './contact/ContactForm';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
+  useSectionReveal(sectionRef, () => {
     const form = formRef.current;
     const title = titleRef.current;
-    if (!section || !form || !title) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    gsap.set([title, form], { opacity: 0, y: 50, filter: 'blur(10px)' });
+    gsap.set('.contact-input', { opacity: 0, x: -30 });
+    gsap.set('.social-icon', { opacity: 0, scale: 0.5, y: 20 });
 
-    const ctx = gsap.context(() => {
-      gsap.set([title, form], { opacity: 0, y: 50, filter: 'blur(10px)' });
-      gsap.set('.contact-input', { opacity: 0, x: -30 });
-      gsap.set('.social-icon', { opacity: 0, scale: 0.5, y: 20 });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        ...SCROLL_TRIGGER_POINTS.standard,
+      },
+    });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'bottom 30%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' })
-        .to(form, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' }, '-=0.7')
-        .to('.contact-input', { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1 }, '-=0.5')
-        .to('.social-icon', { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)', stagger: 0.1 }, '-=0.3');
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    tl.to(title, { opacity: 1, y: 0, filter: 'blur(0px)', duration: ANIMATION_DURATION.slow, ease: ANIMATION_EASING.power2Out })
+      .to(form, { opacity: 1, y: 0, filter: 'blur(0px)', duration: ANIMATION_DURATION.slow, ease: ANIMATION_EASING.power2Out }, '-=0.7')
+      .to('.contact-input', { opacity: 1, x: 0, duration: 0.6, ease: ANIMATION_EASING.power2Out, stagger: 0.1 }, '-=0.5')
+      .to('.social-icon', { opacity: 1, scale: 1, y: 0, duration: ANIMATION_DURATION.fast, ease: ANIMATION_EASING.backOut, stagger: 0.1 }, '-=0.3');
+  });
 
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="py-20 md:py-32 px-6 relative overflow-hidden"
+      className="section-padding"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -61,18 +50,16 @@ const ContactSection = () => {
           {/* Left Column */}
           <div className="space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
-                <PaperPlaneTilt size={14} weight="bold" />
-                Get In Touch
-              </div>
-              <h2
+              <SectionHeader
                 ref={titleRef}
-                className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 leading-tight"
-              >
-                Let's Build Something <br />
-                <span className="text-primary">Extraordinary</span>
-              </h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet rounded-full opacity-50 mb-6" />
+                align="left"
+                badgeIcon={PaperPlaneTilt}
+                badgeText="Get In Touch"
+                titleNormal={<>Let's Build Something <br /></>}
+                titleAccent="Extraordinary"
+                headingClassName="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 leading-tight"
+                dividerClassName="mb-6"
+              />
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Whether you have a groundbreaking idea or just want to say hi, I'm always open to discussing new projects and opportunities.
               </p>

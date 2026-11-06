@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Briefcase, CalendarBlank } from 'phosphor-react';
 import { positionsOfResponsibility, otherExperiences } from '@/data';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
 
 const ExperienceSection = () => {
     const sectionRef = useRef<HTMLElement>(null);
@@ -12,72 +12,66 @@ const ExperienceSection = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const otherRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const section = sectionRef.current;
+    useSectionReveal(sectionRef, () => {
         const title = titleRef.current;
         const container = containerRef.current;
         const other = otherRef.current;
 
-        if (!section || !title || !container) return;
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const ctx = gsap.context(() => {
-            // Title Animation
+        // Title Animation
+        if (title) {
             gsap.fromTo(title,
                 { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    ease: 'power3.out',
+                    duration: ANIMATION_DURATION.normal,
+                    ease: ANIMATION_EASING.power3Out,
                     scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
+                        trigger: sectionRef.current,
+                        ...SCROLL_TRIGGER_POINTS.header,
                     }
                 }
             );
+        }
 
-            // Cards Animation
+        // Cards Animation
+        if (container) {
             const children = Array.from(container.children);
             gsap.fromTo(children,
                 { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
+                    duration: ANIMATION_DURATION.normal,
                     stagger: 0.15,
-                    ease: 'power3.out',
+                    ease: ANIMATION_EASING.power3Out,
                     scrollTrigger: {
                         trigger: container,
-                        start: 'top 85%',
+                        ...SCROLL_TRIGGER_POINTS.cards,
                     }
                 }
             );
+        }
 
-            // Other Experience animation
-            if (other) {
-                const otherChildren = Array.from(other.children);
-                gsap.fromTo(otherChildren,
-                    { y: 40, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.7,
-                        stagger: 0.15,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: other,
-                            start: 'top 90%',
-                        }
+        // Other Experience animation
+        if (other) {
+            const otherChildren = Array.from(other.children);
+            gsap.fromTo(otherChildren,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    stagger: 0.15,
+                    ease: ANIMATION_EASING.power3Out,
+                    scrollTrigger: {
+                        trigger: other,
+                        ...SCROLL_TRIGGER_POINTS.late,
                     }
-                );
-            }
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
+                }
+            );
+        }
+    });
 
     return (
         <section id="experience" ref={sectionRef} className="py-32 relative overflow-hidden">
@@ -87,16 +81,14 @@ const ExperienceSection = () => {
             <div className="container mx-auto px-6">
                 <div className="max-w-4xl mx-auto">
                     {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
-                            <Briefcase size={14} weight="bold" />
-                            Career &amp; Leadership
-                        </div>
-                        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
-                            Positions of <span className="text-primary">Responsibility</span>
-                        </h2>
-                        <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50" />
-                    </div>
+                    <SectionHeader
+                        ref={titleRef}
+                        className="mb-16"
+                        badgeIcon={Briefcase}
+                        badgeText="Career & Leadership"
+                        titleNormal="Positions of"
+                        titleAccent="Responsibility"
+                    />
 
                     {/* Positions of Responsibility */}
                     <div ref={containerRef} className="grid sm:grid-cols-2 gap-5">

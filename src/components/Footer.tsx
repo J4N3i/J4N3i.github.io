@@ -1,55 +1,47 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, GithubLogo, LinkedinLogo, EnvelopeSimple } from 'phosphor-react';
 import { profile, navItems as baseNavItems } from '@/data';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { ANIMATION_DURATION, ANIMATION_EASING } from '@/constants/animations';
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useSectionReveal(footerRef, () => {
     const footer = footerRef.current;
     if (!footer) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    // Initial state
+    gsap.set(footer, { opacity: 0, y: 60, filter: 'blur(10px)' });
 
-    const ctx = gsap.context(() => {
-      // Initial state
-      gsap.set(footer, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    // Scroll triggered animation
+    gsap.to(footer, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: ANIMATION_DURATION.slow,
+      ease: ANIMATION_EASING.power2Out,
+      scrollTrigger: {
+        trigger: footer,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    });
 
-      // Scroll triggered animation
-      gsap.to(footer, {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: footer,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      });
-
-      // Floating particles animation
-      gsap.to('.footer-particle', {
-        y: -20,
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        stagger: {
-          each: 2,
-          from: 'random'
-        }
-      });
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
+    // Floating particles animation
+    gsap.to('.footer-particle', {
+      y: -20,
+      duration: 6,
+      repeat: -1,
+      yoyo: true,
+      ease: ANIMATION_EASING.inOut,
+      stagger: {
+        each: 2,
+        from: 'random',
+      },
+    });
+  });
 
   const scrollToTop = () => {
     window.scrollTo({

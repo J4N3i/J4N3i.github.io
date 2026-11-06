@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { profile } from '@/data';
 import { HeroBackground } from './hero/HeroBackground';
 import { HeroCTA } from './hero/HeroCTA';
 import { HeroScrollIndicator } from './hero/HeroScrollIndicator';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { ANIMATION_DURATION, ANIMATION_EASING } from '@/constants/animations';
 
 interface HeroSectionProps {
   ready?: boolean;
@@ -19,27 +18,25 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!ready) return;
+  useSectionReveal({
+    scopeRef: heroRef,
+    enabled: ready,
+    deps: [ready],
+    animate: () => {
+      const hero = heroRef.current;
+      const headline = headlineRef.current;
+      const subtitle = subtitleRef.current;
+      const cta = ctaRef.current;
+      const scrollIndicator = scrollIndicatorRef.current;
 
-    const hero = heroRef.current;
-    const headline = headlineRef.current;
-    const subtitle = subtitleRef.current;
-    const cta = ctaRef.current;
-    const scrollIndicator = scrollIndicatorRef.current;
+      if (!hero) return;
 
-    if (!hero) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
       // Set initial states via JS so content is visible if JS fails
       if (headline && subtitle) {
         gsap.set([headline, subtitle], {
           opacity: 0,
           y: 50,
-          filter: 'blur(10px)'
+          filter: 'blur(10px)',
         });
       }
       if (cta) gsap.set(cta, { opacity: 0, y: 30, filter: 'blur(8px)' });
@@ -53,47 +50,59 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
-          duration: 1.2,
-          ease: 'power2.out'
+          duration: ANIMATION_DURATION.verySlow,
+          ease: ANIMATION_EASING.power2Out,
         });
       }
 
       if (subtitle) {
-        tl.to(subtitle, {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 1,
-          ease: 'power2.out'
-        }, '-=0.8');
+        tl.to(
+          subtitle,
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: ANIMATION_DURATION.slow,
+            ease: ANIMATION_EASING.power2Out,
+          },
+          '-=0.8'
+        );
       }
 
       if (cta) {
-        tl.to(cta, {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 0.8,
-          ease: 'power2.out'
-        }, '-=0.5');
+        tl.to(
+          cta,
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: ANIMATION_DURATION.normal,
+            ease: ANIMATION_EASING.power2Out,
+          },
+          '-=0.5'
+        );
       }
 
       if (scrollIndicator) {
-        tl.to(scrollIndicator, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out'
-        }, '-=0.2');
+        tl.to(
+          scrollIndicator,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: ANIMATION_EASING.power2Out,
+          },
+          '-=0.2'
+        );
 
         // Scroll indicator bounce loop
         gsap.to(scrollIndicator, {
           y: 8,
-          duration: 1.2,
+          duration: ANIMATION_DURATION.verySlow,
           repeat: -1,
           yoyo: true,
-          ease: 'power1.inOut',
-          delay: 1.5
+          ease: ANIMATION_EASING.inOut,
+          delay: 1.5,
         });
       }
 
@@ -105,24 +114,23 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
           trigger: hero,
           start: 'top top',
           end: 'bottom top',
-          scrub: true
-        }
+          scrub: true,
+        },
       });
-    }, heroRef);
+    },
+  });
 
-    // Hide scroll indicator when user scrolls
+  useEffect(() => {
     const hideOnScroll = () => {
-      if (window.scrollY > 100 && scrollIndicator) {
-        gsap.to(scrollIndicator, { opacity: 0, duration: 0.4 });
+      if (window.scrollY > 100 && scrollIndicatorRef.current) {
+        gsap.to(scrollIndicatorRef.current, { opacity: 0, duration: 0.4 });
       }
     };
     window.addEventListener('scroll', hideOnScroll, { passive: true });
-
     return () => {
       window.removeEventListener('scroll', hideOnScroll);
-      ctx.revert();
     };
-  }, [ready]);
+  }, []);
 
   return (
     <section

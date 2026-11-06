@@ -1,62 +1,56 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Medal, CalendarBlank } from 'phosphor-react';
 import { educationList } from '@/data';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
 
 const EducationSection = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const section = sectionRef.current;
+    useSectionReveal(sectionRef, () => {
         const title = titleRef.current;
         const container = containerRef.current;
 
-        if (!section || !title || !container) return;
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const ctx = gsap.context(() => {
-            // Title Animation
+        // Title Animation
+        if (title) {
             gsap.fromTo(title,
                 { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    ease: 'power3.out',
+                    duration: ANIMATION_DURATION.normal,
+                    ease: ANIMATION_EASING.power3Out,
                     scrollTrigger: {
-                        trigger: section,
-                        start: 'top 80%',
+                        trigger: sectionRef.current,
+                        ...SCROLL_TRIGGER_POINTS.header,
                     }
                 }
             );
+        }
 
-            // Cards Animation
+        // Cards Animation
+        if (container) {
             const children = Array.from(container.children);
             gsap.fromTo(children,
                 { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
+                    duration: ANIMATION_DURATION.normal,
                     stagger: 0.2,
-                    ease: 'power3.out',
+                    ease: ANIMATION_EASING.power3Out,
                     scrollTrigger: {
                         trigger: container,
-                        start: 'top 85%',
+                        ...SCROLL_TRIGGER_POINTS.cards,
                     }
                 }
             );
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
+        }
+    });
 
     return (
         <section id="education" ref={sectionRef} className="py-24 relative overflow-hidden">
@@ -66,16 +60,16 @@ const EducationSection = () => {
             <div className="container mx-auto px-6">
                 <div className="max-w-4xl mx-auto">
                     {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
-                            <Medal size={14} weight="bold" />
-                            Academic Background
-                        </div>
-                        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70">
-                            My <span className="text-accent-violet">Education</span>
-                        </h2>
-                        <div className="h-1 w-24 bg-gradient-to-r from-accent-violet to-primary mx-auto rounded-full opacity-50" />
-                    </div>
+                    <SectionHeader
+                        ref={titleRef}
+                        className="mb-16"
+                        badgeIcon={Medal}
+                        badgeText="Academic Background"
+                        titleNormal="My"
+                        titleAccent="Education"
+                        accentColorClass="text-accent-violet"
+                        dividerGradient="from-accent-violet to-primary"
+                    />
 
                     {/* Education Items */}
                     <div ref={containerRef} className="space-y-6">

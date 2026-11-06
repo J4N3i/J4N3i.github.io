@@ -1,66 +1,59 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, GithubLogo, FolderOpen } from 'phosphor-react';
 import { projects } from '@/data';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
+  useSectionReveal(sectionRef, () => {
     const title = titleRef.current;
-    const container = containerRef.current;
-
-    if (!section || !title || !container) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      // Initial states set via JS (content visible if JS fails)
+    if (title) {
       gsap.set(title, { opacity: 0, y: 50, filter: 'blur(10px)' });
-      gsap.set('.project-card', { opacity: 0, y: 60, scale: 0.9 });
+    }
+    gsap.set('.project-card', { opacity: 0, y: 60, scale: 0.9 });
 
-      // Scroll triggered animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'bottom 30%',
-          toggleActions: 'play none none reverse'
-        }
-      });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        ...SCROLL_TRIGGER_POINTS.standard,
+      },
+    });
 
+    if (title) {
       tl.to(title, {
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
-        duration: 1,
-        ease: 'power2.out'
-      })
-        .to('.project-card', {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: 'power2.out',
-          stagger: 0.15
-        }, '-=0.5');
-    }, sectionRef);
+        duration: ANIMATION_DURATION.slow,
+        ease: ANIMATION_EASING.power2Out,
+      });
+    }
 
-    return () => ctx.revert();
-  }, []);
+    tl.to(
+      '.project-card',
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: ANIMATION_DURATION.normal,
+        ease: ANIMATION_EASING.power2Out,
+        stagger: 0.15,
+      },
+      '-=0.5'
+    );
+  });
 
   return (
     <section
       id="projects"
       ref={sectionRef}
-      className="py-20 md:py-32 px-6 relative overflow-hidden"
+      className="section-padding"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -70,22 +63,14 @@ const ProjectsSection = () => {
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium uppercase tracking-wider mb-4">
-            <FolderOpen size={14} weight="bold" />
-            Selected Work
-          </div>
-          <h2
-            ref={titleRef}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70"
-          >
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-violet mx-auto rounded-full opacity-50 mb-6" />
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media.
-          </p>
-        </div>
+        <SectionHeader
+          ref={titleRef}
+          badgeIcon={FolderOpen}
+          badgeText="Selected Work"
+          titleNormal="Featured"
+          titleAccent="Projects"
+          subtitle="A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media."
+        />
 
         <div
           ref={containerRef}

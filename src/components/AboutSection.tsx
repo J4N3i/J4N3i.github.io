@@ -1,12 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Users } from 'phosphor-react';
 import { profile } from '@/data';
+import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ProfileCard } from './about/ProfileCard';
 import { SkillsGrid } from './about/SkillsGrid';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ANIMATION_DURATION, ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,72 +13,60 @@ const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
+  useSectionReveal(sectionRef, () => {
     const image = imageRef.current;
     const content = contentRef.current;
-    const skills = skillsRef.current;
+    if (!image || !content) return;
 
-    if (!section || !image || !content || !skills) return;
+    // Initial states set via JS (content visible if JS fails)
+    gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
+    gsap.set('.skill-icon', { opacity: 0, scale: 0.5, y: 30 });
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    // Scroll triggered animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        ...SCROLL_TRIGGER_POINTS.standard,
+      },
+    });
 
-    const ctx = gsap.context(() => {
-      // Initial states set via JS (content visible if JS fails)
-      gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
-      gsap.set('.skill-icon', { opacity: 0, scale: 0.5, y: 30 });
-
-      // Scroll triggered animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'bottom 30%',
-          toggleActions: 'play none none reverse',
+    tl.to(image, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: ANIMATION_DURATION.slow,
+      ease: ANIMATION_EASING.power2Out,
+    })
+      .to(
+        content,
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: ANIMATION_DURATION.slow,
+          ease: ANIMATION_EASING.power2Out,
         },
-      });
-
-      tl.to(image, {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 1,
-        ease: 'power2.out',
-      })
-        .to(
-          content,
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 1,
-            ease: 'power2.out',
-          },
-          '-=0.7'
-        )
-        .to(
-          '.skill-icon',
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'back.out(1.7)',
-            stagger: 0.1,
-          },
-          '-=0.5'
-        );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+        '-=0.7'
+      )
+      .to(
+        '.skill-icon',
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: ANIMATION_DURATION.fast,
+          ease: ANIMATION_EASING.backOut,
+          stagger: 0.1,
+        },
+        '-=0.5'
+      );
+  });
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="py-20 md:py-32 px-6 relative overflow-hidden"
+      className="section-padding"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -244,6 +244,11 @@
     text-shadow: 0 0 20px hsl(var(--primary));
   }
 
+  /* Section Layout */
+  .section-padding {
+    @apply py-20 md:py-32 px-6 relative overflow-hidden;
+  }
+
   /* Button Variants */
   .btn-neon {
     background: var(--gradient-primary);
