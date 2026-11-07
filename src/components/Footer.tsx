@@ -46,7 +46,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="border-t border-white/10 bg-transparent pt-10 pb-[max(6rem,calc(env(safe-area-inset-bottom)+5rem))] sm:py-10 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] sm:px-6 relative overflow-hidden"
+      className="border-t border-white/10 bg-transparent pt-8 sm:pt-10 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pb-10 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] sm:px-6 relative overflow-hidden"
     >
       <div className="container mx-auto max-w-6xl relative z-10 space-y-8">
         {/* Row 1: Brand Info, Nav Links, Social Buttons */}

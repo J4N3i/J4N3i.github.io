@@ -140,12 +140,12 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
       'p-1 rounded hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors';
   } else if (isContact) {
     containerStyles +=
-      ' w-full rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-foreground font-medium text-sm transition-colors min-w-0';
+      ' w-full min-h-[48px] rounded-xl bg-[#12141c] md:bg-white/5 hover:bg-white/10 border border-white/10 text-foreground font-medium text-sm transition-colors min-w-0';
     mainButtonStyles =
-      'flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-l-xl min-w-0';
+      'min-h-[48px] flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 hover:underline active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-l-xl min-w-0';
     dividerStyles = 'h-5 w-[1px] bg-white/10 flex-shrink-0';
     caretButtonStyles =
-      'px-3.5 py-3 flex items-center justify-center hover:bg-white/10 rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors flex-shrink-0';
+      'min-h-[48px] min-w-[44px] px-3.5 py-3 flex items-center justify-center hover:bg-white/10 active:scale-[0.96] rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors flex-shrink-0';
   }
 
   // Panel positioning: footer opens upward, others open downward
@@ -210,7 +210,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                 href={cv.href}
                 download={cv.filename}
                 onClick={handleSelectCv}
-                className="group flex flex-col gap-0.5 p-2.5 rounded-xl bg-transparent hover:bg-[#1e2230] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
+                className="group flex flex-col gap-0.5 p-2.5 rounded-xl bg-transparent hover:bg-[#1e2230] active:bg-[#252b3d] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold text-white group-hover:text-primary transition-colors">

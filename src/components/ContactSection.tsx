@@ -73,7 +73,11 @@ const ContactSection = () => {
   });
 
   return (
-    <section id="contact" ref={sectionRef} className="py-16 md:py-24 relative overflow-hidden">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="py-16 md:py-24 relative overflow-hidden scroll-mt-24"
+    >
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-start">
           {/* Left Column: Heading, Subtitle & Direct Actions */}

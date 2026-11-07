@@ -132,7 +132,7 @@ export const ContactForm = () => {
   const submitDisabled = isSubmitting || isOnCooldown;
 
   return (
-    <div className="relative bg-white/[0.03] border border-white/10 p-5 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl shadow-xl">
+    <div className="relative bg-[#12141c] md:bg-white/[0.03] border border-white/10 p-5 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl shadow-xl scroll-mt-24">
       <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send a Message</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
@@ -167,7 +167,7 @@ export const ContactForm = () => {
             maxLength={100}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'name-error' : undefined}
-            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
+            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 scroll-mt-24 scroll-mb-[120px] ${
               errors.name
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -203,7 +203,7 @@ export const ContactForm = () => {
             maxLength={200}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? 'email-error' : undefined}
-            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
+            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 scroll-mt-24 scroll-mb-[120px] ${
               errors.email
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -246,7 +246,7 @@ export const ContactForm = () => {
                     ? 'message-counter'
                     : undefined
             }
-            className={`w-full min-h-[120px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors resize-none focus-visible:ring-2 ${
+            className={`w-full min-h-[120px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors resize-none focus-visible:ring-2 scroll-mt-24 scroll-mb-[120px] ${
               errors.message
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
