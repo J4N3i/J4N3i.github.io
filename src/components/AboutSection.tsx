@@ -79,12 +79,6 @@ const AboutSection = () => {
 
   return (
     <section id="about" ref={sectionRef} className="section-padding">
-      {/* Background Elements - Hidden on mobile (<lg) for smooth scroll */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden lg:block">
-        <div className="orb w-96 h-96 top-1/4 -right-48 opacity-10 float-slow" />
-        <div className="orb w-64 h-64 bottom-1/4 -left-32 opacity-15 float-medium" />
-      </div>
-
       <div className="container mx-auto max-w-6xl relative z-10 space-y-20">
         {/* Intro Block */}
         <div ref={introRef} className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">

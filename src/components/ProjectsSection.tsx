@@ -48,12 +48,6 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" ref={sectionRef} className="section-padding">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="orb w-72 h-72 top-1/3 -left-36 opacity-10 float-medium" />
-        <div className="orb w-48 h-48 bottom-1/4 right-1/4 opacity-15 float-fast" />
-      </div>
-
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Title */}
         <SectionHeader
