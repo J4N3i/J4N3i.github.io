@@ -36,7 +36,7 @@ export const profile: Profile = {
   departmentRole: 'Vice President of the Computer Sciences Student Community',
   email: 'janeeshagamage02@gmail.com',
   phone: '+94 77 959 3243',
-  location: 'Udagama, Embilipitiya, Sri Lanka',
+  location: 'Sri Lanka',
   siteUrl: 'https://janeeshagamage.com',
   githubUrl: 'https://github.com/J4N3i',
   linkedinUrl: 'https://www.linkedin.com/in/janeesha-gamage-522717298',
