@@ -1,16 +1,9 @@
+import { footerNavItems } from '@/data';
 import { CvDownload } from '../CvDownload';
 
 interface FooterNavProps {
   onNavigate: (href: string) => void;
 }
-
-const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
-];
 
 export const FooterNav = ({ onNavigate }: FooterNavProps) => {
   return (
@@ -18,7 +11,7 @@ export const FooterNav = ({ onNavigate }: FooterNavProps) => {
       className="flex flex-wrap items-center justify-center gap-4 sm:gap-6"
       aria-label="Footer navigation"
     >
-      {navLinks.map((link) => (
+      {footerNavItems.map((link) => (
         <button
           key={link.label}
           type="button"

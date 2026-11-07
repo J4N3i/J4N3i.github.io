@@ -91,10 +91,10 @@ const Index = () => {
         <main id="main">
           <HeroSection ready={isHeroReady} startDelay={hasIntroDelay ? 0.1 : 0} />
           <AboutSection />
+          <ProjectsSection />
           <SkillsSection />
           <ExperienceSection />
           <EducationSection />
-          <ProjectsSection />
           <CertificationsSection />
           <ContactSection />
         </main>

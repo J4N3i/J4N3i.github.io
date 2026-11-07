@@ -152,3 +152,9 @@ export interface NavItem {
   label: string;
   href: string;
 }
+
+export interface SectionNavItem extends NavItem {
+  id: string;
+  showInNav: boolean;
+  showInFooter: boolean;
+}

@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useActiveSection } from '../useActiveSection';
 
+import { allSectionIds } from '@/data';
+
 describe('useActiveSection', () => {
   let observerCallback: (entries: IntersectionObserverEntry[]) => void;
   const mockObserve = vi.fn();
@@ -52,7 +54,7 @@ describe('useActiveSection', () => {
   });
 
   it('observes default section IDs when none provided', () => {
-    const defaultIds = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
+    const defaultIds = allSectionIds;
     const dummyDivs = defaultIds.map((id) => {
       const el = document.createElement('div');
       el.id = id;

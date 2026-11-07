@@ -23,6 +23,7 @@ describe('Portfolio Smoke Test', () => {
     expect(document.getElementById('home')).toBeInTheDocument();
     expect(document.getElementById('about')).toBeInTheDocument();
     expect(document.getElementById('projects')).toBeInTheDocument();
+    expect(document.getElementById('skills')).toBeInTheDocument();
     expect(document.getElementById('experience')).toBeInTheDocument();
     expect(document.getElementById('education')).toBeInTheDocument();
     expect(document.getElementById('certifications')).toBeInTheDocument();

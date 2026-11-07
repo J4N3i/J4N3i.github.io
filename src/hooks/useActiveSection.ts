@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-
-const DEFAULT_SECTION_IDS = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
+import { allSectionIds } from '@/data';
 
 export function useActiveSection(
-  sectionIds: string[] = DEFAULT_SECTION_IDS
+  sectionIds: string[] = allSectionIds
 ): [string, (href: string) => void] {
   const [activeHref, setActiveHref] = useState<string>('#home');
 
