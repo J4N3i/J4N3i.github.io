@@ -151,13 +151,14 @@ export const ContactForm = () => {
             id="name"
             name="name"
             autoComplete="name"
+            autoCapitalize="words"
             value={formData.name}
             onChange={handleChange}
             required
             maxLength={100}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'name-error' : undefined}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
+            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
               errors.name
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -184,13 +185,16 @@ export const ContactForm = () => {
             name="email"
             inputMode="email"
             autoComplete="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             value={formData.email}
             onChange={handleChange}
             required
             maxLength={200}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? 'email-error' : undefined}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
+            className={`w-full min-h-[48px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
               errors.email
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -221,18 +225,26 @@ export const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            rows={4}
+            rows={5}
             maxLength={2000}
             aria-invalid={Boolean(errors.message)}
-            aria-describedby={errors.message ? 'message-error message-counter' : 'message-counter'}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors resize-none focus-visible:ring-2 ${
+            aria-describedby={
+              errors.message && formData.message.length >= 1600
+                ? 'message-error message-counter'
+                : errors.message
+                  ? 'message-error'
+                  : formData.message.length >= 1600
+                    ? 'message-counter'
+                    : undefined
+            }
+            className={`w-full min-h-[120px] px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors resize-none focus-visible:ring-2 ${
               errors.message
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
             }`}
             placeholder="Tell me about the role or opportunity..."
           />
-          <div className="flex items-center justify-between text-xs px-1">
+          <div className="flex items-center justify-between text-xs px-1 min-h-[1.25rem]">
             {errors.message ? (
               <p id="message-error" role="alert" className="text-rose-400">
                 {errors.message}
@@ -240,9 +252,11 @@ export const ContactForm = () => {
             ) : (
               <span />
             )}
-            <p id="message-counter" className="text-white/60">
-              {formData.message.length}/2000
-            </p>
+            {formData.message.length >= 1600 && (
+              <p id="message-counter" className="text-xs text-white/60 ml-auto">
+                {formData.message.length}/2000
+              </p>
+            )}
           </div>
         </div>
 
