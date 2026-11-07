@@ -40,12 +40,17 @@ describe('HeroBackground', () => {
     expect(blobCyan.className).toContain('hero-drift-c');
 
     // Verify mobile optimization: blob 3 hidden on small screens, blobs 1 & 2 have smaller mobile sizes
-    expect(blobCyan.className).toContain('hidden');
-    expect(blobCyan.className).toContain('md:block');
+    expect(blobCyan.parentElement?.className).toContain('hidden');
+    expect(blobCyan.parentElement?.className).toContain('md:block');
     expect(blobPrimary.className).toContain('max-w-[260px]');
     expect(blobPrimary.className).toContain('md:max-w-[620px]');
     expect(blobViolet.className).toContain('max-w-[240px]');
     expect(blobViolet.className).toContain('md:max-w-[580px]');
+
+    // Verify parallax wrapper classes
+    expect(blobPrimary.parentElement?.className).toContain('hero-blob-parallax-1');
+    expect(blobViolet.parentElement?.className).toContain('hero-blob-parallax-2');
+    expect(blobCyan.parentElement?.className).toContain('hero-blob-parallax-3');
   });
 
   it('fades in on mount via CSS transition', () => {

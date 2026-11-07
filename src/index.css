@@ -590,11 +590,32 @@
   pointer-events: none;
 }
 
+.hero-blob-parallax-1 {
+  transform: translate3d(calc(var(--nx, 0) * 16px), calc(var(--ny, 0) * 16px), 0);
+  will-change: transform;
+}
+
+.hero-blob-parallax-2 {
+  transform: translate3d(calc(var(--nx, 0) * 28px), calc(var(--ny, 0) * 28px), 0);
+  will-change: transform;
+}
+
+.hero-blob-parallax-3 {
+  transform: translate3d(calc(var(--nx, 0) * 40px), calc(var(--ny, 0) * 40px), 0);
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-drift-a,
   .hero-drift-b,
   .hero-drift-c {
     animation: none !important;
+  }
+
+  .hero-blob-parallax-1,
+  .hero-blob-parallax-2,
+  .hero-blob-parallax-3 {
+    transform: none !important;
   }
 
   .hero-bg-fade {
