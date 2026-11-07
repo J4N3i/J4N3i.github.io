@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { List, X, GithubLogo, LinkedinLogo } from 'phosphor-react';
+import { List, X } from 'phosphor-react';
 import { gsap } from 'gsap';
 import { profile, cvOptions, navItems } from '@/data';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { ResumeDropdown } from './navigation/ResumeDropdown';
 import { MobileMenu } from './navigation/MobileMenu';
 
 const Navigation = () => {
@@ -105,35 +104,17 @@ const Navigation = () => {
                 </button>
               ))}
 
-              <ResumeDropdown options={cvOptions} />
+              <a
+                href={profile.cvs.devops.href}
+                download
+                className="ml-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                Download CV
+              </a>
             </div>
 
-            {/* Right col — socials + mobile hamburger */}
-            <div className="flex items-center gap-1">
-              <div className="hidden md:flex items-center gap-1">
-                <div className="h-6 w-px bg-white/10 mx-2" />
-                <a
-                  href={profile.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
-                  title="GitHub"
-                  aria-label="GitHub profile"
-                >
-                  <GithubLogo size={18} weight="fill" />
-                </a>
-                <a
-                  href={profile.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-white/60 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
-                  title="LinkedIn"
-                  aria-label="LinkedIn profile"
-                >
-                  <LinkedinLogo size={18} weight="fill" />
-                </a>
-              </div>
-
+            {/* Right col — mobile hamburger */}
+            <div className="flex items-center justify-end">
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
