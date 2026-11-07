@@ -7,10 +7,13 @@ export const ProfileCard = forwardRef<HTMLDivElement>((_props, ref) => {
       <div className="relative w-full max-w-[320px] sm:max-w-[360px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-surface-elevated/40 shadow-2xl shadow-black/40">
         <img
           src={aboutData.image.src}
+          srcSet={aboutData.image.srcSet}
+          sizes={aboutData.image.sizes}
           alt={aboutData.image.alt}
           width={aboutData.image.width}
           height={aboutData.image.height}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />

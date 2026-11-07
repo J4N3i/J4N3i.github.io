@@ -45,6 +45,15 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0, y: -10 });
 
       // Start animation immediately (or with short 0.1s handoff delay if intro played)
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const headlineDuration = isMobile ? 0.45 : ANIMATION_DURATION.verySlow;
+      const subtitleDuration = isMobile ? 0.35 : ANIMATION_DURATION.slow;
+      const subtitleStagger = isMobile ? '-=0.25' : '-=0.8';
+      const ctaDuration = isMobile ? 0.3 : ANIMATION_DURATION.normal;
+      const ctaStagger = isMobile ? '-=0.15' : '-=0.5';
+      const scrollDuration = isMobile ? 0.3 : 0.6;
+      const scrollStagger = isMobile ? '-=0.1' : '-=0.2';
+
       const tl = gsap.timeline({ delay: startDelay });
 
       if (headline) {
@@ -52,7 +61,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
-          duration: ANIMATION_DURATION.verySlow,
+          duration: headlineDuration,
           ease: ANIMATION_EASING.power2Out,
         });
       }
@@ -64,10 +73,10 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
             opacity: 1,
             y: 0,
             filter: 'blur(0px)',
-            duration: ANIMATION_DURATION.slow,
+            duration: subtitleDuration,
             ease: ANIMATION_EASING.power2Out,
           },
-          '-=0.8'
+          subtitleStagger
         );
       }
 
@@ -79,10 +88,10 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
             y: 0,
             filter: 'blur(0px)',
             clearProps: 'filter',
-            duration: ANIMATION_DURATION.normal,
+            duration: ctaDuration,
             ease: ANIMATION_EASING.power2Out,
           },
-          '-=0.5'
+          ctaStagger
         );
       }
 
@@ -92,10 +101,10 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: scrollDuration,
             ease: ANIMATION_EASING.power2Out,
           },
-          '-=0.2'
+          scrollStagger
         );
 
         // Scroll indicator bounce loop

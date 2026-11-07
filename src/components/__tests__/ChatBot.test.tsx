@@ -4,7 +4,7 @@ import ChatBot from '../ChatBot';
 
 describe('ChatBot component', () => {
   beforeEach(() => {
-    vi.useFakeTimers();
+    vi.useRealTimers();
   });
 
   it('does not render when ready is false', () => {
@@ -20,12 +20,12 @@ describe('ChatBot component', () => {
     expect(launcher).toHaveAttribute('aria-controls', 'chat-window');
   });
 
-  it('opens dialog on launcher click and renders header, initial message, and chips', () => {
+  it('opens dialog on launcher click and renders header, initial message, and chips', async () => {
     render(<ChatBot ready={true} />);
     const launcher = screen.getByRole('button', { name: /ask thea/i });
     fireEvent.click(launcher);
 
-    const dialog = screen.getByRole('dialog', { name: 'Chat with Thea' });
+    const dialog = await screen.findByRole('dialog', { name: 'Chat with Thea' });
     expect(dialog).toBeInTheDocument();
     expect(dialog).toHaveAttribute('aria-modal', 'false');
 
@@ -51,43 +51,43 @@ describe('ChatBot component', () => {
     const launcher = screen.getByRole('button', { name: /ask thea/i });
     fireEvent.click(launcher);
 
-    const projectsChip = screen.getByRole('button', { name: 'Projects' });
+    const projectsChip = await screen.findByRole('button', { name: 'Projects' });
     fireEvent.click(projectsChip);
 
     // User message bubble should appear immediately
     expect(screen.getAllByText('Projects').length).toBeGreaterThanOrEqual(2);
 
     // Fast forward past typing indicator (300ms)
-    act(() => {
-      vi.advanceTimersByTime(350);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 350));
     });
 
     // Bot reply should appear
     expect(screen.getByText(/Here are three of Janeesha's featured projects/i)).toBeInTheDocument();
   });
 
-  it('closes dialog on Escape key and returns focus', () => {
+  it('closes dialog on Escape key and returns focus', async () => {
     render(<ChatBot ready={true} />);
     const launcher = screen.getByRole('button', { name: /ask thea/i });
     fireEvent.click(launcher);
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
 
     fireEvent.keyDown(window, { key: 'Escape' });
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  it('clears chat back to initial message on Clear chat click', () => {
+  it('clears chat back to initial message on Clear chat click', async () => {
     render(<ChatBot ready={true} />);
     const launcher = screen.getByRole('button', { name: /ask thea/i });
     fireEvent.click(launcher);
 
-    const cvChip = screen.getByRole('button', { name: 'CV' });
+    const cvChip = await screen.findByRole('button', { name: 'CV' });
     fireEvent.click(cvChip);
 
-    act(() => {
-      vi.advanceTimersByTime(350);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 350));
     });
 
     // Bot CV response should be visible

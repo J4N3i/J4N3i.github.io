@@ -131,6 +131,8 @@ export interface AboutImage {
   alt: string;
   width: number;
   height: number;
+  srcSet?: string;
+  sizes?: string;
 }
 
 export interface AboutData {

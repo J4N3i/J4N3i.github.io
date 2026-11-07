@@ -1,12 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react';
 import { ChatCircleDots, X } from 'phosphor-react';
-import { ChatWindow } from './chatbot/ChatWindow';
-import {
-  INITIAL_MESSAGES,
-  INITIAL_MESSAGE,
-  generateBotReply,
-  type ChatMessageItem,
-} from '@/lib/chatbot';
+
+const ChatPanel = lazy(() => import('./chatbot/ChatPanel'));
 
 export interface ChatBotProps {
   ready?: boolean;
@@ -14,10 +9,7 @@ export interface ChatBotProps {
 
 const ChatBot = ({ ready = true }: ChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessageItem[]>(INITIAL_MESSAGES);
-  const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const launcherButtonRef = useRef<HTMLButtonElement>(null);
   const wasOpenRef = useRef(false);
 
@@ -43,49 +35,17 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
     };
   }, [isOpen]);
 
-  const toggleChat = () => setIsOpen((prev) => !prev);
+  const toggleChat = () => {
+    setHasBeenOpened(true);
+    setIsOpen((prev) => !prev);
+  };
+
   const handleClose = useCallback(() => setIsOpen(false), []);
 
-  const handleClearChat = useCallback(() => {
-    setMessages([INITIAL_MESSAGE]);
-    setIsTyping(false);
-  }, []);
-
-  const handleSendMessage = useCallback(
-    (textToSend?: string) => {
-      const text = (textToSend ?? inputValue).trim();
-      if (!text) return;
-
-      const userMessage: ChatMessageItem = {
-        id: `u-${Date.now()}`,
-        text,
-        sender: 'user',
-      };
-
-      setMessages((prev) => [...prev, userMessage]);
-      setInputValue('');
-      setIsTyping(true);
-
-      const prefersReduced =
-        typeof window !== 'undefined' &&
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const delay = prefersReduced ? 0 : 300;
-
-      setTimeout(() => {
-        const reply = generateBotReply(text);
-        const botMessage: ChatMessageItem = {
-          id: `b-${Date.now()}`,
-          text: reply.text,
-          sender: 'bot',
-          actions: reply.actions,
-          chips: reply.chips,
-        };
-        setMessages((prev) => [...prev, botMessage]);
-        setIsTyping(false);
-      }, delay);
-    },
-    [inputValue]
-  );
+  const handlePrefetch = () => {
+    // Speculatively load chunk on hover or focus
+    import('./chatbot/ChatPanel');
+  };
 
   if (!ready) {
     return null;
@@ -97,23 +57,20 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
       className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none"
     >
       <div className="pointer-events-auto flex flex-col items-end">
-        {/* Chat Window Dialog */}
-        <ChatWindow
-          isOpen={isOpen}
-          onClose={handleClose}
-          onClearChat={handleClearChat}
-          messages={messages}
-          isTyping={isTyping}
-          inputValue={inputValue}
-          onInputChange={setInputValue}
-          onSendMessage={handleSendMessage}
-        />
+        {/* Lazy loaded Chat Window Dialog */}
+        {hasBeenOpened && (
+          <Suspense fallback={null}>
+            <ChatPanel isOpen={isOpen} onClose={handleClose} />
+          </Suspense>
+        )}
 
         {/* Solid Compact Launcher Button (48px) */}
         <button
           ref={launcherButtonRef}
           type="button"
           onClick={toggleChat}
+          onMouseEnter={handlePrefetch}
+          onFocus={handlePrefetch}
           aria-label={isOpen ? 'Close chat assistant' : 'Ask Thea - open chat assistant'}
           aria-expanded={isOpen}
           aria-controls="chat-window"

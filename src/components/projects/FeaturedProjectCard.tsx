@@ -20,6 +20,7 @@ export const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
           width="800"
           height="500"
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
         />
         <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary/90 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-sm shadow-md">
