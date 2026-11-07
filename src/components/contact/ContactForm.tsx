@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PaperPlaneTilt, Timer } from 'phosphor-react';
 import { sendContactEmail } from '@/lib/email';
 import { profile } from '@/data';
@@ -22,6 +22,7 @@ export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const statusRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (cooldownLeft <= 0) return;
@@ -96,9 +97,19 @@ export const ContactForm = () => {
       setFormData({ name: '', email: '', message: '' });
       setSelectedTopic(null);
       setErrors({});
+      setTimeout(() => {
+        if (typeof statusRef.current?.scrollIntoView === 'function') {
+          statusRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 50);
     } catch (err) {
       console.error('EmailJS error:', err);
       setStatus('error');
+      setTimeout(() => {
+        if (typeof statusRef.current?.scrollIntoView === 'function') {
+          statusRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 50);
     } finally {
       setIsSubmitting(false);
     }
@@ -111,7 +122,9 @@ export const ContactForm = () => {
     <div className="relative bg-white/[0.03] border border-white/10 p-6 sm:p-8 rounded-3xl shadow-xl">
       <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send a Message</h3>
 
-      <FormStatusBanner status={status} />
+      <div ref={statusRef}>
+        <FormStatusBanner status={status} />
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-5" noValidate>
         {/* Honeypot */}
@@ -137,13 +150,14 @@ export const ContactForm = () => {
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             value={formData.name}
             onChange={handleChange}
             required
             maxLength={100}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'name-error' : undefined}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-sm transition-colors focus-visible:ring-2 ${
+            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
               errors.name
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -168,13 +182,15 @@ export const ContactForm = () => {
             type="email"
             id="email"
             name="email"
+            inputMode="email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             required
             maxLength={200}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? 'email-error' : undefined}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-sm transition-colors focus-visible:ring-2 ${
+            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors focus-visible:ring-2 ${
               errors.email
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
@@ -200,6 +216,8 @@ export const ContactForm = () => {
           <textarea
             id="message"
             name="message"
+            autoCapitalize="sentences"
+            enterKeyHint="send"
             value={formData.message}
             onChange={handleChange}
             required
@@ -207,7 +225,7 @@ export const ContactForm = () => {
             maxLength={2000}
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? 'message-error message-counter' : 'message-counter'}
-            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-sm transition-colors resize-none focus-visible:ring-2 ${
+            className={`w-full px-4 py-3 rounded-xl bg-background/50 border text-foreground placeholder-white/40 focus:outline-none text-base transition-colors resize-none focus-visible:ring-2 ${
               errors.message
                 ? 'border-rose-500/70 focus-visible:ring-rose-500'
                 : 'border-white/10 focus:border-primary/50 focus-visible:ring-primary'
