@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { usePointerGlow } from '@/hooks/usePointerGlow';
 
 export const HeroBackground = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+
+  usePointerGlow(containerRef);
 
   useEffect(() => {
     setMounted(true);
@@ -9,6 +13,7 @@ export const HeroBackground = () => {
 
   return (
     <div
+      ref={containerRef}
       className={`absolute inset-0 z-0 pointer-events-none overflow-hidden hero-bg-fade ${
         mounted ? 'opacity-100' : 'opacity-0'
       }`}
