@@ -560,4 +560,8 @@
   .hero-drift-c {
     animation: none !important;
   }
+
+  .hero-bg-fade {
+    transition: none !important;
+  }
 }

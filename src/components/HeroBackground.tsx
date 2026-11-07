@@ -19,19 +19,19 @@ export const HeroBackground = () => {
 
       {/* Layer 2: Animated Colour Blobs */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Blob 1: Primary (top-left) */}
+        {/* Blob 1: Primary (top-left) - reduced size on mobile (< 768px) to minimize GPU load */}
         <div
           data-testid="hero-blob-primary"
-          className="absolute -top-[5%] -left-[5%] w-[55vw] h-[55vw] max-w-[620px] max-h-[620px] min-w-[280px] min-h-[280px] rounded-full bg-primary/30 blur-3xl hero-drift-a"
+          className="absolute -top-[5%] -left-[5%] w-[45vw] h-[45vw] max-w-[260px] max-h-[260px] md:w-[55vw] md:h-[55vw] md:max-w-[620px] md:max-h-[620px] rounded-full bg-primary/30 blur-3xl hero-drift-a"
         />
 
-        {/* Blob 2: Accent Violet (bottom-right) */}
+        {/* Blob 2: Accent Violet (bottom-right) - reduced size on mobile */}
         <div
           data-testid="hero-blob-violet"
-          className="absolute -bottom-[10%] -right-[5%] w-[50vw] h-[50vw] max-w-[580px] max-h-[580px] min-w-[260px] min-h-[260px] rounded-full bg-accent-violet/25 blur-3xl hero-drift-b"
+          className="absolute -bottom-[10%] -right-[5%] w-[40vw] h-[40vw] max-w-[240px] max-h-[240px] md:w-[50vw] md:h-[50vw] md:max-w-[580px] md:max-h-[580px] rounded-full bg-accent-violet/25 blur-3xl hero-drift-b"
         />
 
-        {/* Blob 3: Accent Cyan (top/center-right, desktop only) */}
+        {/* Blob 3: Accent Cyan (top/center-right, rendered only on screens >= 768px) */}
         <div
           data-testid="hero-blob-cyan"
           className="hidden md:block absolute top-[15%] right-[10%] w-[42vw] h-[42vw] max-w-[500px] max-h-[500px] rounded-full bg-accent-cyan/25 blur-3xl hero-drift-c"
