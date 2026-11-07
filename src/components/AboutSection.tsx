@@ -104,7 +104,7 @@ const AboutSection = () => {
         <WhatIDoRow ref={whatIDoRef} />
 
         {/* Skills Grid */}
-        <SkillsGrid skillsRef={skillsRef} />
+        <SkillsGrid ref={skillsRef} />
       </div>
     </section>
   );
