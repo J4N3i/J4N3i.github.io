@@ -78,6 +78,17 @@ const Index = () => {
     setIsHeroReady(true);
   }, []);
 
+  // Failsafe: force remove preloader overlay after 2.5s if anything hangs
+  useEffect(() => {
+    if (!showPreloader) return;
+
+    const timer = setTimeout(() => {
+      handlePreloaderComplete();
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [showPreloader, handlePreloaderComplete]);
+
   useEffect(() => {
     if (showPreloader) {
       document.body.style.overflow = 'hidden';
