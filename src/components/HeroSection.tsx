@@ -10,9 +10,10 @@ import { ANIMATION_DURATION, ANIMATION_EASING } from '@/constants/animations';
 
 interface HeroSectionProps {
   ready?: boolean;
+  startDelay?: number;
 }
 
-const HeroSection = ({ ready = true }: HeroSectionProps) => {
+const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
