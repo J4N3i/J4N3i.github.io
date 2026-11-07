@@ -1,57 +1,140 @@
 import { describe, it, expect } from 'vitest';
-import { determineIntent, generateBotResponse, INITIAL_MESSAGES } from '../chatbot';
-import { profile } from '@/data';
+import {
+  determineIntent,
+  generateBotReply,
+  generateBotResponse,
+  INITIAL_MESSAGE,
+  INITIAL_MESSAGES,
+  INTENT_PRIORITY,
+  type Intent,
+} from '../chatbot';
 
-describe('Chatbot Logic', () => {
-  it('identifies skills and tech stack intent accurately', () => {
-    expect(determineIntent('tell me about your skills and tech stack')).toBe('skills');
-    expect(determineIntent('what devops and docker tools do you use?')).toBe('skills');
-    expect(determineIntent('do you know react and typescript?')).toBe('skills');
+describe('Chatbot Logic & Intent Matching', () => {
+  it('"Can I hire you?" resolves to availability (not greeting)', () => {
+    const intent = determineIntent('Can I hire you?');
+    expect(intent).toBe('availability');
+    expect(intent).not.toBe('greeting');
   });
 
-  it('identifies projects intent accurately', () => {
-    expect(determineIntent('show me your portfolio projects')).toBe('projects');
-    expect(determineIntent('what work have you created?')).toBe('projects');
+  it('"hi" resolves to greeting', () => {
+    expect(determineIntent('hi')).toBe('greeting');
   });
 
-  it('identifies contact and hire intent accurately', () => {
-    expect(determineIntent('how can I contact or hire you?')).toBe('contact');
-    expect(determineIntent('can I send an email or reach out?')).toBe('contact');
+  it('"this is great" does not match greeting', () => {
+    const intent = determineIntent('this is great');
+    expect(intent).not.toBe('greeting');
+    expect(intent).toBe('thanks');
   });
 
-  it('identifies resume / cv intent', () => {
-    expect(determineIntent('can I download your cv or resume?')).toBe('resume');
+  it('"send me your CV" resolves to cv', () => {
+    expect(determineIntent('send me your CV')).toBe('cv');
   });
 
-  it('identifies about intent', () => {
-    expect(determineIntent('who are you and what is your bio?')).toBe('about');
-    expect(determineIntent('tell me about yourself and your background at sliit')).toBe('about');
+  it('"what stack do you use" resolves to skills', () => {
+    expect(determineIntent('what stack do you use')).toBe('skills');
   });
 
-  it('identifies greetings', () => {
-    expect(determineIntent('hello there!')).toBe('greeting');
-    expect(determineIntent('hey')).toBe('greeting');
+  it('"what projects have you built" resolves to projects', () => {
+    expect(determineIntent('what projects have you built')).toBe('projects');
   });
 
-  it('returns unknown for unrecognized input', () => {
+  it('gibberish input resolves to unknown', () => {
     expect(determineIntent('1234567890qwerty')).toBe('unknown');
+    expect(determineIntent('   ')).toBe('unknown');
+    expect(determineIntent('')).toBe('unknown');
   });
 
-  it('generates appropriate response text for intents', () => {
-    const skillsRes = generateBotResponse('what skills do you have?');
-    expect(skillsRes).toContain('Docker');
-    expect(skillsRes).toContain('Azure');
-
-    const contactRes = generateBotResponse('how to contact you?');
-    expect(contactRes).toContain(profile.email);
-    expect(contactRes).toContain(profile.linkedinUrl);
-
-    const unknownRes = generateBotResponse('asdfghjkl12345');
-    expect(unknownRes.length).toBeGreaterThan(10);
+  it('resolves experience, education, contact and about intents correctly', () => {
+    expect(determineIntent('tell me about your leadership experience')).toBe('experience');
+    expect(determineIntent('where did you study education')).toBe('education');
+    expect(determineIntent('how do I contact reach email')).toBe('contact');
+    expect(determineIntent('who are you tell me about yourself')).toBe('about');
   });
 
-  it('contains initial welcome messages', () => {
-    expect(INITIAL_MESSAGES.length).toBeGreaterThan(0);
-    expect(INITIAL_MESSAGES[0].sender).toBe('bot');
+  it('ensures ties respect specificity priority', () => {
+    // Both 'hire' (availability) and 'talk' (contact) present => availability wins
+    expect(determineIntent('can we talk about hire')).toBe('availability');
+    // Both 'resume' (cv) and 'project' (projects) present => cv wins
+    expect(determineIntent('resume project')).toBe('cv');
+  });
+
+  it('returns structured replies with valid text, actions and chips', () => {
+    const reply = generateBotReply('Can I hire you?');
+    expect(reply.text).toContain('internships');
+    expect(reply.actions?.length).toBeGreaterThan(0);
+    expect(reply.chips?.length).toBeGreaterThan(0);
+
+    const cvReply = generateBotReply('download your cv');
+    expect(cvReply.actions?.every((a) => a.download === true)).toBe(true);
+
+    const contactReply = generateBotReply('contact');
+    expect(contactReply.actions?.some((a) => a.copy)).toBe(true);
+
+    const unknownReply = generateBotReply('asdfghjkl12345');
+    expect(unknownReply.text).toBe(
+      "I don't have an answer for that yet. Pick a topic below, or send Janeesha a message."
+    );
+  });
+
+  it('initial message matches expected prompt structure', () => {
+    expect(INITIAL_MESSAGE.text).toBe(
+      "Hi, I'm Thea. I can answer quick questions about Janeesha's work. What would you like to know?"
+    );
+    expect(INITIAL_MESSAGE.chips).toEqual([
+      'About',
+      'Projects',
+      'Skills',
+      'Experience',
+      'CV',
+      'Contact',
+    ]);
+    expect(INITIAL_MESSAGES.length).toBe(1);
+  });
+
+  it('no reply ever contains a phone number pattern or gendered pronouns ("he", "his", "him")', () => {
+    // Phone numbers like +94 77 959 3243, 077-959-3243, +1 (555) 123-4567
+    const phonePattern = /(?:\+\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{4}\b/;
+    const genderedPattern = /\b(he|his|him)\b/i;
+
+    const testInputs = [
+      'Can I hire you?',
+      'send me your CV',
+      'what stack do you use',
+      'what projects have you built',
+      'hi',
+      'this is great',
+      '1234567890qwerty',
+      'tell me about your leadership experience',
+      'where did you study',
+      'how can I contact you',
+      'who are you and tell me about yourself',
+      ...INTENT_PRIORITY,
+    ];
+
+    for (const input of testInputs) {
+      const reply = generateBotReply(input);
+      const plainText = generateBotResponse(input);
+
+      // Verify no gendered pronouns
+      expect(reply.text).not.toMatch(genderedPattern);
+      expect(plainText).not.toMatch(genderedPattern);
+
+      // Verify no phone number in reply text
+      expect(reply.text).not.toMatch(phonePattern);
+      expect(plainText).not.toMatch(phonePattern);
+      expect(reply.text).not.toContain('77 959 3243');
+
+      // Verify actions do not have phone numbers or tel: protocols
+      if (reply.actions) {
+        for (const action of reply.actions) {
+          if (action.href) {
+            expect(action.href).not.toContain('tel:');
+          }
+          if (action.copy) {
+            expect(action.copy).not.toMatch(phonePattern);
+          }
+        }
+      }
+    }
   });
 });
