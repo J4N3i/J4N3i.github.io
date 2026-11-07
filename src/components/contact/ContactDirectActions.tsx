@@ -73,7 +73,7 @@ export const ContactDirectActions = () => {
       <a
         href={profile.cvs.devops.href}
         download
-        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-foreground font-medium text-sm transition-colors focus-visible:ring-2 focus-visible:ring-primary"
+        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 hover:underline border border-white/10 text-foreground font-medium text-sm transition-colors focus-visible:ring-2 focus-visible:ring-primary"
       >
         <DownloadSimple size={18} weight="bold" className="text-primary" />
         <span>Download CV (DevOps)</span>

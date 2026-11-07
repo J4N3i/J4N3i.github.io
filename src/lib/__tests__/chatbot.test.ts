@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { determineIntent, generateBotResponse, INITIAL_MESSAGES } from '../chatbot';
+import { profile } from '@/data';
 
 describe('Chatbot Logic', () => {
   it('identifies skills and tech stack intent accurately', () => {
@@ -42,7 +43,8 @@ describe('Chatbot Logic', () => {
     expect(skillsRes).toContain('Azure');
 
     const contactRes = generateBotResponse('how to contact you?');
-    expect(contactRes).toContain('reach');
+    expect(contactRes).toContain(profile.email);
+    expect(contactRes).toContain(profile.linkedinUrl);
 
     const unknownRes = generateBotResponse('asdfghjkl12345');
     expect(unknownRes.length).toBeGreaterThan(10);

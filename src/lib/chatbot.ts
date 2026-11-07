@@ -94,13 +94,13 @@ export function generateBotResponse(input: string): string {
       return `He has worked on some cool stuff! For example:\n1. ${projects[0].title} - ${projects[0].oneLiner}\n2. ${projects[1].title} - ${projects[1].oneLiner}`;
 
     case 'contact':
-      return `You can reach him at ${profile.email} or call ${profile.phone}. He's also on LinkedIn!`;
+      return `The quickest way to reach Janeesha is via LinkedIn (${profile.linkedinUrl}) or by email at ${profile.email}. He is open to DevOps and full-stack internships!`;
 
     case 'about':
       return profile.bio;
 
     case 'resume':
-      return "I can't send files directly yet, but you can download his CV via the Resume button in the navigation or contact form below!";
+      return `You can download his CV directly: ${profile.cvs.devops.label} (${profile.cvs.devops.href}) or choose other specializations in the navigation bar dropdown.`;
 
     default:
       return "I'm not quite sure about that. Try asking about 'skills', 'projects', or 'contact info'!";
