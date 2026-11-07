@@ -85,7 +85,7 @@ const ContactSection = () => {
               badgeText="Contact"
               titleNormal="Let's"
               titleAccent="talk."
-              headingClassName="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight"
+              headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
               subtitle="I'm looking for DevOps and full-stack internships. The quickest way to reach me is LinkedIn or email, and I'm happy to share my CV."
               hasDivider={false}
             />

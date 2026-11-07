@@ -11,7 +11,7 @@ export const AboutIntro = forwardRef<HTMLDivElement>((_props, ref) => {
           {aboutData.badge}
         </div>
 
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+        <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground leading-tight">
           I like building things that work, and keeping them{' '}
           <span className="text-primary">working</span>.
         </h2>

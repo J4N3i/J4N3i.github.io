@@ -64,8 +64,8 @@ const Navigation = ({ ready = true }: NavigationProps) => {
         aria-label="Main navigation"
         className={`fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full border shadow-2xl shadow-black/50 transition-all duration-300 ${
           isScrolled
-            ? 'top-4 bg-background/85 border-white/15 backdrop-blur-xl'
-            : 'top-6 bg-white/5 border-white/20 backdrop-blur-xl'
+            ? 'top-[max(1rem,env(safe-area-inset-top))] bg-background/85 border-white/15 backdrop-blur-xl'
+            : 'top-[max(1.5rem,calc(env(safe-area-inset-top)+0.5rem))] bg-white/5 border-white/20 backdrop-blur-xl'
         }`}
       >
         {/* Top Shine Reflection */}

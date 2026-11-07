@@ -80,7 +80,7 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
   return (
     <aside
       aria-label="Assistant"
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] pointer-events-none"
+      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none"
     >
       <div className="pointer-events-auto flex flex-col items-end">
         {/* Chat Window Dialog */}

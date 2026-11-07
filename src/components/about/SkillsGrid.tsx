@@ -11,7 +11,7 @@ export const SkillsGrid = forwardRef<HTMLDivElement>((_props, ref) => {
         badgeText="Skills"
         titleNormal="Tools I work with"
         titleAccent=""
-        headingClassName="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+        headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
         subtitle="Grouped by what I use them for."
         hasDivider={false}
         align="center"

@@ -65,7 +65,7 @@ const EducationSection = () => {
           badgeText="Education"
           titleNormal="Academic"
           titleAccent="Background"
-          headingClassName="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+          headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
           subtitle="Foundational training in computer science, software systems, and engineering."
           hasDivider={false}
           align="center"

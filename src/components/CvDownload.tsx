@@ -81,7 +81,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                       {cv.label}
                     </span>
                     {isRecommended && (
-                      <span className="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
+                      <span className="text-xs font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
                         Recommended
                       </span>
                     )}
@@ -196,7 +196,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
         }`}
       >
         <div className="px-2.5 py-1.5 border-b border-white/10 mb-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
             Select a tailored CV
           </p>
         </div>
@@ -217,7 +217,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                     {cv.label}
                   </span>
                   {isRecommended ? (
-                    <span className="text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-[#1e293b] text-primary border border-primary/40">
+                    <span className="text-xs font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-[#1e293b] text-primary border border-primary/40">
                       Recommended
                     </span>
                   ) : (

@@ -135,9 +135,9 @@ export const MobileMenu = ({
         inert={!isOpen ? '' : undefined}
         aria-hidden={!isOpen}
         style={{ visibility: isVisible || isOpen ? 'visible' : 'hidden' }}
-        className="fixed top-0 right-0 h-full w-80 max-w-[85vw] z-40 glass-card backdrop-blur-md md:hidden transform translate-x-full overflow-y-auto"
+        className="fixed top-0 right-0 h-[100dvh] max-h-[100dvh] w-80 max-w-[85vw] z-40 glass-card backdrop-blur-md md:hidden transform translate-x-full overflow-y-auto"
       >
-        <div className="p-6 pt-20">
+        <div className="p-6 pt-[max(5rem,calc(env(safe-area-inset-top)+4rem))] pb-[max(1.5rem,env(safe-area-inset-bottom))] pr-[max(1.5rem,env(safe-area-inset-right))]">
           <div className="flex flex-col space-y-2">
             {navItems.map((item) => {
               const isCurrent = activeHref === item.href;

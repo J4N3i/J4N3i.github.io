@@ -138,7 +138,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero py-16 sm:py-24"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-hero py-16 sm:py-24"
     >
       <HeroBackground />
 
@@ -155,7 +155,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
 
         <h1
           ref={headlineRef}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-2 sm:mb-3 leading-tight cursor-default"
+          className="text-[clamp(2.15rem,7vw,4.5rem)] font-bold tracking-tight mb-2 sm:mb-3 leading-[1.12] cursor-default"
         >
           <span className="block text-foreground drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.01] transform origin-center">
             {profile.name}
@@ -168,7 +168,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
 
         <p
           ref={subtitleRef}
-          className="text-base sm:text-xl md:text-2xl font-light text-foreground/90 mb-5 sm:mb-7 max-w-2xl mx-auto leading-relaxed"
+          className="text-[clamp(1rem,2.5vw,1.25rem)] font-light text-foreground/90 mb-5 sm:mb-7 max-w-2xl mx-auto leading-relaxed"
         >
           {profile.headline}
         </p>

@@ -65,7 +65,7 @@ const ExperienceSection = () => {
           badgeText="Experience"
           titleNormal="Experience &"
           titleAccent="Leadership"
-          headingClassName="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+          headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
           subtitle="Practical leadership, community building, and operational discipline."
           hasDivider={false}
           align="center"

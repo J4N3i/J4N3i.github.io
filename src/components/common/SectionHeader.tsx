@@ -44,7 +44,7 @@ export const SectionHeader = forwardRef<HTMLHeadingElement, SectionHeaderProps>(
         : 'bg-white/5 border border-white/10 text-white/60';
 
     const defaultHeadingStyle =
-      'text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70';
+      'text-[clamp(1.75rem,5vw,3rem)] font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 leading-tight';
 
     return (
       <div className={`${isCenter ? 'text-center mb-12 md:mb-16' : ''} ${className}`}>

@@ -133,7 +133,7 @@ const CertificationsSection = () => {
           badgeText="Credentials"
           titleNormal="Certifications &"
           titleAccent="Learning"
-          headingClassName="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+          headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
           subtitle="Verified training and technical coursework in software engineering."
           hasDivider={false}
           align="center"

@@ -106,7 +106,7 @@ export const ChatWindow = ({
           </div>
           <div>
             <h3 className="font-semibold text-foreground text-sm leading-tight">Thea</h3>
-            <p className="text-[11px] text-muted-foreground leading-tight">
+            <p className="text-xs text-muted-foreground leading-tight">
               Quick answers about Janeesha
             </p>
           </div>

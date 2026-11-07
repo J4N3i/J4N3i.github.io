@@ -103,7 +103,7 @@ const Index = () => {
   }, [showPreloader]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+    <div className="min-h-[100svh] bg-background text-foreground overflow-x-hidden relative">
       {/* Site-wide calm background */}
       <SiteBackground />
 

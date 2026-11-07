@@ -272,7 +272,7 @@
 
   /* Section Layout */
   .section-padding {
-    @apply py-20 md:py-32 px-6 relative overflow-hidden;
+    @apply py-16 md:py-32 px-4 sm:px-6 relative overflow-hidden;
   }
 
   /* Button Variants */

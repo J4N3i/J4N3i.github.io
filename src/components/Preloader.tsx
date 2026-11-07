@@ -84,7 +84,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background cursor-pointer select-none"
+      className="fixed inset-0 min-h-[100svh] h-[100dvh] z-50 flex items-center justify-center bg-background cursor-pointer select-none"
       role="status"
       aria-label="Welcome introduction"
     >
