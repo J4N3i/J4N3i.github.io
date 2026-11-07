@@ -91,7 +91,7 @@ export function generateBotResponse(input: string): string {
       );
 
     case 'projects':
-      return `He has worked on some cool stuff! For example:\n1. ${projects[0].title} - ${projects[0].desc}\n2. ${projects[1].title} - ${projects[1].desc}`;
+      return `He has worked on some cool stuff! For example:\n1. ${projects[0].title} - ${projects[0].oneLiner}\n2. ${projects[1].title} - ${projects[1].oneLiner}`;
 
     case 'contact':
       return `You can reach him at ${profile.email} or call ${profile.phone}. He's also on LinkedIn!`;

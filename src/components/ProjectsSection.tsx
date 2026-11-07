@@ -1,56 +1,49 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ArrowUpRight, GithubLogo, FolderOpen } from 'phosphor-react';
-import { projects } from '@/data';
+import { projects, profile } from '@/data';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { SectionHeader } from '@/components/common/SectionHeader';
-import {
-  ANIMATION_DURATION,
-  ANIMATION_EASING,
-  SCROLL_TRIGGER_POINTS,
-} from '@/constants/animations';
+import { ANIMATION_EASING, SCROLL_TRIGGER_POINTS } from '@/constants/animations';
+import { FeaturedProjectCard } from './projects/FeaturedProjectCard';
+import { ProjectGridCard } from './projects/ProjectGridCard';
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const featuredProject = projects.find((p) => p.featured) || projects[0];
+  const gridProjects = projects.filter((p) => p.slug !== featuredProject.slug);
+
   useSectionReveal(sectionRef, () => {
     const title = titleRef.current;
     if (title) {
-      gsap.set(title, { opacity: 0, y: 50, filter: 'blur(10px)' });
-    }
-    gsap.set('.project-card', { opacity: 0, y: 60, scale: 0.9 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        ...SCROLL_TRIGGER_POINTS.standard,
-      },
-    });
-
-    if (title) {
-      tl.to(title, {
+      gsap.set(title, { opacity: 0, y: 16 });
+      gsap.to(title, {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
-        duration: ANIMATION_DURATION.slow,
+        duration: 0.4,
         ease: ANIMATION_EASING.power2Out,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          ...SCROLL_TRIGGER_POINTS.standard,
+        },
       });
     }
 
-    tl.to(
-      '.project-card',
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: ANIMATION_DURATION.normal,
-        ease: ANIMATION_EASING.power2Out,
-        stagger: 0.15,
+    gsap.set('.project-card', { opacity: 0, y: 16 });
+    gsap.to('.project-card', {
+      opacity: 1,
+      y: 0,
+      duration: 0.4,
+      ease: ANIMATION_EASING.power2Out,
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: containerRef.current || sectionRef.current,
+        ...SCROLL_TRIGGER_POINTS.cards,
       },
-      '-=0.5'
-    );
+    });
   });
 
   return (
@@ -66,73 +59,36 @@ const ProjectsSection = () => {
         <SectionHeader
           ref={titleRef}
           badgeIcon={FolderOpen}
-          badgeText="Selected Work"
-          titleNormal="Featured"
-          titleAccent="Projects"
-          subtitle="A curated collection of work spanning full-stack development, distributed systems, DevOps infrastructure, and interactive media."
+          badgeText="Portfolio"
+          titleNormal="Selected"
+          titleAccent="Work"
+          subtitle="Production-grade systems, cloud architectures, and full-stack web platforms built for reliability and scale."
         />
 
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <div ref={containerRef} className="space-y-8 md:space-y-12">
+          {/* Featured Project (Full Width: Image Left, Text Right on Desktop; Stacked on Mobile) */}
+          <FeaturedProjectCard project={featuredProject} />
+
+          {/* Remaining Projects in a Responsive Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {gridProjects.map((project) => (
+              <ProjectGridCard key={project.slug} project={project} />
+            ))}
+          </div>
+
+          {/* More on GitHub Link */}
+          <div className="pt-6 sm:pt-8 text-center">
             <a
-              key={index}
-              href={project.link}
+              href={`${profile.githubUrl}?tab=repositories`}
               target="_blank"
               rel="noopener noreferrer"
-              className={`project-card group relative flex flex-col h-full overflow-hidden rounded-2xl border transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${
-                project.featured
-                  ? 'bg-gradient-to-br from-primary/10 via-surface-elevated/40 to-surface-elevated/20 border-primary/20 hover:border-primary/40 hover:shadow-primary/10'
-                  : 'bg-surface-elevated/30 border-white/5 hover:border-primary/30 hover:shadow-primary/5'
-              }`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:border-white/20 hover:scale-105 active:scale-95 transition-all duration-300 text-sm font-semibold backdrop-blur-sm focus-visible:ring-2 focus-visible:ring-primary focus:outline-none"
             >
-              {/* Featured badge */}
-              {project.featured && (
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest z-10">
-                  Featured
-                </div>
-              )}
-
-              {/* Hover Gradient Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative p-8 flex flex-col h-full z-10">
-                {/* Header */}
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 rounded-xl bg-background/50 border border-white/5 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-500">
-                    <GithubLogo size={24} weight="duotone" />
-                  </div>
-                  <div className="p-2 rounded-full text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
-                    <ArrowUpRight
-                      size={20}
-                      weight="bold"
-                      className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 leading-tight">
-                  {project.title}
-                </h3>
-
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-4">
-                  {project.desc}
-                </p>
-
-                {/* Tags */}
-                <div className="mt-auto pt-6 border-t border-white/5 flex flex-wrap gap-2">
-                  {project.tags.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 text-xs uppercase tracking-wider font-semibold bg-white/5 rounded-full text-muted-foreground border border-white/5 group-hover:border-primary/20 group-hover:bg-primary/5 transition-all duration-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <GithubLogo size={18} weight="bold" />
+              <span>More projects on GitHub</span>
+              <ArrowUpRight size={15} weight="bold" />
             </a>
-          ))}
+          </div>
         </div>
       </div>
     </section>
