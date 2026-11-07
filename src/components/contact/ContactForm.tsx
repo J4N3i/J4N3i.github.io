@@ -119,14 +119,14 @@ export const ContactForm = () => {
   const submitDisabled = isSubmitting || isOnCooldown;
 
   return (
-    <div className="relative bg-white/[0.03] border border-white/10 p-6 sm:p-8 rounded-3xl shadow-xl">
+    <div className="relative bg-white/[0.03] border border-white/10 p-5 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl shadow-xl">
       <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send a Message</h3>
 
       <div ref={statusRef}>
         <FormStatusBanner status={status} />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         {/* Honeypot */}
         <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
           <input

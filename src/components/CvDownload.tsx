@@ -140,12 +140,12 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
       'p-1 rounded hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors';
   } else if (isContact) {
     containerStyles +=
-      ' w-full rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-foreground font-medium text-sm transition-colors';
+      ' w-full rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-foreground font-medium text-sm transition-colors min-w-0';
     mainButtonStyles =
-      'flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-l-xl';
-    dividerStyles = 'h-5 w-[1px] bg-white/10';
+      'flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-l-xl min-w-0';
+    dividerStyles = 'h-5 w-[1px] bg-white/10 flex-shrink-0';
     caretButtonStyles =
-      'px-3.5 py-3 flex items-center justify-center hover:bg-white/10 rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors';
+      'px-3.5 py-3 flex items-center justify-center hover:bg-white/10 rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors flex-shrink-0';
   }
 
   // Panel positioning: footer opens upward, others open downward

@@ -73,11 +73,11 @@ const ContactSection = () => {
   });
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding relative overflow-hidden">
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <section id="contact" ref={sectionRef} className="py-16 md:py-24 relative overflow-hidden">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-start">
           {/* Left Column: Heading, Subtitle & Direct Actions */}
-          <div ref={actionsRef} className="space-y-8">
+          <div ref={actionsRef} className="space-y-6 sm:space-y-8">
             <SectionHeader
               ref={titleRef}
               align="left"
@@ -85,7 +85,7 @@ const ContactSection = () => {
               badgeText="Contact"
               titleNormal="Let's"
               titleAccent="talk."
-              headingClassName="text-[clamp(1.75rem,5vw,3rem)] font-bold text-foreground mb-4 leading-tight"
+              headingClassName="text-[clamp(2rem,6vw,3rem)] font-bold text-foreground mb-3 sm:mb-4 leading-tight"
               subtitle="I'm looking for DevOps and full-stack internships. The quickest way to reach me is LinkedIn or email, and I'm happy to share my CV."
               hasDivider={false}
             />
