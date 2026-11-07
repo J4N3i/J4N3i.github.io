@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X, Trash, Sparkle } from 'phosphor-react';
 import { gsap } from 'gsap';
 import { ChatMessage } from './ChatMessage';
@@ -29,6 +29,27 @@ export const ChatWindow = ({
   const chatWindowRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [viewportBottomOffset, setViewportBottomOffset] = useState(0);
+
+  // visualViewport resize / keyboard detection on mobile
+  useEffect(() => {
+    if (!isOpen || typeof window === 'undefined') return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+
+    const handleViewportChange = () => {
+      const offset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      setViewportBottomOffset(offset);
+    };
+
+    vv.addEventListener('resize', handleViewportChange);
+    vv.addEventListener('scroll', handleViewportChange);
+
+    return () => {
+      vv.removeEventListener('resize', handleViewportChange);
+      vv.removeEventListener('scroll', handleViewportChange);
+    };
+  }, [isOpen]);
 
   // Auto-scroll on new messages or typing state change
   useEffect(() => {
@@ -93,7 +114,10 @@ export const ChatWindow = ({
       role="dialog"
       aria-label="Chat with Thea"
       aria-modal="false"
-      className="mb-3 w-[calc(100vw-2rem)] max-w-sm h-[min(560px,80dvh)] bg-[#12141c] border border-white/10 rounded-2xl flex flex-col overflow-hidden shadow-2xl shadow-black/80"
+      style={{
+        transform: viewportBottomOffset > 0 ? `translateY(-${viewportBottomOffset}px)` : undefined,
+      }}
+      className="mb-3 w-[calc(100vw-1rem)] sm:w-96 max-w-sm h-[min(560px,80dvh)] max-h-[80dvh] bg-[#12141c] border border-white/10 rounded-2xl flex flex-col overflow-hidden shadow-2xl shadow-black/80 transition-transform duration-150"
     >
       {/* Header */}
       <div className="px-4 py-3 border-b border-white/10 bg-[#151824] flex items-center justify-between">

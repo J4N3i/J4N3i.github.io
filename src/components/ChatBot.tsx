@@ -29,6 +29,20 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
     wasOpenRef.current = isOpen;
   }, [isOpen]);
 
+  // Lock body scroll on mobile while chat dialog is open
+  useEffect(() => {
+    if (!isOpen || typeof window === 'undefined') return;
+
+    const originalOverflow = document.body.style.overflow;
+    if (window.innerWidth < 768) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   const toggleChat = () => setIsOpen((prev) => !prev);
   const handleClose = useCallback(() => setIsOpen(false), []);
 
