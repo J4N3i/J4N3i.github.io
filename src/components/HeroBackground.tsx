@@ -46,6 +46,12 @@ export const HeroBackground = () => {
       {/* Layer 3: Faint Grid with Radial Mask */}
       <div data-testid="hero-grid" className="absolute inset-0 hero-faint-grid" />
 
+      {/* Layer 3b: Spotlight Layer (Desktop Interactive) */}
+      <div data-testid="hero-spotlight" className="hero-spotlight" aria-hidden="true" />
+
+      {/* Layer 3c: Interactive Highlight Grid */}
+      <div data-testid="hero-highlight-grid" className="hero-highlight-grid" aria-hidden="true" />
+
       {/* Layer 4: Vignette to Background Colour */}
       <div
         data-testid="hero-vignette"

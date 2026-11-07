@@ -554,6 +554,42 @@
   transition: opacity 600ms ease-out;
 }
 
+.hero-spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 480px;
+  height: 480px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.18) 0%, transparent 70%);
+  transform: translate3d(var(--mx, -9999px), var(--my, -9999px), 0) translate(-50%, -50%);
+  opacity: var(--glow, 0);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.hero-highlight-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(
+    240px circle at var(--mx, -9999px) var(--my, -9999px),
+    black,
+    transparent
+  );
+  mask-image: radial-gradient(
+    240px circle at var(--mx, -9999px) var(--my, -9999px),
+    black,
+    transparent
+  );
+  opacity: var(--glow, 0);
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-drift-a,
   .hero-drift-b,

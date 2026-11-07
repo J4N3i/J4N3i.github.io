@@ -25,6 +25,8 @@ describe('HeroBackground', () => {
     expect(screen.getByTestId('hero-blob-violet')).toBeInTheDocument();
     expect(screen.getByTestId('hero-blob-cyan')).toBeInTheDocument();
     expect(screen.getByTestId('hero-grid')).toBeInTheDocument();
+    expect(screen.getByTestId('hero-spotlight')).toBeInTheDocument();
+    expect(screen.getByTestId('hero-highlight-grid')).toBeInTheDocument();
     expect(screen.getByTestId('hero-vignette')).toBeInTheDocument();
 
     // Verify drift keyframe classes and static blur-3xl
