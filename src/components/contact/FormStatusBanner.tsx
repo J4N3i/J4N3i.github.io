@@ -13,7 +13,7 @@ export const FormStatusBanner = ({ status }: FormStatusBannerProps) => {
       <div
         role="status"
         aria-live="polite"
-        className="mb-6 flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
+        className="mb-3 flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
       >
         <CheckCircle size={20} weight="fill" />
         <span className="text-sm font-medium">Message sent! I'll get back to you soon.</span>
@@ -25,7 +25,7 @@ export const FormStatusBanner = ({ status }: FormStatusBannerProps) => {
     <div
       role="alert"
       aria-live="polite"
-      className="mb-6 flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400"
+      className="mb-3 flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400"
     >
       <WarningCircle size={20} weight="fill" />
       <span className="text-sm font-medium">

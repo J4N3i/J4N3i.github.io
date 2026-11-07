@@ -99,7 +99,13 @@ export const ContactForm = () => {
       setErrors({});
       setTimeout(() => {
         if (typeof statusRef.current?.scrollIntoView === 'function') {
-          statusRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const prefersReduced =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          statusRef.current.scrollIntoView({
+            block: 'center',
+            behavior: prefersReduced ? 'auto' : 'smooth',
+          });
         }
       }, 50);
     } catch (err) {
@@ -107,7 +113,14 @@ export const ContactForm = () => {
       setStatus('error');
       setTimeout(() => {
         if (typeof statusRef.current?.scrollIntoView === 'function') {
-          statusRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const prefersReduced =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          statusRef.current.scrollIntoView({
+            block: 'center',
+            behavior: prefersReduced ? 'auto' : 'smooth',
+          });
+          statusRef.current.focus();
         }
       }, 50);
     } finally {
@@ -121,10 +134,6 @@ export const ContactForm = () => {
   return (
     <div className="relative bg-white/[0.03] border border-white/10 p-5 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl shadow-xl">
       <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send a Message</h3>
-
-      <div ref={statusRef}>
-        <FormStatusBanner status={status} />
-      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         {/* Honeypot */}
@@ -260,15 +269,25 @@ export const ContactForm = () => {
           </div>
         </div>
 
+        {/* Status Message Banner directly above Submit */}
+        <div ref={statusRef} tabIndex={-1} className="focus:outline-none">
+          <FormStatusBanner status={status} />
+        </div>
+
         <button
           type="submit"
           disabled={submitDisabled}
           aria-busy={isSubmitting}
-          className="w-full py-3.5 rounded-xl bg-primary text-white font-semibold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="w-full h-[52px] rounded-xl bg-primary text-white font-semibold text-base hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           {isSubmitting ? (
             <>
-              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+              <svg
+                className="animate-spin h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -279,7 +298,7 @@ export const ContactForm = () => {
                 />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
               </svg>
-              <span>Sending…</span>
+              <span>Sending...</span>
             </>
           ) : isOnCooldown ? (
             <>
