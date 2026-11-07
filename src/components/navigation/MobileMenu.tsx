@@ -152,7 +152,7 @@ export const MobileMenu = ({
                   className={`min-h-[44px] flex items-center text-left text-base font-medium transition-colors duration-200 px-4 py-2.5 rounded-xl border ${
                     isCurrent
                       ? 'text-foreground border-white/20 bg-white/10'
-                      : 'text-muted-foreground border-transparent hover:text-foreground'
+                      : 'text-white/75 border-transparent hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {item.label}
@@ -165,7 +165,7 @@ export const MobileMenu = ({
               <button
                 type="button"
                 onClick={() => setIsResumeOpen(!isResumeOpen)}
-                className="w-full min-h-[44px] flex items-center justify-between px-4 py-2.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="w-full min-h-[44px] flex items-center justify-between px-4 py-2.5 text-base font-medium text-white/75 hover:text-white transition-colors"
                 aria-expanded={isResumeOpen}
               >
                 <span>Resume / CV</span>
@@ -189,7 +189,7 @@ export const MobileMenu = ({
                       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-70`} />
                       <div>
                         <p className={`text-sm font-semibold ${cv.color}`}>{cv.label}</p>
-                        <p className="text-xs text-white/70">{cv.desc}</p>
+                        <p className="text-xs text-white/75">{cv.desc}</p>
                       </div>
                       <span className="ml-auto opacity-40 group-hover:opacity-70 transition-opacity text-white">
                         <svg
@@ -220,7 +220,7 @@ export const MobileMenu = ({
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] flex items-center space-x-2 text-muted-foreground hover:text-accent-electric transition-colors duration-200"
+                className="min-h-[44px] flex items-center space-x-2 text-white/75 hover:text-white transition-colors duration-200"
               >
                 <GithubLogo size={20} weight="bold" />
                 <span>GitHub</span>
@@ -229,7 +229,7 @@ export const MobileMenu = ({
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] flex items-center space-x-2 text-muted-foreground hover:text-accent-violet transition-colors duration-200"
+                className="min-h-[44px] flex items-center space-x-2 text-white/75 hover:text-white transition-colors duration-200"
               >
                 <LinkedinLogo size={20} weight="bold" />
                 <span>LinkedIn</span>

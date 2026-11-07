@@ -170,12 +170,6 @@
     opacity: 1;
   }
 
-  /* Allow triggering sheen via JS once without hover */
-  .glass-animated.sheen-run::before {
-    animation: sheen-sweep 1.6s ease-in-out;
-    opacity: 1;
-  }
-
   /* Interactive liquid glass hover spotlight */
   .glass-hover {
     position: relative;

@@ -88,7 +88,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center justify-center gap-0.5">
+            <div className="hidden md:flex items-center justify-center gap-0.5 flex-nowrap">
               {navItems.map((item) => {
                 const isCurrent = activeHref === item.href;
                 return (
@@ -110,7 +110,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
               <a
                 href={profile.cvs.devops.href}
                 download
-                className="ml-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="ml-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex-shrink-0"
               >
                 Download CV
               </a>
