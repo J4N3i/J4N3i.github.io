@@ -97,8 +97,38 @@ export interface Certification {
 
 export interface Skill {
   name: string;
-  icon: PhosphorIcon;
-  color: string;
+}
+
+export interface SkillGroup {
+  category: string;
+  skills: string[];
+}
+
+export interface AboutFact {
+  title: string;
+  subtitle: string;
+}
+
+export interface WhatIDoItem {
+  title: string;
+  description: string;
+}
+
+export interface AboutImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface AboutData {
+  badge: string;
+  heading: string;
+  paragraphs: string[];
+  statusPill: string;
+  facts: AboutFact[];
+  whatIDo: WhatIDoItem[];
+  image: AboutImage;
 }
 
 export interface NavItem {

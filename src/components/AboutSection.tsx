@@ -24,7 +24,7 @@ const AboutSection = () => {
 
     // Initial states set via JS (content visible if JS fails)
     gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
-    gsap.set('.skill-icon', { opacity: 0, scale: 0.5, y: 30 });
+    gsap.set('.skill-pill', { opacity: 0, scale: 0.8, y: 15 });
 
     // Scroll triggered animation
     const tl = gsap.timeline({
@@ -53,14 +53,14 @@ const AboutSection = () => {
         '-=0.7'
       )
       .to(
-        '.skill-icon',
+        '.skill-pill',
         {
           opacity: 1,
           scale: 1,
           y: 0,
           duration: ANIMATION_DURATION.fast,
-          ease: ANIMATION_EASING.backOut,
-          stagger: 0.1,
+          ease: ANIMATION_EASING.power2Out,
+          stagger: 0.04,
         },
         '-=0.5'
       );
