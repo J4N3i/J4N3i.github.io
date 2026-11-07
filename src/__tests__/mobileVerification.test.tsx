@@ -154,4 +154,35 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
 
     expect(screen.queryByRole('status', { name: /welcome introduction/i })).not.toBeInTheDocument();
   });
+
+  it('verifies contact section touch targets and iOS attributes', () => {
+    render(
+      <MemoryRouter>
+        <Index />
+      </MemoryRouter>
+    );
+
+    // LinkedIn row >= 48px
+    const linkedin = screen.getByRole('link', { name: /connect on linkedin/i });
+    expect(linkedin.className).toContain('min-h-[48px]');
+
+    // Copy email button >= 44x44px
+    const copyEmail = screen.getByRole('button', { name: /copy email address/i });
+    expect(copyEmail.className).toContain('min-h-[44px]');
+    expect(copyEmail.className).toContain('min-w-[44px]');
+
+    // Submit button 52px
+    const submitBtn = screen.getByRole('button', { name: /send message/i });
+    expect(submitBtn.className).toContain('h-[52px]');
+
+    // Topic chips >= 44px
+    const chip = screen.getByRole('button', { name: /internship opportunity/i });
+    expect(chip.className).toContain('min-h-[44px]');
+
+    // Inputs have 16px font and scroll margins
+    const nameInput = screen.getByLabelText(/your name/i);
+    expect(nameInput.className).toContain('text-base');
+    expect(nameInput.className).toContain('scroll-mt-24');
+    expect(nameInput.className).toContain('scroll-mb-[120px]');
+  });
 });
