@@ -69,6 +69,13 @@ describe('Chatbot Logic & Intent Matching', () => {
 
     const contactReply = generateBotReply('contact');
     expect(contactReply.actions?.some((a) => a.copy)).toBe(true);
+    expect(contactReply.actions?.some((a) => a.href === '#contact')).toBe(true);
+
+    const skillsReply = generateBotReply('what skills do you have');
+    expect(skillsReply.actions?.some((a) => a.href === '#skills')).toBe(true);
+
+    const projectsReply = generateBotReply('show me projects');
+    expect(projectsReply.actions?.some((a) => a.href === '#projects')).toBe(true);
 
     const unknownReply = generateBotReply('asdfghjkl12345');
     expect(unknownReply.text).toBe(

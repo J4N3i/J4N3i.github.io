@@ -47,7 +47,7 @@ const ProjectsSection = () => {
   });
 
   return (
-    <section id="projects" ref={sectionRef} className="section-padding">
+    <section id="projects" ref={sectionRef} className="section-padding scroll-mt-24">
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Title */}
         <SectionHeader

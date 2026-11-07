@@ -262,7 +262,7 @@ export function generateBotReply(input: string): BotReply {
       return {
         text: `Janeesha's core technical skills across code and cloud:\n\n${list}`,
         actions: [
-          { label: 'View projects', href: '#projects' },
+          { label: 'View skills', href: '#skills' },
           { label: 'Download CV', href: profile.cvs[0].href, download: true },
         ],
         chips: ['Projects', 'Availability', 'Experience', 'Contact'],

@@ -124,7 +124,7 @@ const CertificationsSection = () => {
     <section
       id="certifications"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      className="section-padding relative overflow-hidden scroll-mt-24"
     >
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
         <SectionHeader

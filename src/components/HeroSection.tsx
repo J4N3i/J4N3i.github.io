@@ -155,7 +155,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-hero pt-20 pb-10 sm:py-24"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-hero pt-20 pb-10 sm:py-24 scroll-mt-24"
     >
       <HeroBackground />
 

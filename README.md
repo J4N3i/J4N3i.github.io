@@ -14,7 +14,7 @@ A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha
 
 ```
 +-----------------------------------------------------------------------+
-|  [JG]   About   Experience   Education   Skills   Projects   Resume   |
+|  [JG]   About   Projects   Skills   Experience   Contact   Resume   |
 +-----------------------------------------------------------------------+
 |                                                                       |
 |                     Janeesha Vishwaprabha                             |
@@ -57,7 +57,7 @@ A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha
 ├── src/
 │   ├── __tests__/              # Integration and smoke tests
 │   ├── components/             # Modular React components (< 200 lines each)
-│   │   ├── about/              # ProfileCard, SkillsGrid
+│   │   ├── about/              # ProfileCard, WhatIDoRow, AboutIntro
 │   │   ├── chatbot/            # ChatWindow, ChatMessage, ChatInput
 │   │   ├── common/             # SectionHeader, reusable UI primitives
 │   │   ├── contact/            # ContactForm
