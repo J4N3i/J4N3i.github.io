@@ -30,8 +30,10 @@ export interface Profile {
   role: string;
   headline: string;
   tagline: string;
+  studyYear: string;
+  currentRoles: string[];
+  departmentRole?: string;
   university: string;
-  departmentRole: string;
   email: string;
   phone: string;
   location: string;

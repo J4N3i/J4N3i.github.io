@@ -6,7 +6,7 @@ export const educationList: Education[] = [
     id: 1,
     degree: 'BSc (Hons) in Computer Science',
     institution: 'Sri Lanka Institute of Information Technology (SLIIT)',
-    // TODO: Confirm your real start year for this degree (currently listed as "2024 – Present", but Year 4/Year 3 suggests an earlier start).
+    // TODO: Confirm your real start year for this degree (currently listed as "2024 – Present", but 4th year suggests an earlier start).
     period: '2024 – Present',
     currentYearLabel: 'Year 4',
     description:

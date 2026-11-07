@@ -271,7 +271,7 @@ export function generateBotReply(input: string): BotReply {
 
     case 'experience':
       return {
-        text: "Janeesha's experience combines community leadership and operational discipline:\n\n• Leadership & Community: Student community leadership at SLIIT and team leadership at AIESEC.\n• Work Experience: Commercial banking operational trainee.",
+        text: "Janeesha's experience combines community leadership and operational discipline:\n\n• Leadership & Community: Team Leader at AIESEC in SLIIT, and student community member at SLIIT (Faculty of Computing Student Community and Student Interactive Society).\n• Work Experience: Commercial banking operational trainee.",
         actions: [
           { label: 'View experience', href: '#experience' },
           { label: 'LinkedIn', href: profile.linkedinUrl },
@@ -282,7 +282,7 @@ export function generateBotReply(input: string): BotReply {
     case 'education': {
       const primaryEdu = educationList[0];
       return {
-        text: `Janeesha is studying ${primaryEdu.degree} at ${primaryEdu.institution}. Focus areas include software architecture, distributed systems, and DevOps engineering.`,
+        text: `Janeesha is a final-year Computer Science undergraduate at ${primaryEdu.institution}, studying ${primaryEdu.degree}. Focus areas include software architecture, distributed systems, and DevOps engineering.`,
         actions: [
           { label: 'View education', href: '#education' },
           { label: 'Download CV', href: profile.cvs[0].href, download: true },
@@ -304,7 +304,7 @@ export function generateBotReply(input: string): BotReply {
 
     case 'about':
       return {
-        text: 'Janeesha is a Computer Science undergraduate and Full-Stack & DevOps Engineer who builds and ships reliable web systems, from immersive React frontends to private cloud labs on Proxmox, Docker, and Microsoft Azure.',
+        text: 'Janeesha is a final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT. As a Full-Stack & DevOps Engineer, Janeesha builds and ships reliable web systems, from immersive React frontends to private cloud labs on Proxmox, Docker, and Microsoft Azure.',
         actions: [
           { label: 'View projects', href: '#projects' },
           { label: 'Download CV', href: profile.cvs[0].href, download: true },
