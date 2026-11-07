@@ -118,17 +118,17 @@ export const ChatWindow = ({
             onClick={onClearChat}
             aria-label="Clear chat"
             title="Clear chat"
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary min-w-[44px] min-h-[44px]"
           >
-            <Trash size={16} />
+            <Trash size={18} />
           </button>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close chat window"
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary min-w-[44px] min-h-[44px]"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
       </div>
