@@ -5,7 +5,7 @@ export const HeroCTA = forwardRef<HTMLDivElement>((_props, ref) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto"
+      className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto relative z-30"
     >
       <a
         href="#projects"

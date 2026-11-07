@@ -78,6 +78,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
             opacity: 1,
             y: 0,
             filter: 'blur(0px)',
+            clearProps: 'filter',
             duration: ANIMATION_DURATION.normal,
             ease: ANIMATION_EASING.power2Out,
           },

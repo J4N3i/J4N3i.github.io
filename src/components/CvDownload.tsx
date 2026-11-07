@@ -109,7 +109,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
   const isFooter = variant === 'footer';
   const isContact = variant === 'contact';
 
-  let containerStyles = 'relative inline-flex items-center';
+  let containerStyles = 'relative inline-flex items-center isolate';
   let mainButtonStyles = '';
   let dividerStyles = '';
   let caretButtonStyles = '';
@@ -154,7 +154,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
     : 'top-full mt-2 right-0';
 
   return (
-    <div ref={containerRef} className={`${containerStyles} ${className}`}>
+    <div ref={containerRef} className={`${containerStyles} ${isOpen ? 'z-50' : ''} ${className}`}>
       {/* Main Download Button (Default CV) */}
       <a href={defaultCv.href} download={defaultCv.filename} className={mainButtonStyles}>
         {isContact && (
@@ -183,11 +183,11 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
         />
       </button>
 
-      {/* Disclosure Panel listing all CVs */}
+      {/* Disclosure Panel listing all CVs - Solid opaque dark surface without transparency */}
       <div
         id="cv-dropdown-panel"
         aria-hidden={!isOpen}
-        className={`absolute ${panelPosition} w-64 sm:w-72 max-w-[calc(100vw-2rem)] z-[60] p-2 rounded-2xl bg-[#0f172a]/95 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/80 transition-all duration-200 ease-out origin-top-right motion-reduce:transition-none motion-reduce:transform-none ${
+        className={`absolute ${panelPosition} w-64 sm:w-72 max-w-[calc(100vw-2rem)] z-[70] p-2 rounded-2xl bg-[#12141c] border border-white/10 shadow-2xl shadow-black/60 transition-all duration-200 ease-out origin-top-right motion-reduce:transition-none motion-reduce:transform-none ${
           isOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : isFooter
@@ -210,21 +210,21 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                 href={cv.href}
                 download={cv.filename}
                 onClick={handleSelectCv}
-                className="group flex flex-col gap-0.5 p-2.5 rounded-xl hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
+                className="group flex flex-col gap-0.5 p-2.5 rounded-xl bg-transparent hover:bg-[#1e2230] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold text-white group-hover:text-primary transition-colors">
                     {cv.label}
                   </span>
                   {isRecommended ? (
-                    <span className="text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
+                    <span className="text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-[#1e293b] text-primary border border-primary/40">
                       Recommended
                     </span>
                   ) : (
                     <DownloadSimple
                       size={14}
                       weight="bold"
-                      className="text-white/40 group-hover:text-primary transition-colors"
+                      className="text-white/50 group-hover:text-primary transition-colors"
                     />
                   )}
                 </div>
