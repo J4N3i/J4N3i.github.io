@@ -108,7 +108,7 @@ const Index = () => {
 
       {/* Main Content */}
       <div aria-hidden={showPreloader ? true : undefined}>
-        <Navigation />
+        <Navigation ready={isHeroReady} />
         <main>
           <HeroSection ready={isHeroReady} startDelay={hasIntroDelay ? 0.1 : 0} />
           <AboutSection />

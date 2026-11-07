@@ -5,39 +5,40 @@ import { profile, cvOptions, navItems } from '@/data';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { MobileMenu } from './navigation/MobileMenu';
 
-const Navigation = () => {
+interface NavigationProps {
+  ready?: boolean;
+}
+
+const Navigation = ({ ready = true }: NavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useActiveSection();
-  const lastScrollY = useRef(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeHref] = useActiveSection();
   const navRef = useRef<HTMLElement>(null);
 
-  // Auto-hide/show navbar on scroll
+  // Single passive scroll listener throttled with requestAnimationFrame (no GSAP on scroll)
   useEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
+    let rafId: number | null = null;
 
-    const controlNavbar = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY < 50) {
-        gsap.to(nav, { y: 0, opacity: 1, duration: 0.3 });
-      } else {
-        if (currentScrollY > lastScrollY.current) {
-          gsap.to(nav, { y: -150, opacity: 0, duration: 0.3 });
-        } else {
-          gsap.to(nav, { y: 0, opacity: 1, duration: 0.3 });
-        }
-      }
-      lastScrollY.current = currentScrollY;
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        rafId = null;
+      });
     };
 
-    window.addEventListener('scroll', controlNavbar, { passive: true });
-    return () => window.removeEventListener('scroll', controlNavbar);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  // Entrance animation
+  // Entrance animation triggered when intro/hero ready
   useEffect(() => {
     const nav = navRef.current;
-    if (!nav) return;
+    if (!nav || !ready) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -45,29 +46,28 @@ const Navigation = () => {
     gsap.fromTo(
       nav,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 1.2, ease: 'power2.out' }
+      { y: 0, opacity: 1, duration: 0.8, delay: 0.1, ease: 'power2.out' }
     );
-
-    const sheenTimeout = setTimeout(() => {
-      nav.classList.add('sheen-run');
-      setTimeout(() => nav.classList.remove('sheen-run'), 1700);
-    }, 1800);
-
-    return () => clearTimeout(sheenTimeout);
-  }, []);
+  }, [ready]);
 
   return (
     <>
       <nav
         ref={navRef}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full border border-white/20 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-black/50 transition-all duration-300"
+        className={`fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full border shadow-2xl shadow-black/50 transition-all duration-300 ${
+          isScrolled
+            ? 'top-4 bg-background/85 border-white/15 backdrop-blur-xl'
+            : 'top-6 bg-white/5 border-white/20 backdrop-blur-xl'
+        }`}
       >
         {/* Top Shine Reflection */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
         {/* Bottom Glow */}
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-30" />
 
-        <div className="px-4 py-3 relative z-10">
+        <div
+          className={`px-4 relative z-10 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}
+        >
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
             {/* Logo */}
             <a
