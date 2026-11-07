@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PaperPlaneTilt } from 'phosphor-react';
 import { ContactDirectActions } from './contact/ContactDirectActions';
 import { ContactForm } from './contact/ContactForm';
@@ -13,57 +14,27 @@ const ContactSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   useSectionReveal(sectionRef, () => {
+    if (typeof window !== 'undefined') {
+      ScrollTrigger.config({ ignoreMobileResize: true });
+    }
+
     const title = titleRef.current;
     const actions = actionsRef.current;
     const form = formRef.current;
+    const elements = [title, actions, form].filter(Boolean) as HTMLElement[];
 
-    if (title) {
+    if (elements.length > 0) {
       gsap.fromTo(
-        title,
-        { y: 16, opacity: 0 },
+        elements,
+        { y: 12, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.35,
+          duration: 0.3,
+          stagger: 0.05,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: title,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-    }
-
-    if (actions) {
-      gsap.fromTo(
-        actions,
-        { y: 16, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: actions,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-    }
-
-    if (form) {
-      gsap.fromTo(
-        form,
-        { y: 16, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: form,
+            trigger: sectionRef.current,
             start: 'top 85%',
             once: true,
           },
@@ -76,7 +47,7 @@ const ContactSection = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="py-16 md:py-24 relative overflow-hidden scroll-mt-24"
+      className="py-16 pb-24 md:py-24 relative overflow-hidden scroll-mt-24"
     >
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-start">

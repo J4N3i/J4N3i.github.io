@@ -10,6 +10,7 @@ export interface ChatBotProps {
 const ChatBot = ({ ready = true }: ChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
+  const [isContactInputFocused, setIsContactInputFocused] = useState(false);
   const launcherButtonRef = useRef<HTMLButtonElement>(null);
   const wasOpenRef = useRef(false);
 
@@ -35,6 +36,49 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
     };
   }, [isOpen]);
 
+  // Hide launcher on mobile when contact form inputs are focused or keyboard is open
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('#contact')) {
+        setIsContactInputFocused(true);
+      }
+    };
+
+    const handleFocusOut = (e: FocusEvent) => {
+      const related = e.relatedTarget as HTMLElement | null;
+      if (!related || !related.closest('#contact')) {
+        setIsContactInputFocused(false);
+      }
+    };
+
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('focusout', handleFocusOut);
+
+    return () => {
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('focusout', handleFocusOut);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.visualViewport) return;
+
+    const vv = window.visualViewport;
+    const handleResize = () => {
+      const isKeyboard = window.innerHeight - vv.height > 150;
+      const activeEl = document.activeElement;
+      if (isKeyboard && activeEl && activeEl.closest('#contact')) {
+        setIsContactInputFocused(true);
+      }
+    };
+
+    vv.addEventListener('resize', handleResize);
+    return () => vv.removeEventListener('resize', handleResize);
+  }, []);
+
   const toggleChat = () => {
     setHasBeenOpened(true);
     setIsOpen((prev) => !prev);
@@ -54,7 +98,11 @@ const ChatBot = ({ ready = true }: ChatBotProps) => {
   return (
     <aside
       aria-label="Assistant"
-      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none"
+      className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none transition-all duration-300 ${
+        isContactInputFocused
+          ? 'max-md:opacity-0 max-md:pointer-events-none max-md:translate-y-4'
+          : ''
+      }`}
     >
       <div className="pointer-events-auto flex flex-col items-end">
         {/* Lazy loaded Chat Window Dialog */}
