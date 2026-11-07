@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { CaretDown, GithubLogo, LinkedinLogo } from 'phosphor-react';
+import { GithubLogo, LinkedinLogo } from 'phosphor-react';
 import { gsap } from 'gsap';
-import type { NavItem, CVOption } from '@/types';
+import type { NavItem } from '@/types';
+import { CvDownload } from '../CvDownload';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -9,7 +10,6 @@ interface MobileMenuProps {
   navItems: NavItem[];
   activeHref: string;
   onNavigate?: (href: string) => void;
-  cvOptions: CVOption[];
   githubUrl: string;
   linkedinUrl: string;
 }
@@ -19,11 +19,9 @@ export const MobileMenu = ({
   onClose,
   navItems,
   activeHref,
-  cvOptions,
   githubUrl,
   linkedinUrl,
 }: MobileMenuProps) => {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(isOpen);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
@@ -117,7 +115,7 @@ export const MobileMenu = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose, isResumeOpen]);
+  }, [isOpen, onClose]);
 
   return (
     <>
@@ -160,58 +158,9 @@ export const MobileMenu = ({
               );
             })}
 
-            {/* Mobile Resume Accordion */}
-            <div className="border border-white/10 rounded-xl overflow-hidden">
-              <button
-                type="button"
-                onClick={() => setIsResumeOpen(!isResumeOpen)}
-                className="w-full min-h-[44px] flex items-center justify-between px-4 py-2.5 text-base font-medium text-white/75 hover:text-white transition-colors"
-                aria-expanded={isResumeOpen}
-              >
-                <span>Resume / CV</span>
-                <CaretDown
-                  size={16}
-                  weight="bold"
-                  className={`transition-transform duration-300 ${isResumeOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {isResumeOpen && (
-                <div className="border-t border-white/5 divide-y divide-white/5">
-                  {cvOptions.map((cv) => (
-                    <a
-                      key={cv.href}
-                      href={cv.href}
-                      download
-                      onClick={onClose}
-                      className="min-h-[44px] flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 transition-colors group"
-                    >
-                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cv.dot} opacity-70`} />
-                      <div>
-                        <p className={`text-sm font-semibold ${cv.color}`}>{cv.label}</p>
-                        <p className="text-xs text-white/75">{cv.desc}</p>
-                      </div>
-                      <span className="ml-auto opacity-40 group-hover:opacity-70 transition-opacity text-white">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="11"
-                          height="11"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="7 10 12 15 17 10" />
-                          <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              )}
+            {/* Mobile CV Options (Stacked list with min 44px tap targets) */}
+            <div className="pt-2">
+              <CvDownload variant="menu" onItemClick={onClose} />
             </div>
 
             {/* Social Links */}

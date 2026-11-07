@@ -1,3 +1,5 @@
+import { CvDownload } from '../CvDownload';
+
 interface FooterNavProps {
   onNavigate: (href: string) => void;
 }
@@ -26,6 +28,7 @@ export const FooterNav = ({ onNavigate }: FooterNavProps) => {
           {link.label}
         </button>
       ))}
+      <CvDownload variant="footer" />
     </nav>
   );
 };

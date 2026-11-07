@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { profile } from '@/data';
+import { CvDownload } from '../CvDownload';
 
 export const HeroCTA = forwardRef<HTMLDivElement>((_props, ref) => {
   return (
@@ -13,13 +13,7 @@ export const HeroCTA = forwardRef<HTMLDivElement>((_props, ref) => {
       >
         View my work
       </a>
-      <a
-        href={profile.cvs.devops.href}
-        download={profile.cvs.devops.href.replace('/', '')}
-        className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-white/5 border border-white/10 text-foreground font-semibold text-base sm:text-lg hover:bg-white/10 hover:border-white/20 active:scale-95 transition-all duration-300 backdrop-blur-sm focus:ring-2 ring-primary ring-offset-2 focus:outline-none text-center"
-      >
-        Download CV
-      </a>
+      <CvDownload variant="hero" />
     </div>
   );
 });

@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { List, X } from 'phosphor-react';
 import { gsap } from 'gsap';
-import { profile, cvOptions, navItems } from '@/data';
+import { profile, navItems } from '@/data';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { MobileMenu } from './navigation/MobileMenu';
+import { CvDownload } from './CvDownload';
 
 interface NavigationProps {
   ready?: boolean;
@@ -107,13 +108,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
                 );
               })}
 
-              <a
-                href={profile.cvs.devops.href}
-                download
-                className="ml-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex-shrink-0"
-              >
-                Download CV
-              </a>
+              <CvDownload variant="nav" className="ml-2 flex-shrink-0" />
             </div>
 
             {/* Right col — mobile hamburger */}
@@ -146,7 +141,6 @@ const Navigation = ({ ready = true }: NavigationProps) => {
         onClose={handleCloseMenu}
         navItems={navItems}
         activeHref={activeHref}
-        cvOptions={cvOptions}
         githubUrl={profile.githubUrl}
         linkedinUrl={profile.linkedinUrl}
       />
