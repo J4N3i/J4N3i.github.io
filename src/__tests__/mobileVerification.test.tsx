@@ -7,7 +7,11 @@ import path from 'path';
 
 describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
   beforeEach(() => {
-    sessionStorage.setItem('intro-seen', '1');
+    window.location.hash = '#home';
+  });
+
+  afterEach(() => {
+    window.location.hash = '';
   });
   it('verifies index.html has viewport-fit=cover, theme-color, and preconnected fonts', () => {
     const htmlPath = path.resolve(__dirname, '../../index.html');
@@ -125,5 +129,29 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
     const menuToggle = screen.getByRole('button', { name: /open navigation menu/i });
     expect(menuToggle.className).toContain('min-h-[44px]');
     expect(menuToggle.className).toContain('min-w-[44px]');
+  });
+
+  it('renders preloader on page load when no hash is present', () => {
+    window.location.hash = '';
+    render(
+      <MemoryRouter>
+        <Index />
+      </MemoryRouter>
+    );
+
+    const status = screen.getByRole('status', { name: /welcome introduction/i });
+    expect(status).toBeInTheDocument();
+    expect(status).toHaveTextContent('JV');
+  });
+
+  it('skips preloader when deep link anchor hash is present', () => {
+    window.location.hash = '#projects';
+    render(
+      <MemoryRouter>
+        <Index />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByRole('status', { name: /welcome introduction/i })).not.toBeInTheDocument();
   });
 });

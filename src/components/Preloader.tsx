@@ -84,11 +84,11 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 min-h-[100svh] h-[100dvh] z-50 flex items-center justify-center bg-background cursor-pointer select-none"
+      className="fixed inset-0 min-h-[100svh] h-[100dvh] z-50 flex items-center justify-center bg-background cursor-pointer select-none overflow-hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]"
       role="status"
       aria-label="Welcome introduction"
     >
-      <div ref={contentRef} className="text-center px-4">
+      <div ref={contentRef} className="text-center px-4 max-w-full overflow-hidden">
         <p className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-3 font-inter">
           {profile.shortName}
         </p>
