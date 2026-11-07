@@ -67,6 +67,13 @@ export const HeroBackground = () => {
             'radial-gradient(circle at 50% 45%, transparent 10%, hsl(var(--background) / 0.6) 55%, hsl(var(--background)) 100%)',
         }}
       />
+
+      {/* Layer 5: Bottom Gradient Fade (160px from transparent to page background) */}
+      <div
+        data-testid="hero-bottom-fade"
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none bg-gradient-to-b from-transparent to-background"
+        aria-hidden="true"
+      />
     </div>
   );
 };

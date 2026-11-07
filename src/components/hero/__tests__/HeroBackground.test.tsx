@@ -28,6 +28,7 @@ describe('HeroBackground', () => {
     expect(screen.getByTestId('hero-spotlight')).toBeInTheDocument();
     expect(screen.getByTestId('hero-highlight-grid')).toBeInTheDocument();
     expect(screen.getByTestId('hero-vignette')).toBeInTheDocument();
+    expect(screen.getByTestId('hero-bottom-fade')).toBeInTheDocument();
 
     // Verify drift keyframe classes and static blur-3xl
     const blobPrimary = screen.getByTestId('hero-blob-primary');
