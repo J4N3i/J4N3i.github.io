@@ -94,7 +94,7 @@ const ExperienceSection = () => {
                   onClick={() => setShowEarlier((prev) => !prev)}
                   aria-expanded={showEarlier}
                   aria-controls="earlier-experience-list"
-                  className="inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-3.5 py-2 rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 min-h-[44px] rounded-xl transition-all active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <span>Earlier experience (2017 – 2020)</span>
                   <CaretDown

@@ -18,7 +18,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLButtonElement>(null);
 
   useSectionReveal({
     scopeRef: heroRef,
@@ -108,17 +108,25 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
         });
       }
 
-      // Parallax effect on scroll
-      gsap.to(hero, {
-        yPercent: -30,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: hero,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
+      // Parallax effect on scroll - desktop with fine pointer only
+      const isDesktopWithFinePointer =
+        typeof window !== 'undefined' &&
+        window.innerWidth >= 1024 &&
+        window.matchMedia('(pointer: fine)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isDesktopWithFinePointer) {
+        gsap.to(hero, {
+          yPercent: -30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
     },
   });
 

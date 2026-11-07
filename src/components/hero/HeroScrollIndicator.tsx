@@ -4,15 +4,17 @@ interface HeroScrollIndicatorProps {
   onClick?: () => void;
 }
 
-export const HeroScrollIndicator = forwardRef<HTMLDivElement, HeroScrollIndicatorProps>(
+export const HeroScrollIndicator = forwardRef<HTMLButtonElement, HeroScrollIndicatorProps>(
   ({ onClick }, ref) => {
     return (
-      <div
+      <button
         ref={ref}
-        className="mt-16 flex flex-col items-center gap-2 cursor-pointer"
+        type="button"
+        aria-label="Scroll to about section"
+        className="mt-16 min-h-[44px] min-w-[44px] flex flex-col items-center justify-center gap-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl p-2 transition-transform active:scale-95 text-white/70 hover:text-white"
         onClick={onClick}
       >
-        <span className="text-xs font-medium text-white/70 uppercase tracking-widest">Scroll</span>
+        <span className="text-xs font-medium uppercase tracking-widest">Scroll</span>
         <div className="w-[1px] h-8 bg-gradient-to-b from-white/30 to-transparent" />
         <svg
           width="16"
@@ -23,12 +25,11 @@ export const HeroScrollIndicator = forwardRef<HTMLDivElement, HeroScrollIndicato
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-white/70"
           aria-hidden="true"
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </div>
+      </button>
     );
   }
 );
