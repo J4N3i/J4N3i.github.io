@@ -37,6 +37,7 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
     if (honeypot) return;
 
     const now = Date.now();
@@ -118,7 +119,7 @@ export const ContactForm = () => {
               required
               maxLength={100}
               className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
-              placeholder="John Doe"
+              placeholder="Your name"
             />
           </div>
 
@@ -135,7 +136,7 @@ export const ContactForm = () => {
               required
               maxLength={200}
               className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
-              placeholder="john@example.com"
+              placeholder="you@company.com"
             />
           </div>
 
@@ -152,14 +153,15 @@ export const ContactForm = () => {
               rows={5}
               maxLength={2000}
               className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 resize-none"
-              placeholder="Tell me about your project..."
+              placeholder="Tell me about the role or opportunity..."
             />
-            <p className="text-xs text-white/20 text-right">{formData.message.length}/2000</p>
+            <p className="text-xs text-white/40 text-right">{formData.message.length}/2000</p>
           </div>
 
           <button
             type="submit"
             disabled={submitDisabled}
+            aria-busy={isSubmitting}
             className="submit-btn w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
