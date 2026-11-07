@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <rect width="800" height="500" rx="16" fill="#0B0F19"/>
+  <rect x="1" y="1" width="798" height="498" rx="15" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+  
+  <!-- Window Header -->
+  <rect x="0" y="0" width="800" height="44" rx="16" fill="#131B2E"/>
+  <circle cx="28" cy="22" r="6" fill="#EF4444" opacity="0.8"/>
+  <circle cx="48" cy="22" r="6" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="68" cy="22" r="6" fill="#10B981" opacity="0.8"/>
+  <text x="400" y="27" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="500">ds-pay — Distributed Cluster Consensus &amp; Replication</text>
+
+  <!-- Consensus Overview Banner -->
+  <rect x="24" y="64" width="752" height="68" rx="10" fill="#162035" stroke="rgba(255,255,255,0.05)"/>
+  <text x="44" y="94" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">CLUSTER CONSENSUS ENGINE</text>
+  <text x="44" y="118" fill="#10B981" font-family="-apple-system, sans-serif" font-size="18" font-weight="700">● Apache ZooKeeper Quorum Active</text>
+  <text x="560" y="104" fill="#94A3B8" font-family="monospace" font-size="12">Lamport Logical Clocks: SYNCED</text>
+
+  <!-- Nodes Visualization -->
+  <!-- Leader Node -->
+  <rect x="40" y="152" width="220" height="150" rx="10" fill="#162238" stroke="#10B981" stroke-width="1.5"/>
+  <rect x="52" y="164" width="70" height="20" rx="10" fill="#10B981" fill-opacity="0.2"/>
+  <text x="87" y="178" text-anchor="middle" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">LEADER</text>
+  <text x="52" y="210" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Node 01 (FastAPI)</text>
+  <text x="52" y="235" fill="#94A3B8" font-family="monospace" font-size="12">Port: 8001 • State: Active</text>
+  <text x="52" y="255" fill="#94A3B8" font-family="monospace" font-size="12">WAL: Term 3, Index 1420</text>
+  <text x="52" y="280" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11">Idempotent Tx Executor</text>
+
+  <!-- Follower Node 1 -->
+  <rect x="290" y="152" width="220" height="150" rx="10" fill="#162238" stroke="rgba(255,255,255,0.1)"/>
+  <rect x="302" y="164" width="80" height="20" rx="10" fill="#64748B" fill-opacity="0.2"/>
+  <text x="342" y="178" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">FOLLOWER</text>
+  <text x="302" y="210" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Node 02 (FastAPI)</text>
+  <text x="302" y="235" fill="#94A3B8" font-family="monospace" font-size="12">Port: 8002 • State: Replicating</text>
+  <text x="302" y="255" fill="#94A3B8" font-family="monospace" font-size="12">WAL: Term 3, Index 1420</text>
+  <text x="302" y="280" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">Sync Lag: 0ms</text>
+
+  <!-- Follower Node 2 -->
+  <rect x="540" y="152" width="220" height="150" rx="10" fill="#162238" stroke="rgba(255,255,255,0.1)"/>
+  <rect x="552" y="164" width="80" height="20" rx="10" fill="#64748B" fill-opacity="0.2"/>
+  <text x="592" y="178" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">FOLLOWER</text>
+  <text x="552" y="210" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Node 03 (FastAPI)</text>
+  <text x="552" y="235" fill="#94A3B8" font-family="monospace" font-size="12">Port: 8003 • State: Replicating</text>
+  <text x="552" y="255" fill="#94A3B8" font-family="monospace" font-size="12">WAL: Term 3, Index 1419</text>
+  <text x="552" y="280" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">Sync Lag: 1ms</text>
+
+  <!-- Transaction Replicated Log -->
+  <rect x="24" y="322" width="752" height="154" rx="10" fill="#0E1626" stroke="rgba(255,255,255,0.06)"/>
+  <text x="44" y="350" fill="#A5B4FC" font-family="monospace" font-size="12">// Write-Ahead Log (WAL) &amp; Distributed Ledger Commit Stream</text>
+  
+  <rect x="40" y="364" width="720" height="30" rx="4" fill="#162238"/>
+  <text x="52" y="384" fill="#10B981" font-family="monospace" font-size="11">[COMMITTED]</text>
+  <text x="150" y="384" fill="#E2E8F0" font-family="monospace" font-size="11">Tx #1420: UID_8923 -> UID_4412 | Amount: $250.00 | IdempotencyKey: 8f9b-22e1</text>
+  <text x="690" y="384" fill="#64748B" font-family="monospace" font-size="11">Quorum 3/3</text>
+
+  <rect x="40" y="400" width="720" height="30" rx="4" fill="#162238" fill-opacity="0.6"/>
+  <text x="52" y="420" fill="#10B981" font-family="monospace" font-size="11">[COMMITTED]</text>
+  <text x="150" y="420" fill="#E2E8F0" font-family="monospace" font-size="11">Tx #1419: UID_1109 -> UID_3382 | Amount: $75.50  | IdempotencyKey: 3a2c-7710</text>
+  <text x="690" y="420" fill="#64748B" font-family="monospace" font-size="11">Quorum 3/3</text>
+
+  <rect x="40" y="436" width="720" height="28" rx="4" fill="#162238"/>
+  <text x="52" y="454" fill="#38BDF8" font-family="monospace" font-size="11">[HEARTBEAT]</text>
+  <text x="150" y="454" fill="#94A3B8" font-family="monospace" font-size="11">ZooKeeper leader lease renewed for Node 01 | TTL: 4980ms</text>
+</svg>

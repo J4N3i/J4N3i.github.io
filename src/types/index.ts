@@ -42,11 +42,20 @@ export interface Profile {
 }
 
 export interface Project {
+  slug: string;
   title: string;
-  desc: string;
+  oneLiner: string;
+  problem: string;
+  role: string;
+  result: string;
+  image: string;
+  imageAlt: string;
   tags: string[];
-  link: string;
+  liveUrl?: string;
+  repoUrl: string;
   featured?: boolean;
+  desc?: string;
+  link?: string;
 }
 
 export interface Experience {

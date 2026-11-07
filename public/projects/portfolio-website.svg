@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <rect width="800" height="500" rx="16" fill="#0B0F19"/>
+  <rect x="1" y="1" width="798" height="498" rx="15" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+  
+  <!-- Window Header -->
+  <rect x="0" y="0" width="800" height="44" rx="16" fill="#131B2E"/>
+  <circle cx="28" cy="22" r="6" fill="#EF4444" opacity="0.8"/>
+  <circle cx="48" cy="22" r="6" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="68" cy="22" r="6" fill="#10B981" opacity="0.8"/>
+  <text x="400" y="27" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="500">https://janeeshagamage.com — Modern Full-Stack &amp; DevOps Portfolio</text>
+
+  <!-- Hero Preview -->
+  <rect x="24" y="64" width="752" height="260" rx="10" fill="#162035" stroke="rgba(255,255,255,0.05)"/>
+  <rect x="290" y="80" width="220" height="24" rx="12" fill="#10B981" fill-opacity="0.15" stroke="rgba(16,185,129,0.3)"/>
+  <circle cx="304" cy="92" r="4" fill="#10B981"/>
+  <text x="408" y="96" text-anchor="middle" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">Open to DevOps &amp; full-stack internships</text>
+
+  <text x="400" y="142" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="28" font-weight="800">Janeesha Vishwaprabha</text>
+  <text x="400" y="170" text-anchor="middle" fill="#818CF8" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">FULL-STACK &amp; DEVOPS ENGINEER</text>
+  <text x="400" y="202" text-anchor="middle" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="15" font-weight="300">I build and ship reliable web systems, from code to cloud.</text>
+
+  <rect x="290" y="224" width="105" height="36" rx="18" fill="#6366F1"/>
+  <text x="342" y="246" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">View my work</text>
+  <rect x="405" y="224" width="105" height="36" rx="18" fill="#1E293B" stroke="rgba(255,255,255,0.1)"/>
+  <text x="457" y="246" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Download CV</text>
+
+  <text x="400" y="292" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">CS Undergrad @ SLIIT  •  5+ Leadership Roles  •  6+ Shipped Projects</text>
+
+  <!-- Lighthouse / Performance Metrics Bar -->
+  <rect x="24" y="340" width="752" height="136" rx="10" fill="#0E1626" stroke="rgba(255,255,255,0.06)"/>
+  
+  <!-- Metric 1 -->
+  <rect x="44" y="356" width="160" height="104" rx="8" fill="#162238"/>
+  <text x="124" y="396" text-anchor="middle" fill="#10B981" font-family="-apple-system, sans-serif" font-size="32" font-weight="800">100</text>
+  <text x="124" y="424" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">SEO &amp; Prerender</text>
+  <text x="124" y="444" text-anchor="middle" fill="#64748B" font-family="-apple-system, sans-serif" font-size="10">100% Crawlable HTML</text>
+
+  <!-- Metric 2 -->
+  <rect x="228" y="356" width="160" height="104" rx="8" fill="#162238"/>
+  <text x="308" y="396" text-anchor="middle" fill="#10B981" font-family="-apple-system, sans-serif" font-size="32" font-weight="800">100</text>
+  <text x="308" y="424" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Best Practices</text>
+  <text x="308" y="444" text-anchor="middle" fill="#64748B" font-family="-apple-system, sans-serif" font-size="10">HTTPS, Modern APIs</text>
+
+  <!-- Metric 3 -->
+  <rect x="412" y="356" width="160" height="104" rx="8" fill="#162238"/>
+  <text x="492" y="396" text-anchor="middle" fill="#10B981" font-family="-apple-system, sans-serif" font-size="32" font-weight="800">98</text>
+  <text x="492" y="424" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Accessibility</text>
+  <text x="492" y="444" text-anchor="middle" fill="#64748B" font-family="-apple-system, sans-serif" font-size="10">WCAG AA Contrast</text>
+
+  <!-- Metric 4: AI Assistant -->
+  <rect x="596" y="356" width="160" height="104" rx="8" fill="#162238" stroke="rgba(99,102,241,0.3)"/>
+  <text x="676" y="396" text-anchor="middle" fill="#818CF8" font-family="-apple-system, sans-serif" font-size="28" font-weight="800">Thea AI</text>
+  <text x="676" y="424" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Interactive Bot</text>
+  <text x="676" y="444" text-anchor="middle" fill="#64748B" font-family="-apple-system, sans-serif" font-size="10">Natural Intent Engine</text>
+</svg>
