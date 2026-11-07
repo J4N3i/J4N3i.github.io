@@ -488,3 +488,76 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+/* Hero Animated Background Keyframes & Grid */
+@keyframes hero-drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6vw, 8vh, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-5vw, 12vh, 0) scale(0.96);
+  }
+}
+
+@keyframes hero-drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-8vw, -6vh, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(5vw, -10vh, 0) scale(0.94);
+  }
+}
+
+@keyframes hero-drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6vw, 7vh, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(7vw, -5vh, 0) scale(0.95);
+  }
+}
+
+.hero-drift-a {
+  animation: hero-drift-a 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-drift-b {
+  animation: hero-drift-b 33s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-drift-c {
+  animation: hero-drift-c 29s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-faint-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.hero-bg-fade {
+  transition: opacity 600ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift-a,
+  .hero-drift-b,
+  .hero-drift-c {
+    animation: none !important;
+  }
+}

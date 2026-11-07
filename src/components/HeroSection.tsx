@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { profile } from '@/data';
-import { HeroBackground } from './hero/HeroBackground';
+import { HeroBackground } from './HeroBackground';
 import { HeroCTA } from './hero/HeroCTA';
 import { HeroProofPoints } from './hero/HeroProofPoints';
 import { HeroScrollIndicator } from './hero/HeroScrollIndicator';
