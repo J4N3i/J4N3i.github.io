@@ -25,6 +25,21 @@ describe('useActiveSection', () => {
     expect(result.current[0]).toBe('#home');
   });
 
+  it('configures IntersectionObserver with midpoint rootMargin and threshold 0', () => {
+    const dummyDiv = document.createElement('div');
+    dummyDiv.id = 'home';
+    document.body.appendChild(dummyDiv);
+
+    renderHook(() => useActiveSection());
+    expect(window.IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), {
+      root: null,
+      rootMargin: '-45% 0px -50% 0px',
+      threshold: 0,
+    });
+
+    document.body.removeChild(dummyDiv);
+  });
+
   it('observes section elements matching sectionIds when elements exist', () => {
     const dummyDiv = document.createElement('div');
     dummyDiv.id = 'projects';
@@ -34,6 +49,23 @@ describe('useActiveSection', () => {
     expect(mockObserve).toHaveBeenCalledWith(dummyDiv);
 
     document.body.removeChild(dummyDiv);
+  });
+
+  it('observes default section IDs when none provided', () => {
+    const defaultIds = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
+    const dummyDivs = defaultIds.map((id) => {
+      const el = document.createElement('div');
+      el.id = id;
+      document.body.appendChild(el);
+      return el;
+    });
+
+    renderHook(() => useActiveSection());
+    defaultIds.forEach((_, idx) => {
+      expect(mockObserve).toHaveBeenCalledWith(dummyDivs[idx]);
+    });
+
+    dummyDivs.forEach((el) => document.body.removeChild(el));
   });
 
   it('updates active section when an intersecting entry is observed', () => {
@@ -47,7 +79,7 @@ describe('useActiveSection', () => {
       observerCallback([
         {
           isIntersecting: true,
-          intersectionRatio: 0.8,
+          intersectionRatio: 0.1,
           target: dummyDiv,
         } as unknown as IntersectionObserverEntry,
       ]);

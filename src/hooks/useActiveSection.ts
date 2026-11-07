@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const DEFAULT_SECTION_IDS = [
-  'home',
-  'about',
-  'education',
-  'experience',
-  'skills',
-  'projects',
-  'certifications',
-  'contact',
-];
+const DEFAULT_SECTION_IDS = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
 
 export function useActiveSection(
   sectionIds: string[] = DEFAULT_SECTION_IDS
@@ -27,15 +18,13 @@ export function useActiveSection(
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) {
-          const id = visible[0].target.id;
-          setActiveHref(`#${id}`);
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveHref(`#${entry.target.id}`);
+          }
         }
       },
-      { root: null, threshold: [0.35, 0.5, 0.75] }
+      { root: null, rootMargin: '-45% 0px -50% 0px', threshold: 0 }
     );
 
     sections.forEach((el) => observer.observe(el));
