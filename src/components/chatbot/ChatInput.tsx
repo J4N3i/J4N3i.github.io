@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { FormEvent } from 'react';
 import { PaperPlaneTilt } from 'phosphor-react';
 
@@ -8,26 +9,36 @@ interface ChatInputProps {
   disabled?: boolean;
 }
 
-export const ChatInput = ({ value, onChange, onSubmit, disabled }: ChatInputProps) => {
-  return (
-    <form onSubmit={onSubmit} className="p-4 border-t border-white/10 bg-white/5">
-      <div className="relative">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Ask me anything..."
-          className="w-full bg-surface-elevated/50 border border-white/10 rounded-full pl-4 pr-12 py-3 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-        />
-        <button
-          type="submit"
-          disabled={!value.trim() || disabled}
-          aria-label="Send chat message"
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-primary text-white disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transition-transform"
-        >
-          <PaperPlaneTilt size={16} weight="fill" />
-        </button>
-      </div>
-    </form>
-  );
-};
+export const ChatInput = forwardRef<HTMLInputElement, ChatInputProps>(
+  ({ value, onChange, onSubmit, disabled }, ref) => {
+    return (
+      <form onSubmit={onSubmit} className="p-3 border-t border-white/10 bg-[#12141c]">
+        <label htmlFor="chat-message-input" className="sr-only">
+          Message Thea
+        </label>
+        <div className="relative flex items-center">
+          <input
+            id="chat-message-input"
+            ref={ref}
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="Ask Thea a question..."
+            disabled={disabled}
+            className="w-full bg-[#1a1d28] border border-white/10 rounded-full pl-4 pr-12 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={!value.trim() || disabled}
+            aria-label="Send message"
+            className="absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-primary text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+          >
+            <PaperPlaneTilt size={16} weight="fill" />
+          </button>
+        </div>
+      </form>
+    );
+  }
+);
+
+ChatInput.displayName = 'ChatInput';
