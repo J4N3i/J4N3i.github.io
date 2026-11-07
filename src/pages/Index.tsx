@@ -96,7 +96,7 @@ const Index = () => {
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
 
       {/* Main Content */}
-      <div>
+      <div aria-hidden={showPreloader ? true : undefined}>
         <Navigation />
         <main>
           <HeroSection ready={isHeroReady} startDelay={hasIntroDelay ? 0.1 : 0} />

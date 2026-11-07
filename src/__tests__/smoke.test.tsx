@@ -13,11 +13,11 @@ describe('Portfolio Smoke Test', () => {
     );
 
     // Verify main hero headline includes profile name
-    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, hidden: true })).toBeInTheDocument();
     expect(container.textContent).toContain(profile.name);
 
     // Verify navigation is rendered
-    expect(screen.getAllByRole('navigation')[0]).toBeInTheDocument();
+    expect(screen.getAllByRole('navigation', { hidden: true })[0]).toBeInTheDocument();
 
     // Verify key sections exist
     expect(document.getElementById('home')).toBeInTheDocument();

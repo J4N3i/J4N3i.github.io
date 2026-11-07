@@ -44,8 +44,8 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       if (cta) gsap.set(cta, { opacity: 0, y: 30, filter: 'blur(8px)' });
       if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0, y: -10 });
 
-      // Start animation with a slight 0.2s delay after preloader completes
-      const tl = gsap.timeline({ delay: 0.2 });
+      // Start animation immediately (or with short 0.1s handoff delay if intro played)
+      const tl = gsap.timeline({ delay: startDelay });
 
       if (headline) {
         tl.to(headline, {
@@ -104,7 +104,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           repeat: -1,
           yoyo: true,
           ease: ANIMATION_EASING.inOut,
-          delay: 1.5,
         });
       }
 
