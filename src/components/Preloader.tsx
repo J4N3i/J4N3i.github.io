@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { profile } from '@/data';
 
@@ -8,96 +8,93 @@ interface PreloaderProps {
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const finishedRef = useRef(false);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+  const handleFinish = useCallback(() => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
+
+    if (tlRef.current) {
+      tlRef.current.kill();
+    }
+
+    const container = containerRef.current;
+    if (container) {
+      container.style.display = 'none';
+    }
+    onComplete();
+  }, [onComplete]);
 
   useEffect(() => {
     const container = containerRef.current;
-    const text = textRef.current;
-    const progress = progressRef.current;
-    const bar = barRef.current;
+    const content = contentRef.current;
+    if (!container || !content) return;
 
-    if (!container || !text || !progress || !bar) return;
-
-    // Skip preloader entirely if user prefers reduced motion
+    // Skip preloader immediately if reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      container.style.display = 'none';
-      onComplete();
+      handleFinish();
       return;
     }
 
     // Set initial states via JS
-    gsap.set(text, { opacity: 0, y: 20 });
-    gsap.set(progress, { opacity: 0 });
-    gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' });
+    gsap.set(content, { opacity: 0, y: 16 });
 
+    // Timeline total about 0.8s:
+    // fade and rise in (0.3s), hold (0.2s), fade whole overlay out (0.3s)
     const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(container, {
-          opacity: 0,
-          duration: 0.3,
-          ease: 'power2.inOut',
-          onComplete: () => {
-            container.style.display = 'none';
-            onComplete();
-          },
-        });
-      },
+      onComplete: handleFinish,
     });
+    tlRef.current = tl;
 
-    tl.to(text, {
+    tl.to(content, {
       opacity: 1,
       y: 0,
       duration: 0.3,
       ease: 'power3.out',
     })
-      .to(
-        progress,
-        {
-          opacity: 1,
-          duration: 0.2,
-        },
-        '-=0.1'
-      )
-      .to(bar, {
-        scaleX: 1,
-        duration: 0.5,
-        ease: 'power2.inOut',
-      })
-      .to([text, progress], {
+      .to({}, { duration: 0.2 })
+      .to(container, {
         opacity: 0,
-        y: -20,
-        duration: 0.2,
-        ease: 'power2.in',
+        duration: 0.3,
+        ease: 'power2.inOut',
       });
 
+    // Skip behaviour: pressing any key or clicking anywhere finishes intro immediately
+    const handleKeyDown = () => {
+      handleFinish();
+    };
+
+    const handlePointerDown = () => {
+      handleFinish();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('pointerdown', handlePointerDown);
+
     return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('pointerdown', handlePointerDown);
       tl.kill();
     };
-  }, [onComplete]);
+  }, [handleFinish]);
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background"
-      aria-hidden="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background cursor-pointer select-none"
+      role="status"
+      aria-label="Welcome introduction"
     >
-      <div className="relative z-10 flex flex-col items-center">
-        <div ref={textRef} className="text-center mb-8">
-          <p
-            className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2"
-            aria-hidden="true"
-          >
-            {profile.shortName}
-          </p>
-          <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase">{profile.name}</p>
-        </div>
-
-        <div ref={progressRef} className="w-48 h-[2px] bg-secondary rounded-full overflow-hidden">
-          <div ref={barRef} className="h-full w-full bg-primary" />
-        </div>
+      <div ref={contentRef} className="text-center px-4">
+        <p className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-3 font-inter">
+          {profile.shortName}
+        </p>
+        <p className="text-xs sm:text-sm font-semibold text-white/70 tracking-[0.25em] uppercase">
+          {profile.name}
+        </p>
       </div>
     </div>
   );
