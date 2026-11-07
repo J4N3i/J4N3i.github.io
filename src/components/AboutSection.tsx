@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ProfileCard } from './about/ProfileCard';
 import { AboutIntro } from './about/AboutIntro';
+import { WhatIDoRow } from './about/WhatIDoRow';
 import { SkillsGrid } from './about/SkillsGrid';
 import {
   ANIMATION_DURATION,
@@ -14,6 +15,7 @@ const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const whatIDoRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
 
   useSectionReveal(sectionRef, () => {
@@ -23,6 +25,7 @@ const AboutSection = () => {
 
     // Initial states set via JS (content visible if JS fails)
     gsap.set([image, content], { opacity: 0, y: 50, filter: 'blur(10px)' });
+    gsap.set('.what-i-do-card', { opacity: 0, y: 20 });
     gsap.set('.skill-pill', { opacity: 0, scale: 0.8, y: 15 });
 
     // Scroll triggered animation
@@ -52,6 +55,17 @@ const AboutSection = () => {
         '-=0.7'
       )
       .to(
+        '.what-i-do-card',
+        {
+          opacity: 1,
+          y: 0,
+          duration: ANIMATION_DURATION.fast,
+          ease: ANIMATION_EASING.power2Out,
+          stagger: 0.1,
+        },
+        '-=0.4'
+      )
+      .to(
         '.skill-pill',
         {
           opacity: 1,
@@ -61,7 +75,7 @@ const AboutSection = () => {
           ease: ANIMATION_EASING.power2Out,
           stagger: 0.04,
         },
-        '-=0.5'
+        '-=0.3'
       );
   });
 
@@ -85,6 +99,9 @@ const AboutSection = () => {
             <AboutIntro ref={contentRef} />
           </div>
         </div>
+
+        {/* What I Do Row */}
+        <WhatIDoRow ref={whatIDoRef} />
 
         {/* Skills Grid */}
         <SkillsGrid skillsRef={skillsRef} />
