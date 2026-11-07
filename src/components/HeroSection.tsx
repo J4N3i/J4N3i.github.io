@@ -160,7 +160,7 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       <HeroBackground />
 
       {/* Main Content */}
-      <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
+      <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full flex flex-col items-center">
         {/* Availability Badge */}
         <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-[11px] sm:text-xs font-medium mb-2.5 sm:mb-5 backdrop-blur-sm shadow-sm">
           <span className="relative flex h-2 w-2">
