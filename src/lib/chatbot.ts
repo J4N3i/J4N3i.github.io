@@ -1,108 +1,342 @@
-import { profile, projects } from '@/data';
+import { profile, projects, skillGroups, educationList, certifications } from '@/data';
 
 export type Intent =
-  'greeting' | 'skills' | 'projects' | 'contact' | 'about' | 'resume' | 'unknown';
+  | 'availability'
+  | 'cv'
+  | 'projects'
+  | 'skills'
+  | 'experience'
+  | 'education'
+  | 'contact'
+  | 'about'
+  | 'thanks'
+  | 'greeting'
+  | 'unknown';
+
+export interface BotAction {
+  label: string;
+  href?: string;
+  copy?: string;
+  download?: boolean;
+}
+
+export interface BotReply {
+  text: string;
+  actions?: BotAction[];
+  chips?: string[];
+}
 
 export interface ChatMessageItem {
   id: string;
   text: string;
   sender: 'user' | 'bot';
-  timestamp: Date;
+  actions?: BotAction[];
+  chips?: string[];
+  timestamp?: Date;
 }
 
-export const INTENT_KEYWORDS: Record<Intent, string[]> = {
-  greeting: ['hello', 'hi', 'hey', 'greetings', 'morning', 'afternoon', 'evening'],
+// Specificity priority order: ties go to the earliest (most specific) intent
+export const INTENT_PRIORITY: Intent[] = [
+  'availability',
+  'cv',
+  'projects',
+  'skills',
+  'experience',
+  'education',
+  'contact',
+  'about',
+  'thanks',
+  'greeting',
+];
+
+export const INTENT_KEYWORDS: Record<Exclude<Intent, 'unknown'>, string[]> = {
+  availability: [
+    'intern',
+    'internship',
+    'internships',
+    'job',
+    'jobs',
+    'role',
+    'roles',
+    'hire',
+    'hiring',
+    'available',
+    'availability',
+    'opportunity',
+    'opportunities',
+    'full-time',
+    'graduate',
+    'graduates',
+  ],
+  cv: ['cv', 'cvs', 'resume', 'resumes', 'download'],
+  projects: [
+    'project',
+    'projects',
+    'portfolio',
+    'built',
+    'build',
+    'created',
+    'app',
+    'apps',
+    'showcase',
+  ],
   skills: [
     'skill',
+    'skills',
     'stack',
     'tech',
     'technology',
+    'technologies',
+    'tool',
+    'tools',
     'language',
+    'languages',
     'framework',
-    'react',
-    'java',
-    'typescript',
+    'frameworks',
+    'frontend',
+    'backend',
     'devops',
-    'docker',
-    'azure',
     'cloud',
+    'docker',
+    'react',
+    'azure',
+    'proxmox',
+    'truenas',
+    'spring',
+    'fastapi',
+    'typescript',
+    'python',
+    'java',
+    'c#',
+    'asp.net',
+    'tailwind',
+    'gsap',
+    'vite',
+    'certification',
+    'certifications',
+    'certificate',
+    'certified',
   ],
-  projects: ['project', 'work', 'portfolio', 'build', 'created', 'app', 'website'],
-  contact: ['contact', 'email', 'phone', 'reach', 'message', 'talk', 'hire'],
-  about: ['who', 'about', 'bio', 'yourself', 'background', 'student', 'sliit', 'study'],
-  resume: ['resume', 'cv', 'download', 'pdf'],
-  unknown: [],
+  experience: [
+    'experience',
+    'career',
+    'history',
+    'leadership',
+    'community',
+    'bank',
+    'trainee',
+    'aiesec',
+  ],
+  education: [
+    'education',
+    'degree',
+    'university',
+    'school',
+    'academic',
+    'academics',
+    'study',
+    'studying',
+    'college',
+    'undergrad',
+    'undergraduate',
+    'sliit',
+  ],
+  contact: ['contact', 'email', 'reach', 'message', 'talk', 'connect', 'touch', 'linkedin'],
+  about: ['about', 'who', 'bio', 'yourself', 'profile', 'background', 'intro', 'introduction'],
+  thanks: ['thank', 'thanks', 'thx', 'appreciate', 'helpful', 'great', 'awesome', 'perfect'],
+  greeting: ['hello', 'hi', 'hey', 'greetings', 'howdy'],
 };
 
-export const INITIAL_MESSAGES: ChatMessageItem[] = [
-  {
-    id: '1',
-    text: "Hi! I'm Thea, Janeesha's AI assistant. Ask me anything about his skills, projects, experience, or background!",
-    sender: 'bot',
-    timestamp: new Date(),
-  },
-];
+export const INITIAL_MESSAGE: ChatMessageItem = {
+  id: 'init-1',
+  text: "Hi, I'm Thea. I can answer quick questions about Janeesha's work. What would you like to know?",
+  sender: 'bot',
+  chips: ['About', 'Projects', 'Skills', 'Experience', 'CV', 'Contact'],
+};
 
-export const SUGGESTIONS = [
-  'What are your skills?',
-  'Tell me about your projects',
-  'How can I contact you?',
-];
+export const INITIAL_MESSAGES: ChatMessageItem[] = [INITIAL_MESSAGE];
+
+export const TOPIC_CHIPS = ['About', 'Projects', 'Skills', 'Experience', 'CV', 'Contact'];
+
+export const SUGGESTIONS = TOPIC_CHIPS;
 
 export function determineIntent(input: string): Intent {
-  const lowerInput = input.toLowerCase();
-  let bestIntent: Intent = 'unknown';
-  let maxScore = 0;
+  if (!input || !input.trim()) return 'unknown';
 
-  for (const [intent, keywords] of Object.entries(INTENT_KEYWORDS)) {
+  const normalized = input.toLowerCase().replace(/[^\w\s-]/g, ' ');
+  const tokens = normalized.split(/\s+/).filter(Boolean);
+  const tokenSet = new Set(tokens);
+
+  if (tokens.length === 0) return 'unknown';
+
+  let highestScore = 0;
+  let chosenIntent: Intent = 'unknown';
+
+  for (const intent of INTENT_PRIORITY) {
+    const keywords = INTENT_KEYWORDS[intent];
     let score = 0;
-    for (const keyword of keywords) {
-      if (lowerInput.includes(keyword)) score += 1;
+
+    for (const kw of keywords) {
+      if (kw.includes(' ')) {
+        const regex = new RegExp(`\\b${kw.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'i');
+        if (regex.test(normalized)) {
+          score += 2;
+        }
+      } else if (tokenSet.has(kw)) {
+        score += 1;
+      }
     }
-    if (score > maxScore) {
-      maxScore = score;
-      bestIntent = intent as Intent;
+
+    if (intent === 'skills') {
+      for (const cert of certifications) {
+        const certTokens = cert.name.toLowerCase().split(/\s+/);
+        for (const t of certTokens) {
+          if (t.length > 3 && tokenSet.has(t)) {
+            score += 1;
+          }
+        }
+      }
+    }
+
+    if (intent === 'projects') {
+      for (const proj of projects) {
+        const titleTokens = proj.title.toLowerCase().split(/\s+/);
+        for (const t of titleTokens) {
+          if (t.length > 3 && tokenSet.has(t)) {
+            score += 1;
+          }
+        }
+      }
+    }
+
+    if (score > highestScore) {
+      highestScore = score;
+      chosenIntent = intent;
     }
   }
 
-  return maxScore > 0 ? bestIntent : 'unknown';
+  return highestScore > 0 ? chosenIntent : 'unknown';
 }
 
-export function generateBotResponse(input: string): string {
+export function generateBotReply(input: string): BotReply {
   const intent = determineIntent(input);
 
   switch (intent) {
-    case 'greeting': {
-      const greetings = [
-        'Hello! How can I help you today?',
-        "Hi there! Interested in Janeesha's work?",
-        'Greetings! Feel free to ask me anything.',
-      ];
-      return greetings[Math.floor(Math.random() * greetings.length)];
+    case 'availability':
+      return {
+        text: 'Janeesha is open to DevOps and full-stack internships and graduate roles.',
+        actions: [
+          { label: 'Connect on LinkedIn', href: profile.linkedinUrl },
+          { label: 'Download CV', href: profile.cvs[0].href, download: true },
+          { label: 'Contact', href: '#contact' },
+        ],
+        chips: ['Projects', 'Skills', 'About'],
+      };
+
+    case 'cv':
+      return {
+        text: "You can download Janeesha's CV directly (tailored for DevOps, Full-Stack, or AI/ML):",
+        actions: profile.cvs.map((cv) => ({
+          label: cv.label,
+          href: cv.href,
+          download: true,
+        })),
+        chips: ['Projects', 'Skills', 'Contact'],
+      };
+
+    case 'projects': {
+      const topProjects = projects.slice(0, 3);
+      const list = topProjects.map((p) => `• ${p.title} — ${p.oneLiner}`).join('\n');
+      return {
+        text: `Here are three of Janeesha's featured projects:\n\n${list}`,
+        actions: [
+          { label: 'View projects', href: '#projects' },
+          { label: 'GitHub', href: profile.githubUrl },
+        ],
+        chips: ['Skills', 'Download CV', 'Contact'],
+      };
     }
 
-    case 'skills':
-      return (
-        'Janeesha is a versatile full-stack developer & DevOps engineer!\n\n' +
-        'Languages: Java, Python, C#, JavaScript, TypeScript, C, C++.\n' +
-        'Frontend: React, TypeScript, Tailwind CSS, GSAP, HTML5, CSS3, Vite.\n' +
-        'Backend: ASP.NET Core, Spring Boot, FastAPI, Node.js, RESTful APIs.\n' +
-        'Cloud & Tools: Microsoft Azure, Docker, Proxmox VE, TrueNAS, Tailscale, Apache ZooKeeper, GitHub Actions.'
-      );
+    case 'skills': {
+      const list = skillGroups.map((g) => `• ${g.category}: ${g.skills.join(', ')}`).join('\n');
+      return {
+        text: `Janeesha's core technical skills across code and cloud:\n\n${list}`,
+        actions: [
+          { label: 'View projects', href: '#projects' },
+          { label: 'Download CV', href: profile.cvs[0].href, download: true },
+        ],
+        chips: ['Projects', 'Availability', 'Experience', 'Contact'],
+      };
+    }
 
-    case 'projects':
-      return `He has worked on some cool stuff! For example:\n1. ${projects[0].title} - ${projects[0].oneLiner}\n2. ${projects[1].title} - ${projects[1].oneLiner}`;
+    case 'experience':
+      return {
+        text: "Janeesha's experience combines community leadership and operational discipline:\n\n• Leadership & Community: Student community leadership at SLIIT and team leadership at AIESEC.\n• Work Experience: Commercial banking operational trainee.",
+        actions: [
+          { label: 'View experience', href: '#experience' },
+          { label: 'LinkedIn', href: profile.linkedinUrl },
+        ],
+        chips: ['Education', 'Projects', 'Skills', 'Contact'],
+      };
+
+    case 'education': {
+      const primaryEdu = educationList[0];
+      return {
+        text: `Janeesha is studying ${primaryEdu.degree} at ${primaryEdu.institution}. Focus areas include software architecture, distributed systems, and DevOps engineering.`,
+        actions: [
+          { label: 'View education', href: '#education' },
+          { label: 'Download CV', href: profile.cvs[0].href, download: true },
+        ],
+        chips: ['Experience', 'Skills', 'Contact'],
+      };
+    }
 
     case 'contact':
-      return `The quickest way to reach Janeesha is via LinkedIn (${profile.linkedinUrl}) or by email at ${profile.email}. He is open to DevOps and full-stack internships!`;
+      return {
+        text: 'The quickest way to reach Janeesha is via LinkedIn or email, and Janeesha is always happy to share CV copies.',
+        actions: [
+          { label: 'LinkedIn', href: profile.linkedinUrl },
+          { label: 'Copy email', copy: profile.email },
+          { label: 'Send a message', href: '#contact' },
+        ],
+        chips: ['Availability', 'Download CV', 'Projects'],
+      };
 
     case 'about':
-      return profile.bio;
+      return {
+        text: 'Janeesha is a Computer Science undergraduate and Full-Stack & DevOps Engineer who builds and ships reliable web systems, from immersive React frontends to private cloud labs on Proxmox, Docker, and Microsoft Azure.',
+        actions: [
+          { label: 'View projects', href: '#projects' },
+          { label: 'Download CV', href: profile.cvs[0].href, download: true },
+        ],
+        chips: ['Projects', 'Skills', 'Availability'],
+      };
 
-    case 'resume':
-      return `You can download his CV directly: ${profile.cvs.devops.label} (${profile.cvs.devops.href}) or choose other specializations in the navigation bar dropdown.`;
+    case 'greeting':
+      return {
+        text: "Hi! I'm Thea. How can I help you explore Janeesha's work today?",
+        chips: ['About', 'Projects', 'Skills', 'Availability', 'CV', 'Contact'],
+      };
 
+    case 'thanks':
+      return {
+        text: "You're welcome! Let me know if you would like to know anything else about Janeesha's work.",
+        chips: ['Projects', 'Download CV', 'Contact'],
+      };
+
+    case 'unknown':
     default:
-      return "I'm not quite sure about that. Try asking about 'skills', 'projects', or 'contact info'!";
+      return {
+        text: "I don't have an answer for that yet. Pick a topic below, or send Janeesha a message.",
+        actions: [
+          { label: 'Send a message', href: '#contact' },
+          { label: 'LinkedIn', href: profile.linkedinUrl },
+        ],
+        chips: ['About', 'Projects', 'Skills', 'Availability', 'CV', 'Contact'],
+      };
   }
+}
+
+export function generateBotResponse(input: string): string {
+  return generateBotReply(input).text;
 }
