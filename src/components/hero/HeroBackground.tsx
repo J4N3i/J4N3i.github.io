@@ -62,16 +62,17 @@ export const HeroBackground = () => {
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none">
       {showSpline && (
-        <div className="absolute inset-0 z-0 opacity-60 pointer-events-auto">
+        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
           <iframe
             src="https://my.spline.design/particles-IuAKpPmPEpw3YI7I2p09F8CM/"
             frameBorder="0"
             width="100%"
             height="100%"
-            className="w-full h-full"
+            className="w-full h-full pointer-events-none"
             title="3D Particles Background"
             loading="lazy"
             aria-hidden="true"
+            tabIndex={-1}
           />
         </div>
       )}

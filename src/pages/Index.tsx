@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Preloader from '@/components/Preloader';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
@@ -25,20 +25,20 @@ const Index = () => {
     setShowPreloader(true);
   }, []);
 
-  const handlePreloaderComplete = () => {
+  const handlePreloaderComplete = useCallback(() => {
     setShowPreloader(false);
     setIsHeroReady(true);
-  };
+  }, []);
 
   useEffect(() => {
     if (showPreloader) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [showPreloader]);
 
