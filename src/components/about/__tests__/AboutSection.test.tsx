@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import AboutSection from '@/components/AboutSection';
-import { aboutData, skillGroups } from '@/data';
+import { aboutData } from '@/data';
 
 describe('AboutSection', () => {
-  it('renders about section with id="about" and skills with id="skills"', () => {
+  it('renders about section with id="about" and no longer contains nested id="skills"', () => {
     const { container } = render(<AboutSection />);
 
     expect(container.querySelector('#about')).toBeInTheDocument();
-    expect(container.querySelector('#skills')).toBeInTheDocument();
+    expect(container.querySelector('#skills')).toBeNull();
   });
 
   it('renders profile image in full colour without grayscale class', () => {
@@ -38,17 +38,6 @@ describe('AboutSection', () => {
     for (const item of aboutData.whatIDo) {
       expect(screen.getByText(item.title)).toBeInTheDocument();
       expect(screen.getByText(item.description)).toBeInTheDocument();
-    }
-  });
-
-  it('renders 4 skill groups and their skill pills', () => {
-    render(<AboutSection />);
-
-    for (const group of skillGroups) {
-      expect(screen.getByText(group.category)).toBeInTheDocument();
-      for (const skill of group.skills) {
-        expect(screen.getByText(skill)).toBeInTheDocument();
-      }
     }
   });
 });

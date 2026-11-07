@@ -4,7 +4,6 @@ import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ProfileCard } from './about/ProfileCard';
 import { AboutIntro } from './about/AboutIntro';
 import { WhatIDoRow } from './about/WhatIDoRow';
-import { SkillsGrid } from './about/SkillsGrid';
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -12,21 +11,18 @@ const AboutSection = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const whatIDoRef = useRef<HTMLDivElement>(null);
-  const skillsRef = useRef<HTMLDivElement>(null);
 
   useSectionReveal(sectionRef, () => {
     const image = imageRef.current;
     const content = contentRef.current;
     const intro = introRef.current;
     const whatIDo = whatIDoRef.current;
-    const skills = skillsRef.current;
 
     // Initial states set via JS (16px translate, opacity 0)
     if (image && content) {
       gsap.set([image, content], { opacity: 0, y: 16 });
     }
     gsap.set('.what-i-do-card', { opacity: 0, y: 16 });
-    gsap.set('.skill-card', { opacity: 0, y: 16 });
 
     // 1. Intro Block Animation (once: true)
     if (intro && image && content) {
@@ -59,26 +55,10 @@ const AboutSection = () => {
         },
       });
     }
-
-    // 3. Skills Grid Animation (once: true)
-    if (skills) {
-      gsap.to('.skill-card', {
-        opacity: 1,
-        y: 0,
-        duration: 0.35,
-        ease: 'power2.out',
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: skills,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }
   });
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding">
+    <section id="about" ref={sectionRef} className="section-padding scroll-mt-24">
       <div className="container mx-auto max-w-6xl relative z-10 space-y-20">
         {/* Intro Block */}
         <div ref={introRef} className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -95,9 +75,6 @@ const AboutSection = () => {
 
         {/* What I Do Row */}
         <WhatIDoRow ref={whatIDoRef} />
-
-        {/* Skills Grid */}
-        <SkillsGrid ref={skillsRef} />
       </div>
     </section>
   );

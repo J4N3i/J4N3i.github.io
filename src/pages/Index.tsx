@@ -3,6 +3,7 @@ import Preloader from '@/components/Preloader';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
+import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -90,6 +91,7 @@ const Index = () => {
         <main id="main">
           <HeroSection ready={isHeroReady} startDelay={hasIntroDelay ? 0.1 : 0} />
           <AboutSection />
+          <SkillsSection />
           <ExperienceSection />
           <EducationSection />
           <ProjectsSection />
