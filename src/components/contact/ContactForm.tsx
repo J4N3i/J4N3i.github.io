@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { PaperPlaneTilt, Timer } from 'phosphor-react';
-import { gsap } from 'gsap';
 import { sendContactEmail } from '@/lib/email';
 import { profile } from '@/data';
 import { FormStatusBanner } from './FormStatusBanner';
@@ -8,8 +7,17 @@ import { FormStatusBanner } from './FormStatusBanner';
 const COOLDOWN_MS = 30_000;
 let lastSubmitTime = 0;
 
+const TOPIC_OPTIONS = [
+  'Internship opportunity',
+  'Project collaboration',
+  'Just saying hi',
+] as const;
+
+type TopicOption = (typeof TOPIC_OPTIONS)[number];
+
 export const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [selectedTopic, setSelectedTopic] = useState<TopicOption | null>(null);
   const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0);
@@ -34,6 +42,10 @@ export const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleToggleTopic = (topic: TopicOption) => {
+    setSelectedTopic((prev) => (prev === topic ? null : topic));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -50,20 +62,15 @@ export const ContactForm = () => {
 
     const name = formData.name.trim();
     const email = formData.email.trim();
-    const message = formData.message.trim();
-    if (!name || !email || !message) return;
+    const rawMessage = formData.message.trim();
+    if (!name || !email || !rawMessage) return;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+
+    // Prepend topic chip tag to message if selected
+    const message = selectedTopic ? `[${selectedTopic}] ${rawMessage}` : rawMessage;
 
     setIsSubmitting(true);
     setStatus('idle');
-
-    gsap.to('.submit-btn', {
-      scale: 1.05,
-      duration: 0.1,
-      yoyo: true,
-      repeat: 1,
-      ease: 'power2.inOut',
-    });
 
     try {
       await sendContactEmail({ name, email, message, toName: profile.name.split(' ')[0] });
@@ -71,6 +78,7 @@ export const ContactForm = () => {
       setCooldownLeft(Math.ceil(COOLDOWN_MS / 1000));
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
+      setSelectedTopic(null);
     } catch (err) {
       console.error('EmailJS error:', err);
       setStatus('error');
@@ -83,116 +91,149 @@ export const ContactForm = () => {
   const submitDisabled = isSubmitting || isOnCooldown;
 
   return (
-    <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl blur-2xl" />
-      <div className="relative bg-surface-elevated/30 border border-white/10 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl">
-        <h3 className="text-2xl font-bold text-foreground mb-6">Send a Message</h3>
+    <div className="relative bg-white/[0.03] border border-white/10 p-6 sm:p-8 rounded-3xl shadow-xl">
+      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Send a Message</h3>
 
-        <FormStatusBanner status={status} />
+      <FormStatusBanner status={status} />
 
-        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-          {/* Honeypot */}
-          <div
-            style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
-            aria-hidden="true"
+      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        {/* Honeypot */}
+        <div
+          style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+          aria-hidden="true"
+        >
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label
+            htmlFor="name"
+            className="text-xs font-semibold uppercase tracking-wider text-white/70 ml-1"
           >
-            <input
-              type="text"
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              value={honeypot}
-              onChange={(e) => setHoneypot(e.target.value)}
-            />
-          </div>
+            Your Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            maxLength={100}
+            className="w-full px-4 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-white/40 focus:outline-none focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+            placeholder="Your name"
+          />
+        </div>
 
-          <div className="contact-input space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-foreground/80 ml-1">
-              Your Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              maxLength={100}
-              className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
-              placeholder="Your name"
-            />
-          </div>
-
-          <div className="contact-input space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-foreground/80 ml-1">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              maxLength={200}
-              className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300"
-              placeholder="you@company.com"
-            />
-          </div>
-
-          <div className="contact-input space-y-2">
-            <label htmlFor="message" className="text-sm font-medium text-foreground/80 ml-1">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              maxLength={2000}
-              className="w-full px-5 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all duration-300 resize-none"
-              placeholder="Tell me about the role or opportunity..."
-            />
-            <p className="text-xs text-white/40 text-right">{formData.message.length}/2000</p>
-          </div>
-
-          <button
-            type="submit"
-            disabled={submitDisabled}
-            aria-busy={isSubmitting}
-            className="submit-btn w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        <div className="space-y-2">
+          <label
+            htmlFor="email"
+            className="text-xs font-semibold uppercase tracking-wider text-white/70 ml-1"
           >
-            {isSubmitting ? (
-              <>
-                <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                </svg>
-                <span>Sending…</span>
-              </>
-            ) : isOnCooldown ? (
-              <>
-                <Timer size={20} weight="bold" />
-                <span>Wait {cooldownLeft}s before sending again</span>
-              </>
-            ) : (
-              <>
-                <span>Send Message</span>
-                <PaperPlaneTilt size={20} weight="bold" />
-              </>
-            )}
-          </button>
-        </form>
-      </div>
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            maxLength={200}
+            className="w-full px-4 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-white/40 focus:outline-none focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+            placeholder="you@company.com"
+          />
+        </div>
+
+        {/* Optional Topic Chips */}
+        <div className="space-y-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/70 ml-1">
+            Topic (optional)
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {TOPIC_OPTIONS.map((topic) => {
+              const isSelected = selectedTopic === topic;
+              return (
+                <button
+                  key={topic}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => handleToggleTopic(topic)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                    isSelected
+                      ? 'bg-primary text-white border-primary shadow-sm shadow-primary/30'
+                      : 'bg-white/5 text-white/70 border-white/10 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {topic}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label
+            htmlFor="message"
+            className="text-xs font-semibold uppercase tracking-wider text-white/70 ml-1"
+          >
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={4}
+            maxLength={2000}
+            className="w-full px-4 py-3 rounded-xl bg-background/50 border border-white/10 text-foreground placeholder-white/40 focus:outline-none focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors resize-none"
+            placeholder="Tell me about the role or opportunity..."
+          />
+          <p className="text-xs text-white/60 text-right">{formData.message.length}/2000</p>
+        </div>
+
+        <button
+          type="submit"
+          disabled={submitDisabled}
+          aria-busy={isSubmitting}
+          className="w-full py-3.5 rounded-xl bg-primary text-white font-semibold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          {isSubmitting ? (
+            <>
+              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+              </svg>
+              <span>Sending…</span>
+            </>
+          ) : isOnCooldown ? (
+            <>
+              <Timer size={18} weight="bold" />
+              <span>Wait {cooldownLeft}s before sending again</span>
+            </>
+          ) : (
+            <>
+              <span>Send message</span>
+              <PaperPlaneTilt size={18} weight="bold" />
+            </>
+          )}
+        </button>
+      </form>
     </div>
   );
 };
