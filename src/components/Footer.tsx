@@ -46,7 +46,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="border-t border-white/10 bg-transparent py-10 px-4 sm:px-6 relative overflow-hidden"
+      className="border-t border-white/10 bg-transparent pt-10 pb-24 sm:py-10 px-4 sm:px-6 relative overflow-hidden"
     >
       <div className="container mx-auto max-w-6xl relative z-10 space-y-8">
         {/* Row 1: Brand Info, Nav Links, Social Buttons */}

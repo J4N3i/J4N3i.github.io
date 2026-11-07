@@ -1,81 +1,117 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatCircleDots, X } from 'phosphor-react';
 import { ChatWindow } from './chatbot/ChatWindow';
-import { INITIAL_MESSAGES, generateBotResponse, type ChatMessageItem } from '@/lib/chatbot';
+import {
+  INITIAL_MESSAGES,
+  INITIAL_MESSAGE,
+  generateBotReply,
+  type ChatMessageItem,
+} from '@/lib/chatbot';
 
-const ChatBot = () => {
+export interface ChatBotProps {
+  ready?: boolean;
+}
+
+const ChatBot = ({ ready = true }: ChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessageItem[]>(INITIAL_MESSAGES);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
+  const launcherButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
+
+  // Return focus to launcher button when dialog is closed
+  useEffect(() => {
+    if (wasOpenRef.current && !isOpen) {
+      launcherButtonRef.current?.focus();
+    }
+    wasOpenRef.current = isOpen;
+  }, [isOpen]);
+
   const toggleChat = () => setIsOpen((prev) => !prev);
+  const handleClose = useCallback(() => setIsOpen(false), []);
 
-  const handleSendMessage = (textToSend?: string) => {
-    const text = (textToSend ?? inputValue).trim();
-    if (!text) return;
+  const handleClearChat = useCallback(() => {
+    setMessages([INITIAL_MESSAGE]);
+    setIsTyping(false);
+  }, []);
 
-    const userMessage: ChatMessageItem = {
-      id: Date.now().toString(),
-      text,
-      sender: 'user',
-      timestamp: new Date(),
-    };
+  const handleSendMessage = useCallback(
+    (textToSend?: string) => {
+      const text = (textToSend ?? inputValue).trim();
+      if (!text) return;
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInputValue('');
-    setIsTyping(true);
-
-    const delay = Math.random() * 800 + 600;
-
-    setTimeout(() => {
-      const botResponse = generateBotResponse(text);
-      const botMessage: ChatMessageItem = {
-        id: (Date.now() + 1).toString(),
-        text: botResponse,
-        sender: 'bot',
-        timestamp: new Date(),
+      const userMessage: ChatMessageItem = {
+        id: `u-${Date.now()}`,
+        text,
+        sender: 'user',
       };
-      setMessages((prev) => [...prev, botMessage]);
-      setIsTyping(false);
-    }, delay);
-  };
+
+      setMessages((prev) => [...prev, userMessage]);
+      setInputValue('');
+      setIsTyping(true);
+
+      const prefersReduced =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const delay = prefersReduced ? 0 : 300;
+
+      setTimeout(() => {
+        const reply = generateBotReply(text);
+        const botMessage: ChatMessageItem = {
+          id: `b-${Date.now()}`,
+          text: reply.text,
+          sender: 'bot',
+          actions: reply.actions,
+          chips: reply.chips,
+        };
+        setMessages((prev) => [...prev, botMessage]);
+        setIsTyping(false);
+      }, delay);
+    },
+    [inputValue]
+  );
+
+  if (!ready) {
+    return null;
+  }
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end">
-      {/* Chat Window */}
-      <ChatWindow
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        messages={messages}
-        isTyping={isTyping}
-        inputValue={inputValue}
-        onInputChange={setInputValue}
-        onSendMessage={() => handleSendMessage()}
-        onSuggestionClick={(suggestion) => handleSendMessage(suggestion)}
-      />
+    <aside
+      aria-label="Assistant"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] pointer-events-none"
+    >
+      <div className="pointer-events-auto flex flex-col items-end">
+        {/* Chat Window Dialog */}
+        <ChatWindow
+          isOpen={isOpen}
+          onClose={handleClose}
+          onClearChat={handleClearChat}
+          messages={messages}
+          isTyping={isTyping}
+          inputValue={inputValue}
+          onInputChange={setInputValue}
+          onSendMessage={handleSendMessage}
+        />
 
-      {/* Floating Toggle Button */}
-      <button
-        onClick={toggleChat}
-        aria-label={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
-        className="group relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 hover:scale-110 focus:outline-none"
-      >
-        <div className="absolute inset-0 rounded-full bg-white/5 backdrop-blur-[12px] border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] overflow-hidden group-hover:bg-white/10 transition-colors duration-500">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-accent-violet/50 to-accent-cyan/50 opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-t-full opacity-50" />
-          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent rounded-b-full opacity-30" />
-        </div>
-
-        <div className="relative z-10 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:rotate-90">
-          {isOpen ? <X size={32} weight="bold" /> : <ChatCircleDots size={32} weight="fill" />}
-        </div>
-
-        {!isOpen && (
-          <div className="absolute -inset-4 rounded-full bg-primary/20 animate-pulse blur-xl -z-10 opacity-50" />
-        )}
-      </button>
-    </div>
+        {/* Solid Compact Launcher Button (48px) */}
+        <button
+          ref={launcherButtonRef}
+          type="button"
+          onClick={toggleChat}
+          aria-label={isOpen ? 'Close chat assistant' : 'Ask Thea - open chat assistant'}
+          aria-expanded={isOpen}
+          aria-controls="chat-window"
+          className="h-12 w-12 sm:w-auto sm:px-4 rounded-full bg-primary hover:bg-primary/90 text-white shadow-lg shadow-black/50 flex items-center justify-center gap-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background"
+        >
+          {isOpen ? <X size={20} weight="bold" /> : <ChatCircleDots size={22} weight="fill" />}
+          <span className="hidden sm:inline text-xs font-semibold tracking-wide">
+            {isOpen ? 'Close' : 'Ask Thea'}
+          </span>
+        </button>
+      </div>
+    </aside>
   );
 };
 

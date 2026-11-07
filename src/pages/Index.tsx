@@ -129,7 +129,7 @@ const Index = () => {
           <ContactSection />
         </main>
         <Footer />
-        <ChatBot />
+        <ChatBot ready={isHeroReady} />
       </div>
     </div>
   );
