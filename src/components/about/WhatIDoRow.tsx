@@ -7,7 +7,7 @@ const icons = [Code, Cloud, UsersThree];
 export const WhatIDoRow = forwardRef<HTMLDivElement>((_props, ref) => {
   return (
     <div ref={ref} className="space-y-6">
-      <div className="text-xs font-semibold uppercase tracking-wider text-white/60">What I do</div>
+      <div className="text-xs font-semibold uppercase tracking-wider text-white/70">What I do</div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {aboutData.whatIDo.map((item, idx) => {
           const Icon = icons[idx] ?? Code;
@@ -20,7 +20,7 @@ export const WhatIDoRow = forwardRef<HTMLDivElement>((_props, ref) => {
                 <Icon size={20} weight="duotone" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-foreground">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              <p className="text-sm text-white/70 leading-relaxed">{item.description}</p>
             </div>
           );
         })}

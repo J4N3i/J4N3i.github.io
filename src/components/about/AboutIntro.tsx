@@ -12,14 +12,14 @@ export const AboutIntro = forwardRef<HTMLDivElement>((_props, ref) => {
         </div>
 
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-          I like building things that work,{' '}
-          <span className="text-primary">and keeping them working.</span>
+          I like building things that work, and keeping them{' '}
+          <span className="text-primary">working</span>.
         </h2>
       </div>
 
-      <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+      <div className="space-y-4 text-base sm:text-lg text-white/80 leading-relaxed">
         {aboutData.paragraphs.map((paragraph, idx) => (
-          <p key={idx} className={idx === 0 ? 'text-foreground/90 font-medium' : undefined}>
+          <p key={idx} className={idx === 0 ? 'text-foreground font-medium' : undefined}>
             {paragraph}
           </p>
         ))}
