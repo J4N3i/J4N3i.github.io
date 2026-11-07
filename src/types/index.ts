@@ -3,6 +3,14 @@ import type { IconProps } from 'phosphor-react';
 
 export type PhosphorIcon = ComponentType<IconProps>;
 
+export interface CVItem {
+  id: string;
+  label: string;
+  desc: string;
+  href: string;
+  filename: string;
+}
+
 export interface CVOption {
   label: string;
   desc: string;
@@ -33,10 +41,10 @@ export interface Profile {
   bio: string;
   aboutParagraphs: string[];
   quickStats: QuickStat[];
-  cvs: {
-    general: CVOption;
-    devops: CVOption;
-    ai: CVOption;
+  cvs: CVItem[] & {
+    general: CVItem;
+    devops: CVItem;
+    ai: CVItem;
   };
   cvOptions: CVOption[];
 }

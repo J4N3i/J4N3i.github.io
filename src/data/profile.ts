@@ -1,12 +1,32 @@
-import type { Profile, CVOption } from '@/types';
+import type { Profile, CVItem, CVOption } from '@/types';
 
-export const cvGeneral: CVOption = {
-  label: 'General CV',
-  desc: 'Full-stack & software engineering',
-  href: '/Janeesha_Vishwaprabha_CV.pdf',
-  color: 'text-primary',
-  dot: 'bg-primary',
-};
+// TODO: The following CV PDF files must exist in /public with exactly these names:
+// 1. Janeesha_Vishwaprabha_CV_DevOps.pdf
+// 2. Janeesha_Vishwaprabha_CV.pdf
+// 3. Janeesha_Vishwaprabha_CV_AI.pdf
+export const cvs: CVItem[] = [
+  {
+    id: 'devops',
+    label: 'DevOps / Cloud',
+    desc: 'Infrastructure, CI/CD and cloud',
+    href: '/Janeesha_Vishwaprabha_CV_DevOps.pdf',
+    filename: 'Janeesha_Vishwaprabha_CV_DevOps.pdf',
+  },
+  {
+    id: 'general',
+    label: 'General',
+    desc: 'Full-stack and software engineering',
+    href: '/Janeesha_Vishwaprabha_CV.pdf',
+    filename: 'Janeesha_Vishwaprabha_CV.pdf',
+  },
+  {
+    id: 'ai',
+    label: 'AI / ML',
+    desc: 'Machine learning and data science',
+    href: '/Janeesha_Vishwaprabha_CV_AI.pdf',
+    filename: 'Janeesha_Vishwaprabha_CV_AI.pdf',
+  },
+];
 
 export const cvDevops: CVOption = {
   label: 'DevOps / Cloud CV',
@@ -14,6 +34,14 @@ export const cvDevops: CVOption = {
   href: '/Janeesha_Vishwaprabha_CV_DevOps.pdf',
   color: 'text-accent-cyan',
   dot: 'bg-accent-cyan',
+};
+
+export const cvGeneral: CVOption = {
+  label: 'General CV',
+  desc: 'Full-stack & software engineering',
+  href: '/Janeesha_Vishwaprabha_CV.pdf',
+  color: 'text-primary',
+  dot: 'bg-primary',
 };
 
 export const cvAi: CVOption = {
@@ -24,7 +52,7 @@ export const cvAi: CVOption = {
   dot: 'bg-accent-violet',
 };
 
-export const cvOptions: CVOption[] = [cvGeneral, cvDevops, cvAi];
+export const cvOptions: CVOption[] = [cvDevops, cvGeneral, cvAi];
 
 export const profile: Profile = {
   name: 'Janeesha Vishwaprabha',
@@ -50,10 +78,10 @@ export const profile: Profile = {
     { value: '6+', label: 'Projects' },
     { value: '5+', label: 'Leadership Roles' },
   ],
-  cvs: {
-    general: cvGeneral,
-    devops: cvDevops,
-    ai: cvAi,
-  },
+  cvs: Object.assign([...cvs], {
+    devops: cvs[0],
+    general: cvs[1],
+    ai: cvs[2],
+  }),
   cvOptions,
 };
