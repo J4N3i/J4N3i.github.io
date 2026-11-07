@@ -88,7 +88,10 @@ export interface Certification {
   name: string;
   issuer: string;
   date: string;
-  credentialId: string;
+  year?: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  isDevOrDevOps?: boolean;
   skills: string[];
   color: string;
   border: string;
