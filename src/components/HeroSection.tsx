@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { profile } from '@/data';
 import { HeroBackground } from './hero/HeroBackground';
 import { HeroCTA } from './hero/HeroCTA';
+import { HeroProofPoints } from './hero/HeroProofPoints';
 import { HeroScrollIndicator } from './hero/HeroScrollIndicator';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ANIMATION_DURATION, ANIMATION_EASING } from '@/constants/animations';
@@ -136,14 +137,14 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero py-16 sm:py-24"
     >
       <HeroBackground />
 
       {/* Main Content */}
-      <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
+      <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
         {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-medium mb-6 backdrop-blur-sm shadow-sm">
+        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-medium mb-3 sm:mb-5 backdrop-blur-sm shadow-sm">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -153,30 +154,29 @@ const HeroSection = ({ ready = true }: HeroSectionProps) => {
 
         <h1
           ref={headlineRef}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight cursor-default"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-2 sm:mb-3 leading-tight cursor-default"
         >
-          <span className="block text-foreground mb-4 drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.02] transform origin-center">
+          <span className="block text-foreground drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.01] transform origin-center">
             {profile.name}
-          </span>
-          <span className="block text-3xl md:text-4xl lg:text-5xl font-light text-muted-foreground">
-            Building the{' '}
-            <span className="text-glow-primary font-semibold text-foreground animate-pulse-glow">
-              Digital Future
-            </span>
           </span>
         </h1>
 
+        <div className="text-xs sm:text-sm md:text-base font-semibold tracking-wider uppercase text-primary mb-3 sm:mb-4">
+          {profile.role}
+        </div>
+
         <p
           ref={subtitleRef}
-          className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="text-base sm:text-xl md:text-2xl font-light text-foreground/90 mb-5 sm:mb-7 max-w-2xl mx-auto leading-relaxed"
         >
-          {profile.tagline}
-          <br className="hidden md:block" />
-          Building scalable systems — from distributed architectures to immersive web experiences.
+          {profile.headline}
         </p>
 
         {/* CTAs */}
         <HeroCTA ref={ctaRef} />
+
+        {/* Proof Points */}
+        <HeroProofPoints />
 
         {/* Scroll Down Indicator */}
         <HeroScrollIndicator

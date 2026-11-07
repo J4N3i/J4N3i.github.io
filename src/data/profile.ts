@@ -29,8 +29,8 @@ export const cvOptions: CVOption[] = [cvGeneral, cvDevops, cvAi];
 export const profile: Profile = {
   name: 'Janeesha Vishwaprabha',
   shortName: 'JG',
-  role: 'Full-Stack Developer & DevOps Engineer',
-  headline: 'Building the Digital Future',
+  role: 'Full-Stack & DevOps Engineer',
+  headline: 'I build and ship reliable web systems, from code to cloud.',
   tagline: 'Computer Science Undergraduate. Full-Stack Developer & DevOps Enthusiast.',
   university: 'Sri Lanka Institute of Information Technology (SLIIT)',
   departmentRole: 'Vice President of the Computer Sciences Student Community',
