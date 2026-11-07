@@ -1,9 +1,8 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { Users } from 'phosphor-react';
-import { profile } from '@/data';
 import { useSectionReveal } from '@/hooks/useSectionReveal';
 import { ProfileCard } from './about/ProfileCard';
+import { AboutIntro } from './about/AboutIntro';
 import { SkillsGrid } from './about/SkillsGrid';
 import {
   ANIMATION_DURATION,
@@ -74,45 +73,16 @@ const AboutSection = () => {
         <div className="orb w-64 h-64 bottom-1/4 -left-32 opacity-15 float-medium" />
       </div>
 
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="container mx-auto max-w-6xl relative z-10 space-y-20">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Profile Card */}
-          <ProfileCard imageRef={imageRef} />
+          <div className="lg:col-span-5 flex justify-center lg:justify-start">
+            <ProfileCard ref={imageRef} />
+          </div>
 
-          {/* Content */}
-          <div ref={contentRef} className="space-y-10 text-center lg:text-left order-1 lg:order-2">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium uppercase tracking-wider">
-                <Users size={14} weight="bold" />
-                Who I Am
-              </div>
-
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                Turning Vision Into <br />
-                <span className="text-glow-primary">Digital Reality</span>
-              </h2>
-
-              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                {profile.aboutParagraphs.map((paragraph, idx) => (
-                  <p
-                    key={idx}
-                    className={idx === 0 ? 'font-medium text-foreground/90 text-xl' : undefined}
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/5">
-              {profile.quickStats.map((stat, idx) => (
-                <div key={idx} className="space-y-1">
-                  <h4 className="text-2xl font-bold text-foreground">{stat.value}</h4>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
-              ))}
-            </div>
+          {/* Intro Content */}
+          <div className="lg:col-span-7">
+            <AboutIntro ref={contentRef} />
           </div>
         </div>
 
