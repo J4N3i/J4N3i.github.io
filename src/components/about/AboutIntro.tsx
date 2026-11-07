@@ -17,7 +17,7 @@ export const AboutIntro = forwardRef<HTMLDivElement>((_props, ref) => {
         </h2>
       </div>
 
-      <div className="space-y-4 text-base sm:text-lg text-white/80 leading-relaxed">
+      <div className="space-y-4 text-base sm:text-lg text-white/80 leading-relaxed max-w-prose">
         {aboutData.paragraphs.map((paragraph, idx) => (
           <p key={idx} className={idx === 0 ? 'text-foreground font-medium' : undefined}>
             {paragraph}

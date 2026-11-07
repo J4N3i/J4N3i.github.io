@@ -21,7 +21,7 @@ export const ProjectGridCard = ({ project }: ProjectGridCardProps) => {
           height="500"
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+          className="w-full h-full object-cover object-top sm:object-center group-hover:scale-[1.02] transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
       </div>

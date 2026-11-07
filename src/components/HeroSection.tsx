@@ -155,14 +155,14 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-hero py-16 sm:py-24"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-hero pt-20 pb-10 sm:py-24"
     >
       <HeroBackground />
 
       {/* Main Content */}
       <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
         {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-medium mb-3 sm:mb-5 backdrop-blur-sm shadow-sm">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-[11px] sm:text-xs font-medium mb-2.5 sm:mb-5 backdrop-blur-sm shadow-sm">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -172,20 +172,20 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
 
         <h1
           ref={headlineRef}
-          className="text-[clamp(2.15rem,7vw,4.5rem)] font-bold tracking-tight mb-2 sm:mb-3 leading-[1.12] cursor-default"
+          className="text-[clamp(1.9rem,6.5vw,4.5rem)] font-bold tracking-tight mb-1.5 sm:mb-3 leading-[1.14] cursor-default"
         >
           <span className="block text-foreground drop-shadow-2xl hover:text-glow-primary transition-all duration-500 hover:scale-[1.01] transform origin-center">
             {profile.name}
           </span>
         </h1>
 
-        <div className="text-xs sm:text-sm md:text-base font-semibold tracking-wider uppercase text-primary mb-3 sm:mb-4">
+        <div className="text-[11px] sm:text-sm md:text-base font-semibold tracking-wider uppercase text-primary mb-2.5 sm:mb-4">
           {profile.role}
         </div>
 
         <p
           ref={subtitleRef}
-          className="text-[clamp(1rem,2.5vw,1.25rem)] font-light text-foreground/90 mb-5 sm:mb-7 max-w-2xl mx-auto leading-relaxed"
+          className="text-[clamp(0.9375rem,2.5vw,1.25rem)] font-light text-foreground/90 mb-4 sm:mb-7 max-w-2xl mx-auto leading-relaxed"
         >
           {profile.headline}
         </p>

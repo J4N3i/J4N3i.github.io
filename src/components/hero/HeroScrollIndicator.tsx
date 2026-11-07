@@ -11,7 +11,7 @@ export const HeroScrollIndicator = forwardRef<HTMLButtonElement, HeroScrollIndic
         ref={ref}
         type="button"
         aria-label="Scroll to about section"
-        className="mt-16 min-h-[44px] min-w-[44px] flex flex-col items-center justify-center gap-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl p-2 transition-transform active:scale-95 text-white/70 hover:text-white"
+        className="mt-6 sm:mt-16 min-h-[44px] min-w-[44px] flex flex-col items-center justify-center gap-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl p-2 transition-transform active:scale-95 text-white/70 hover:text-white"
         onClick={onClick}
       >
         <span className="text-xs font-medium uppercase tracking-widest">Scroll</span>
