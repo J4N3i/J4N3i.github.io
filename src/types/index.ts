@@ -80,6 +80,7 @@ export interface Education {
   color: string;
   borderColor: string;
   bgGradient: string;
+  currentYearLabel?: string;
 }
 
 export interface Certification {
