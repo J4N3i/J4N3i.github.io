@@ -10,8 +10,8 @@ export const HeroProofPoints = () => {
       </div>
       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" />
-        <span className="font-medium text-white/90">Team Leader</span>
-        <span className="text-white/50">@ AIESEC in SLIIT</span>
+        <span className="font-medium text-white/90">{profile.quickStats[2].value}</span>
+        <span className="text-white/50">{profile.quickStats[2].label}</span>
       </div>
       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-accent-violet" />

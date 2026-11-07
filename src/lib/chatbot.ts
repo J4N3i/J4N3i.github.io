@@ -271,7 +271,7 @@ export function generateBotReply(input: string): BotReply {
 
     case 'experience':
       return {
-        text: "Janeesha's experience combines community leadership and operational discipline:\n\n• Leadership & Community: Team Leader at AIESEC in SLIIT, and student community member at SLIIT (Faculty of Computing Student Community and Student Interactive Society).\n• Work Experience: Commercial banking operational trainee.",
+        text: "Janeesha's experience combines community leadership and operational discipline:\n\n• Leadership & Community: Currently an active member of the Faculty of Computing Student Community and the Student Interactive Society at SLIIT; previously Vice President of the Computer Science Student Community and Team Leader at AIESEC in SLIIT.\n• Work Experience: Commercial banking operational trainee.",
         actions: [
           { label: 'View experience', href: '#experience' },
           { label: 'LinkedIn', href: profile.linkedinUrl },
@@ -304,7 +304,7 @@ export function generateBotReply(input: string): BotReply {
 
     case 'about':
       return {
-        text: 'Janeesha is a final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT. As a Full-Stack & DevOps Engineer, Janeesha builds and ships reliable web systems, from immersive React frontends to private cloud labs on Proxmox, Docker, and Microsoft Azure.',
+        text: 'Janeesha is a final-year Computer Science undergraduate at SLIIT and an active member of two student communities. As a Full-Stack & DevOps Engineer, Janeesha builds and ships reliable web systems, from immersive React frontends to private cloud labs on Proxmox, Docker, and Microsoft Azure.',
         actions: [
           { label: 'View projects', href: '#projects' },
           { label: 'Download CV', href: profile.cvs[0].href, download: true },

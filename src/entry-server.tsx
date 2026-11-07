@@ -28,7 +28,7 @@ export function getNoscriptHtml() {
       >
         <h1 style="font-size: 2rem; margin-bottom: 0.5rem">${profile.name}</h1>
         <p style="color: #b0b8d0; margin-bottom: 1rem">
-          ${profile.role} · Final-year Computer Science undergraduate at SLIIT · Team Leader at AIESEC in SLIIT
+          ${profile.role} · Final-year Computer Science undergraduate at SLIIT
         </p>
         <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1.5rem">
           ${profile.headline}

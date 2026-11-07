@@ -4,7 +4,7 @@
 [![Deploy to GitHub Pages](https://github.com/J4N3i/J4N3i.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/J4N3i/J4N3i.github.io/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha Vishwaprabha, a final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT, showcasing full-stack engineering, distributed systems, and DevOps infrastructure projects. Built with React 18, TypeScript, and Vite, featuring custom GSAP ScrollTrigger animations, static prerendering for search engine crawlers, structured JSON-LD Person schema, and an interactive AI assistant chatbot.
+A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha Vishwaprabha, a final-year Computer Science undergraduate at SLIIT, showcasing full-stack engineering, distributed systems, and DevOps infrastructure projects. Built with React 18, TypeScript, and Vite, featuring custom GSAP ScrollTrigger animations, static prerendering for search engine crawlers, structured JSON-LD Person schema, and an interactive AI assistant chatbot.
 
 **Live Site:** [https://janeeshagamage.com](https://janeeshagamage.com)
 
@@ -20,7 +20,7 @@ A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha
 |                     Janeesha Vishwaprabha                             |
 |               Building the Digital Future                             |
 |                                                                       |
-|   Final-Year CS Undergraduate at SLIIT | Team Leader at AIESEC in SLIIT |
+|        Final-Year CS Undergraduate at SLIIT | DevOps & Full-Stack Engineer   |
 |                                                                       |
 |            [ View My Work ]      [ Download CV ]                      |
 |                                                                       |

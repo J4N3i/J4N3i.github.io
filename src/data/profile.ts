@@ -59,14 +59,20 @@ export const profile: Profile = {
   shortName: 'JV',
   role: 'Full-Stack & DevOps Engineer',
   headline: 'I build and ship reliable web systems, from code to cloud.',
-  tagline: 'Final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT.',
-  studyYear: '4th year (final-year) undergraduate, Computer Science, SLIIT',
+  tagline:
+    'Final-year Computer Science undergraduate at SLIIT. Full-Stack Developer & DevOps Enthusiast.',
+  studyYear: '4th-year (final-year) Computer Science undergraduate at SLIIT',
   currentRoles: [
-    'Team Leader, AIESEC in SLIIT',
     'Member, Faculty of Computing Student Community, SLIIT',
     'Member, Student Interactive Society, SLIIT',
   ],
-  departmentRole: 'Team Leader at AIESEC in SLIIT',
+  pastRoles: [
+    'Vice President, Computer Science Student Community',
+    'Team Leader, AIESEC in SLIIT',
+    'Batch Representative',
+    'Member, Microsoft Club of SLIIT',
+  ],
+  departmentRole: 'Member, Faculty of Computing Student Community, SLIIT',
   university: 'Sri Lanka Institute of Information Technology (SLIIT)',
   email: 'janeeshagamage02@gmail.com',
   phone: '+94 77 959 3243',
@@ -74,9 +80,9 @@ export const profile: Profile = {
   siteUrl: 'https://janeeshagamage.com',
   githubUrl: 'https://github.com/J4N3i',
   linkedinUrl: 'https://www.linkedin.com/in/janeesha-gamage-522717298',
-  bio: "I'm a final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security.",
+  bio: "I'm a final-year Computer Science undergraduate at SLIIT. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security.",
   aboutParagraphs: [
-    "I'm a final-year Computer Science undergraduate at SLIIT and Team Leader at AIESEC in SLIIT.",
+    "I'm a final-year Computer Science undergraduate at SLIIT and an active member of two student communities.",
     "I design and build systems across the full stack — from immersive React frontends with GSAP to distributed backends, cloud infrastructure on Microsoft Azure, and private self-hosted labs running Proxmox, Docker, and TrueNAS. I'm passionate about clean architecture, DevOps, and zero-trust security.",
   ],
   quickStats: [

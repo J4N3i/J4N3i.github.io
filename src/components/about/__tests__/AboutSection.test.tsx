@@ -27,7 +27,7 @@ describe('AboutSection', () => {
     expect(screen.getByText(aboutData.statusPill)).toBeInTheDocument();
 
     for (const fact of aboutData.facts) {
-      expect(screen.getByText(fact.title)).toBeInTheDocument();
+      expect(screen.getAllByText(fact.title).length).toBeGreaterThanOrEqual(1);
       expect(screen.getByText(fact.subtitle)).toBeInTheDocument();
     }
   });
