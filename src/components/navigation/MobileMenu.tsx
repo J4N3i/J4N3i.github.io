@@ -8,7 +8,7 @@ interface MobileMenuProps {
   onClose: () => void;
   navItems: NavItem[];
   activeHref: string;
-  onNavigate: (href: string) => void;
+  onNavigate?: (href: string) => void;
   cvOptions: CVOption[];
   githubUrl: string;
   linkedinUrl: string;
@@ -19,7 +19,6 @@ export const MobileMenu = ({
   onClose,
   navItems,
   activeHref,
-  onNavigate,
   cvOptions,
   githubUrl,
   linkedinUrl,
@@ -59,28 +58,24 @@ export const MobileMenu = ({
       >
         <div className="p-8 pt-20">
           <div className="flex flex-col space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => onNavigate(item.href)}
-                className={`glass-hover text-left text-lg font-medium transition-colors duration-200 px-4 py-3 rounded-xl border ${
-                  activeHref === item.href
-                    ? 'text-foreground border-white/20 bg-white/10'
-                    : 'text-muted-foreground border-transparent hover:text-foreground'
-                }`}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-                  e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--mx', '50%');
-                  e.currentTarget.style.setProperty('--my', '50%');
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isCurrent = activeHref === item.href;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={onClose}
+                  aria-current={isCurrent ? 'true' : undefined}
+                  className={`text-left text-lg font-medium transition-colors duration-200 px-4 py-3 rounded-xl border ${
+                    isCurrent
+                      ? 'text-foreground border-white/20 bg-white/10'
+                      : 'text-muted-foreground border-transparent hover:text-foreground'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
 
             {/* Mobile Resume Accordion */}
             <div className="border border-white/10 rounded-xl overflow-hidden">

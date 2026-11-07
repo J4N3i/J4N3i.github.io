@@ -56,15 +56,6 @@ const Navigation = () => {
     return () => clearTimeout(sheenTimeout);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveHref(href);
-      setIsMenuOpen(false);
-    }
-  };
-
   return (
     <>
       <nav
@@ -79,30 +70,35 @@ const Navigation = () => {
         <div className="px-4 py-3 relative z-10">
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
             {/* Logo */}
-            <div
-              className="text-xl font-bold tracking-tight text-white flex items-center gap-2 cursor-pointer group"
-              onClick={() => scrollToSection('#home')}
+            <a
+              href="#home"
+              className="text-xl font-bold tracking-tight text-white flex items-center gap-2 group"
+              aria-label="Janeesha Vishwaprabha, back to top"
             >
               <span className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/80 to-accent-violet/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xs shadow-lg group-hover:scale-110 transition-transform duration-300">
                 {profile.shortName}
               </span>
-            </div>
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center justify-center gap-0.5">
-              {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                    activeHref === item.href
-                      ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const isCurrent = activeHref === item.href;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    aria-current={isCurrent ? 'true' : undefined}
+                    className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                      isCurrent
+                        ? 'bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] border border-white/10 backdrop-blur-md'
+                        : 'text-white/75 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
 
               <a
                 href={profile.cvs.devops.href}
@@ -134,7 +130,6 @@ const Navigation = () => {
         onClose={() => setIsMenuOpen(false)}
         navItems={navItems}
         activeHref={activeHref}
-        onNavigate={scrollToSection}
         cvOptions={cvOptions}
         githubUrl={profile.githubUrl}
         linkedinUrl={profile.linkedinUrl}

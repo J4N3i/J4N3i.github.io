@@ -89,8 +89,23 @@
     overflow-x: hidden;
   }
 
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Scroll margin so section headings are not obscured by fixed floating nav */
+  section[id],
+  #home,
+  #about,
+  #experience,
+  #education,
+  #skills,
+  #projects,
+  #certifications,
+  #contact {
+    scroll-margin-top: 96px;
   }
 
   /* Global focus-visible styles for accessibility */
