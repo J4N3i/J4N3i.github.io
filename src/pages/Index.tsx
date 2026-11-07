@@ -108,8 +108,14 @@ const Index = () => {
 
       {/* Main Content */}
       <div aria-hidden={showPreloader ? true : undefined}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-xl focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          Skip to content
+        </a>
         <Navigation ready={isHeroReady} />
-        <main>
+        <main id="main">
           <HeroSection ready={isHeroReady} startDelay={hasIntroDelay ? 0.1 : 0} />
           <AboutSection />
           <ExperienceSection />

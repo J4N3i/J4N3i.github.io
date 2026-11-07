@@ -14,6 +14,12 @@ const Navigation = ({ ready = true }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref] = useActiveSection();
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+    menuButtonRef.current?.focus();
+  };
 
   // Single passive scroll listener throttled with requestAnimationFrame (no GSAP on scroll)
   useEffect(() => {
@@ -54,6 +60,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
     <>
       <nav
         ref={navRef}
+        aria-label="Main navigation"
         className={`fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full border shadow-2xl shadow-black/50 transition-all duration-300 ${
           isScrolled
             ? 'top-4 bg-background/85 border-white/15 backdrop-blur-xl'
@@ -113,9 +120,18 @@ const Navigation = ({ ready = true }: NavigationProps) => {
             <div className="flex items-center justify-end">
               {/* Mobile Menu Button */}
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+                ref={menuButtonRef}
+                onClick={() => {
+                  if (isMenuOpen) {
+                    handleCloseMenu();
+                  } else {
+                    setIsMenuOpen(true);
+                  }
+                }}
+                className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary"
                 aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu-panel"
               >
                 {isMenuOpen ? <X size={24} /> : <List size={24} />}
               </button>
@@ -127,7 +143,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
       {/* Mobile Menu Component */}
       <MobileMenu
         isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
+        onClose={handleCloseMenu}
         navItems={navItems}
         activeHref={activeHref}
         cvOptions={cvOptions}

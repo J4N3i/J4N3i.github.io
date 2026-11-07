@@ -97,6 +97,7 @@
 
   /* Scroll margin so section headings are not obscured by fixed floating nav */
   section[id],
+  #main,
   #home,
   #about,
   #experience,
