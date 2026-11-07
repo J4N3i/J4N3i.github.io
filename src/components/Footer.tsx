@@ -55,8 +55,9 @@ const Footer = () => {
     { label: 'Home', href: '#home', download: false },
     { label: 'About', href: '#about', download: false },
     { label: 'Projects', href: '#projects', download: false },
+    { label: 'Experience', href: '#experience', download: false },
     { label: 'Contact', href: '#contact', download: false },
-    { label: 'Resume', href: profile.cvs.general.href, download: true },
+    { label: 'Download CV', href: profile.cvs.devops.href, download: true },
   ];
 
   const scrollToSection = (href: string) => {
@@ -83,11 +84,11 @@ const Footer = () => {
           {/* Brand Column (Span 5) */}
           <div className="md:col-span-5 space-y-6">
             <div className="text-3xl font-bold tracking-tight text-white">
-              Janeesha <span className="text-primary">Gamage</span>
+              Janeesha <span className="text-primary">Vishwaprabha</span>
             </div>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
-              Crafting immersive digital experiences that merge creativity with technical precision.
-              Let's build the future of the web together.
+              Building and shipping reliable web systems, from code to cloud. Open to DevOps and
+              full-stack internships.
             </p>
             <div className="flex items-center gap-4">
               <a

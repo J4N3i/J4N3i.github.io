@@ -17,7 +17,7 @@ try {
     throw new Error('dist-ssr/entry-server.js not found.');
   }
 
-  const { render } = await import(ssrPath);
+  const { render, getNoscriptHtml } = await import(ssrPath);
   const appHtml = render();
 
   let template = fs.readFileSync(indexPath, 'utf-8');
@@ -32,6 +32,12 @@ try {
       /<div id="root"[^>]*>([\s\S]*?)<\/div>/,
       `<div id="root">${appHtml}</div>`
     );
+  }
+
+  // Update <noscript>...</noscript> with noscript HTML generated from src/data/profile.ts
+  if (typeof getNoscriptHtml === 'function') {
+    const noscriptContent = getNoscriptHtml();
+    template = template.replace(/<noscript>[\s\S]*?<\/noscript>/, noscriptContent);
   }
 
   fs.writeFileSync(indexPath, template, 'utf-8');
