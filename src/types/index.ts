@@ -62,7 +62,10 @@ export interface Project {
   role: string;
   result: string;
   image: string;
+  srcSet?: string;
   imageAlt: string;
+  width?: number;
+  height?: number;
   tags: string[];
   liveUrl?: string;
   repoUrl: string;

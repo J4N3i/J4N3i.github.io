@@ -16,12 +16,14 @@ export const ProjectGridCard = ({ project }: ProjectGridCardProps) => {
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40 flex-shrink-0">
         <img
           src={project.image}
+          srcSet={project.srcSet}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
           alt={project.imageAlt}
-          width="800"
-          height="500"
+          width={project.width || 1200}
+          height={project.height || 750}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-top sm:object-center group-hover:scale-[1.02] transition-transform duration-500"
+          className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
       </div>

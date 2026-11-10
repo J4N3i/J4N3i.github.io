@@ -12,9 +12,13 @@ export const projects: Project[] = [
     // TODO: Replace with measurable uptime, build speedup, or storage capacity (e.g. "Achieved 99.9% uptime and reduced deployment time by 40%")
     result:
       'Delivers secure, zero-trust access to self-hosted microservices with automated cloud deployment.',
-    image: '/projects/enterprise-devops-lab.svg',
+    image: '/projects/enterprise-devops-lab.webp',
+    srcSet:
+      '/projects/enterprise-devops-lab-600.webp 600w, /projects/enterprise-devops-lab.webp 1200w',
     imageAlt:
-      'Architecture diagram and status monitoring dashboard of the Proxmox and TrueNAS private cloud',
+      'Illustration of a private cloud cluster with servers, a shield and a deployment pipeline',
+    width: 1200,
+    height: 750,
     tags: ['Proxmox', 'Docker', 'TrueNAS', 'GitHub Actions', 'Azure'],
     repoUrl: profile.githubUrl,
     link: profile.githubUrl,
@@ -31,9 +35,12 @@ export const projects: Project[] = [
     // TODO: Replace with measurable user count or placement rate (e.g. "Supported 200+ student applications with sub-second API responses")
     result:
       'Enables students and employers to manage verified internship applications with secure authenticated workflows.',
-    image: '/projects/internova-portal.svg',
+    image: '/projects/internova-portal.webp',
+    srcSet: '/projects/internova-portal-600.webp 600w, /projects/internova-portal.webp 1200w',
     imageAlt:
-      'Internova dashboard displaying student applications, matching listings, and role-based permissions',
+      'Illustration of an internship matching portal connecting students and employers via a digital dashboard with graduation cap and briefcase icons',
+    width: 1200,
+    height: 750,
     tags: ['ASP.NET Core', 'React', 'Azure', 'MySQL', 'JWT'],
     repoUrl: `${profile.githubUrl}/Internova`,
     link: `${profile.githubUrl}/Internova`,
@@ -51,9 +58,12 @@ export const projects: Project[] = [
     // TODO: Replace with transaction throughput or failover recovery latency (e.g. "Processed 1,000+ simulated transactions/sec with zero duplicate charges during node failover")
     result:
       'Guarantees safe transaction processing and automatic failover across nodes without double-spending.',
-    image: '/projects/ds-pay-system.svg',
+    image: '/projects/ds-pay-system.webp',
+    srcSet: '/projects/ds-pay-system-600.webp 600w, /projects/ds-pay-system.webp 1200w',
     imageAlt:
-      'Distributed node cluster topology showing ZooKeeper leader election and transaction replication',
+      'Illustration of a distributed payments network showing a crowned leader node, consensus ring, and transaction coins',
+    width: 1200,
+    height: 750,
     tags: ['Python', 'FastAPI', 'ZooKeeper', 'SQLite', 'Distributed Systems'],
     repoUrl: `${profile.githubUrl}/payment_system_zookeeper`,
     link: `${profile.githubUrl}/payment_system_zookeeper`,
@@ -70,9 +80,12 @@ export const projects: Project[] = [
     // TODO: Replace with measurable Lighthouse score (e.g. "Achieved 98+ Lighthouse performance on mobile and 100% crawlable content")
     result:
       'Delivers instant first-paint loads with full search engine indexation and accessible WCAG-compliant interactions.',
-    image: '/projects/portfolio-website.svg',
+    image: '/projects/portfolio-website.webp',
+    srcSet: '/projects/portfolio-website-600.webp 600w, /projects/portfolio-website.webp 1200w',
     imageAlt:
-      'Portfolio desktop preview showcasing recruiter-friendly layout, hero value statement, and chatbot',
+      'Illustration of a modern web portfolio interface with glowing code brackets and an AI chat assistant bubble',
+    width: 1200,
+    height: 750,
     tags: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS', 'GSAP'],
     liveUrl: profile.siteUrl,
     repoUrl: `${profile.githubUrl}/J4N3i.github.io`,

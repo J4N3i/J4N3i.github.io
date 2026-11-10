@@ -16,12 +16,14 @@ export const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
       <div className="relative w-full lg:w-1/2 aspect-[16/10] overflow-hidden bg-black/40 flex-shrink-0">
         <img
           src={project.image}
+          srcSet={project.srcSet}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 600px"
           alt={project.imageAlt}
-          width="800"
-          height="500"
+          width={project.width || 1200}
+          height={project.height || 750}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-top sm:object-center group-hover:scale-[1.02] transition-transform duration-500"
+          className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
         />
         <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary/90 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-sm shadow-md">
           Featured Project
