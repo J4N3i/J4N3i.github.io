@@ -94,19 +94,44 @@ describe('SEO & Metadata Verification', () => {
     expect(personSchema).toBeDefined();
     expect(personSchema.name).toBe('Janeesha Gamage');
     expect(personSchema.alternateName).toEqual(['Janeesha Vishwaprabha']);
-    expect(personSchema.url).toBe('https://janeeshagamage.com');
-    expect(personSchema.image).toBe('https://janeeshagamage.com/og-preview.png');
+    expect(personSchema.url).toBe('https://www.janeeshagamage.com');
+    expect(personSchema.image).toBe('https://www.janeeshagamage.com/images/janeesha-gamage.webp');
     expect(personSchema.jobTitle).toBe('Full-Stack Developer & DevOps Engineer');
     expect(personSchema.description).toBe(
       'Janeesha Gamage (Janeesha Vishwaprabha): final-year CS undergraduate at SLIIT, open to DevOps & full-stack internships.'
     );
     expect(personSchema.alumniOf.name).toBe('Sri Lanka Institute of Information Technology');
+    expect(personSchema.alumniOf.url).toBe('https://www.sliit.lk');
+    expect(personSchema.knowsAbout).toEqual([
+      'React',
+      'TypeScript',
+      'Spring Boot',
+      'ASP.NET Core',
+      'Docker',
+      'Azure',
+      'CI/CD',
+      'Distributed Systems',
+    ]);
     expect(personSchema.sameAs).toContain('https://github.com/J4N3i');
     expect(personSchema.sameAs).toContain('https://www.linkedin.com/in/janeesha-gamage-522717298');
 
     const websiteSchema = schemas.find((s) => s['@type'] === 'WebSite');
     expect(websiteSchema).toBeDefined();
     expect(websiteSchema.name).toBe('Janeesha Gamage');
-    expect(websiteSchema.url).toBe('https://janeeshagamage.com');
+    expect(websiteSchema.url).toBe('https://www.janeeshagamage.com');
+  });
+
+  it('verifies canonical, og:url, and twitter:url point to canonical domain', () => {
+    const canonicalMatch = html.match(/<link\s+rel="canonical"\s+href="(.*?)"/i);
+    expect(canonicalMatch).not.toBeNull();
+    expect(canonicalMatch![1]).toBe('https://www.janeeshagamage.com/');
+
+    const ogUrlMatch = html.match(/<meta\s+property="og:url"\s+content="(.*?)"/i);
+    expect(ogUrlMatch).not.toBeNull();
+    expect(ogUrlMatch![1]).toBe('https://www.janeeshagamage.com/');
+
+    const twitterUrlMatch = html.match(/<meta\s+name="twitter:url"\s+content="(.*?)"/i);
+    expect(twitterUrlMatch).not.toBeNull();
+    expect(twitterUrlMatch![1]).toBe('https://www.janeeshagamage.com/');
   });
 });

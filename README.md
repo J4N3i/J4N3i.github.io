@@ -6,7 +6,7 @@
 
 A high-performance, accessible, and SEO-optimized personal portfolio of Janeesha Gamage, a final-year Computer Science undergraduate at SLIIT, showcasing full-stack engineering, distributed systems, and DevOps infrastructure projects. Built with React 18, TypeScript, and Vite, featuring custom GSAP ScrollTrigger animations, static prerendering for search engine crawlers, structured JSON-LD Person schema, and an interactive AI assistant chatbot.
 
-**Live Site:** [https://janeeshagamage.com](https://janeeshagamage.com)
+**Live Site:** [https://www.janeeshagamage.com](https://www.janeeshagamage.com)
 
 ---
 
@@ -193,7 +193,7 @@ The project is continuously deployed to **GitHub Pages** via GitHub Actions:
 
 - `.github/workflows/ci.yml`: Runs on every push and pull request, executing `npm ci`, linting, type checks (`tsc --noEmit`), Vitest suite, and the prerender build.
 - `.github/workflows/deploy.yml`: Deploys the prerendered `dist/` directory to GitHub Pages upon every merge to `main`.
-- Custom domain `janeeshagamage.com` is configured with `CNAME` and SSL termination through Cloudflare / GitHub Pages with automated 301 redirects from `www.janeeshagamage.com`.
+- Custom domain `www.janeeshagamage.com` is configured with `CNAME` and SSL termination through Cloudflare / GitHub Pages with automated 301 redirects from apex `janeeshagamage.com`.
 
 ---
 

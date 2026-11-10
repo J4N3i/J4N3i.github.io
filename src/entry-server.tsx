@@ -1,7 +1,9 @@
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { AppRoutes } from './App';
-import { profile } from './data';
+import { profile, SITE_URL } from './data';
+
+export { SITE_URL };
 
 export function render() {
   return ReactDOMServer.renderToString(
@@ -26,7 +28,7 @@ export function getNoscriptHtml() {
           text-align: center;
         "
       >
-        <h1 style="font-size: 2rem; margin-bottom: 0.5rem">${profile.name}</h1>
+        <p style="font-size: 2rem; margin-bottom: 0.5rem"><strong>${profile.name}</strong></p>
         <p style="color: #b0b8d0; margin-bottom: 1rem">
           ${profile.role} · Final-year Computer Science undergraduate at SLIIT
         </p>

@@ -1,5 +1,7 @@
 import type { Profile, CVItem, CVOption } from '@/types';
 
+export const SITE_URL = 'https://www.janeeshagamage.com';
+
 // TODO: Delete legacy CV copies (Janeesha_Vishwaprabha_CV*.pdf) after inbound links and caches expire
 export const cvs: CVItem[] = [
   {
@@ -77,7 +79,7 @@ export const profile: Profile = {
   email: 'janeeshagamage02@gmail.com',
   phone: '+94 77 959 3243',
   location: 'Sri Lanka',
-  siteUrl: 'https://janeeshagamage.com',
+  siteUrl: SITE_URL,
   githubUrl: 'https://github.com/J4N3i',
   linkedinUrl: 'https://www.linkedin.com/in/janeesha-gamage-522717298',
   bio: "I'm Janeesha Gamage (also known as Janeesha Vishwaprabha), a final-year Computer Science undergraduate at SLIIT. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security.",
