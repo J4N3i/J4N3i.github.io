@@ -195,10 +195,10 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
         aria-hidden={!isOpen}
         className={`absolute ${panelPosition} w-64 sm:w-72 max-w-[calc(100vw-2rem)] z-[70] p-2 rounded-2xl bg-[#12141c] border border-white/10 shadow-2xl shadow-black/60 transition-all duration-200 ease-out origin-top-right motion-reduce:transition-none motion-reduce:transform-none ${
           isOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            ? 'opacity-100 translate-y-0 pointer-events-auto visible'
             : isFooter
-              ? 'opacity-0 translate-y-2 pointer-events-none'
-              : 'opacity-0 -translate-y-2 pointer-events-none'
+              ? 'opacity-0 translate-y-2 pointer-events-none invisible'
+              : 'opacity-0 -translate-y-2 pointer-events-none invisible'
         }`}
       >
         <div className="px-2.5 py-1.5 border-b border-white/10 mb-1">
@@ -215,6 +215,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                 key={cv.id}
                 href={cv.href}
                 download={cv.filename}
+                tabIndex={isOpen ? 0 : -1}
                 aria-label={`Download CV (${cv.label})`}
                 onClick={handleSelectCv}
                 className="group flex flex-col gap-0.5 p-2.5 rounded-xl bg-transparent hover:bg-[#1e2230] active:bg-[#252b3d] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
