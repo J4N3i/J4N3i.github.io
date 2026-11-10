@@ -30,12 +30,11 @@ export const aboutData: AboutData = {
     },
   ],
   image: {
-    src: '/images/janeesha-gamage.webp',
-    srcSet:
-      '/images/janeesha-gamage-480.webp 480w, /images/janeesha-gamage-800.webp 800w, /images/janeesha-gamage.webp 1600w',
+    src: '/images/janeesha-gamage-800.webp',
+    srcSet: '/images/janeesha-gamage-480.webp 480w, /images/janeesha-gamage-800.webp 800w',
     sizes: '(max-width: 640px) 320px, 360px',
     alt: `${profile.name} - Full-Stack & DevOps Engineer`,
-    width: 480,
-    height: 600,
+    width: 800,
+    height: 1000,
   },
 };
