@@ -72,11 +72,13 @@ export const ChatMessage = ({ message, onChipClick }: ChatMessageProps) => {
               }
 
               if (action.href) {
+                const ariaLabel = action.download ? `Download CV (${action.label})` : action.label;
                 return (
                   <a
                     key={actionKey}
                     href={action.href}
                     download={action.download}
+                    aria-label={ariaLabel}
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-[#222636] hover:bg-[#2c3247] text-white border border-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"

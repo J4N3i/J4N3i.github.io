@@ -11,9 +11,10 @@ describe('CvDownload component', () => {
   it('renders desktop split button with default CV download link and caret button', () => {
     render(<CvDownload variant="nav" />);
 
-    const downloadLink = screen.getByRole('link', { name: /^download cv$/i });
+    const downloadLink = screen.getByRole('link', { name: /download cv/i });
     expect(downloadLink).toHaveAttribute('href', cvs[0].href);
     expect(downloadLink).toHaveAttribute('download', cvs[0].filename);
+    expect(downloadLink).toHaveAttribute('aria-label', `Download CV (${cvs[0].label})`);
 
     const caretButton = screen.getByRole('button', { name: /choose another cv/i });
     expect(caretButton).toHaveAttribute('aria-expanded', 'false');

@@ -89,8 +89,8 @@ export const profile: Profile = {
   ],
   quickStats: [
     { value: '3+', label: 'Years of Coding' },
-    { value: '6+', label: 'Projects' },
-    { value: '5+', label: 'Leadership Roles' },
+    { value: '4', label: 'Featured Projects' },
+    { value: '2', label: 'Student Communities' },
   ],
   cvs: Object.assign([...cvs], {
     devops: cvs[0],

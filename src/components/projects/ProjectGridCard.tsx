@@ -73,6 +73,7 @@ export const ProjectGridCard = ({ project }: ProjectGridCardProps) => {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Live demo for ${project.title}`}
                 className="inline-flex items-center gap-1.5 px-3.5 py-2.5 min-h-[44px] rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus:outline-none"
               >
                 <span>Live demo</span>
@@ -83,6 +84,7 @@ export const ProjectGridCard = ({ project }: ProjectGridCardProps) => {
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`View code for ${project.title} on GitHub`}
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 min-h-[44px] rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 hover:scale-105 active:scale-95 transition-all duration-300 text-xs font-semibold focus-visible:ring-2 focus-visible:ring-primary focus:outline-none"
             >
               <GithubLogo size={14} weight="bold" />

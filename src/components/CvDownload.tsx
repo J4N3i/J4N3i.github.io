@@ -72,6 +72,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                 key={cv.id}
                 href={cv.href}
                 download={cv.filename}
+                aria-label={`Download CV (${cv.label})`}
                 onClick={handleSelectCv}
                 className="min-h-[44px] flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/10 hover:border-white/20 transition-all text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
@@ -156,7 +157,12 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
   return (
     <div ref={containerRef} className={`${containerStyles} ${isOpen ? 'z-50' : ''} ${className}`}>
       {/* Main Download Button (Default CV) */}
-      <a href={defaultCv.href} download={defaultCv.filename} className={mainButtonStyles}>
+      <a
+        href={defaultCv.href}
+        download={defaultCv.filename}
+        aria-label={`Download CV (${defaultCv.label})`}
+        className={mainButtonStyles}
+      >
         {isContact && (
           <DownloadSimple size={18} weight="bold" className="text-primary flex-shrink-0" />
         )}
@@ -209,6 +215,7 @@ export const CvDownload = ({ variant = 'nav', className = '', onItemClick }: CvD
                 key={cv.id}
                 href={cv.href}
                 download={cv.filename}
+                aria-label={`Download CV (${cv.label})`}
                 onClick={handleSelectCv}
                 className="group flex flex-col gap-0.5 p-2.5 rounded-xl bg-transparent hover:bg-[#1e2230] active:bg-[#252b3d] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-left"
               >
