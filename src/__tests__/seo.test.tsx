@@ -95,7 +95,9 @@ describe('SEO & Metadata Verification', () => {
     expect(personSchema.name).toBe('Janeesha Gamage');
     expect(personSchema.alternateName).toEqual(['Janeesha Vishwaprabha']);
     expect(personSchema.url).toBe('https://www.janeeshagamage.com');
-    expect(personSchema.image).toBe('https://www.janeeshagamage.com/images/janeesha-gamage.webp');
+    expect(personSchema.image).toBe(
+      'https://www.janeeshagamage.com/images/janeesha-gamage-portrait.webp'
+    );
     expect(personSchema.jobTitle).toBe('Full-Stack Developer & DevOps Engineer');
     expect(personSchema.description).toBe(
       'Janeesha Gamage (Janeesha Vishwaprabha): final-year CS undergraduate at SLIIT, open to DevOps & full-stack internships.'
