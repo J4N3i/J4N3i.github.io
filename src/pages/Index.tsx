@@ -59,18 +59,6 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, [showPreloader, handlePreloaderComplete]);
 
-  useEffect(() => {
-    if (showPreloader) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [showPreloader]);
-
   return (
     <div className="min-h-[100svh] bg-background text-foreground overflow-x-hidden relative">
       {/* Site-wide calm background */}

@@ -37,11 +37,10 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       if (headline && subtitle) {
         gsap.set([headline, subtitle], {
           opacity: 0,
-          y: 20,
         });
       }
-      if (cta) gsap.set(cta, { opacity: 0, y: 16 });
-      if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0, y: -10 });
+      if (cta) gsap.set(cta, { opacity: 0 });
+      if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0 });
 
       // Start animation immediately (or with short 0.1s handoff delay if intro played)
       const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
@@ -58,7 +57,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       if (headline) {
         tl.to(headline, {
           opacity: 1,
-          y: 0,
           duration: headlineDuration,
           ease: ANIMATION_EASING.power2Out,
         });
@@ -69,7 +67,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           subtitle,
           {
             opacity: 1,
-            y: 0,
             duration: subtitleDuration,
             ease: ANIMATION_EASING.power2Out,
           },
@@ -82,7 +79,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           cta,
           {
             opacity: 1,
-            y: 0,
             duration: ctaDuration,
             ease: ANIMATION_EASING.power2Out,
           },
@@ -95,7 +91,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           scrollIndicator,
           {
             opacity: 1,
-            y: 0,
             duration: scrollDuration,
             ease: ANIMATION_EASING.power2Out,
           },
@@ -109,26 +104,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           repeat: -1,
           yoyo: true,
           ease: ANIMATION_EASING.inOut,
-        });
-      }
-
-      // Parallax effect on scroll - desktop with fine pointer only
-      const isDesktopWithFinePointer =
-        typeof window !== 'undefined' &&
-        window.innerWidth >= 1024 &&
-        window.matchMedia('(pointer: fine)').matches &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (isDesktopWithFinePointer) {
-        gsap.to(hero, {
-          yPercent: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: hero,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
         });
       }
     },
