@@ -86,8 +86,8 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
     const profileImg = container.querySelector('img[alt*="Janeesha Gamage"]');
     expect(profileImg).not.toBeNull();
     expect(profileImg).toHaveAttribute('srcset');
-    expect(profileImg?.getAttribute('srcset')).toContain('profile-480.jpg');
-    expect(profileImg?.getAttribute('srcset')).toContain('profile-800.jpg');
+    expect(profileImg?.getAttribute('srcset')).toContain('janeesha-gamage-480.webp');
+    expect(profileImg?.getAttribute('srcset')).toContain('janeesha-gamage-800.webp');
     expect(profileImg).toHaveAttribute('sizes');
   });
 

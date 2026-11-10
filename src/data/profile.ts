@@ -1,37 +1,34 @@
 import type { Profile, CVItem, CVOption } from '@/types';
 
-// TODO: The following CV PDF files must exist in /public with exactly these names:
-// 1. Janeesha_Vishwaprabha_CV_DevOps.pdf
-// 2. Janeesha_Vishwaprabha_CV.pdf
-// 3. Janeesha_Vishwaprabha_CV_AI.pdf
+// TODO: Delete legacy CV copies (Janeesha_Vishwaprabha_CV*.pdf) after inbound links and caches expire
 export const cvs: CVItem[] = [
   {
     id: 'devops',
     label: 'DevOps / Cloud',
     desc: 'Infrastructure, CI/CD and cloud',
-    href: '/Janeesha_Vishwaprabha_CV_DevOps.pdf',
-    filename: 'Janeesha_Vishwaprabha_CV_DevOps.pdf',
+    href: '/Janeesha_Gamage_CV_DevOps.pdf',
+    filename: 'Janeesha_Gamage_CV_DevOps.pdf',
   },
   {
     id: 'general',
     label: 'General',
     desc: 'Full-stack and software engineering',
-    href: '/Janeesha_Vishwaprabha_CV.pdf',
-    filename: 'Janeesha_Vishwaprabha_CV.pdf',
+    href: '/Janeesha_Gamage_CV.pdf',
+    filename: 'Janeesha_Gamage_CV.pdf',
   },
   {
     id: 'ai',
     label: 'AI / ML',
     desc: 'Machine learning and data science',
-    href: '/Janeesha_Vishwaprabha_CV_AI.pdf',
-    filename: 'Janeesha_Vishwaprabha_CV_AI.pdf',
+    href: '/Janeesha_Gamage_CV_AI.pdf',
+    filename: 'Janeesha_Gamage_CV_AI.pdf',
   },
 ];
 
 export const cvDevops: CVOption = {
   label: 'DevOps / Cloud CV',
   desc: 'Infrastructure, CI/CD & cloud',
-  href: '/Janeesha_Vishwaprabha_CV_DevOps.pdf',
+  href: '/Janeesha_Gamage_CV_DevOps.pdf',
   color: 'text-accent-cyan',
   dot: 'bg-accent-cyan',
 };
@@ -39,7 +36,7 @@ export const cvDevops: CVOption = {
 export const cvGeneral: CVOption = {
   label: 'General CV',
   desc: 'Full-stack & software engineering',
-  href: '/Janeesha_Vishwaprabha_CV.pdf',
+  href: '/Janeesha_Gamage_CV.pdf',
   color: 'text-primary',
   dot: 'bg-primary',
 };
@@ -47,7 +44,7 @@ export const cvGeneral: CVOption = {
 export const cvAi: CVOption = {
   label: 'AI / ML CV',
   desc: 'Machine learning & data science',
-  href: '/Janeesha_Vishwaprabha_CV_AI.pdf',
+  href: '/Janeesha_Gamage_CV_AI.pdf',
   color: 'text-accent-violet',
   dot: 'bg-accent-violet',
 };
