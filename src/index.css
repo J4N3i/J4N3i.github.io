@@ -594,7 +594,7 @@
   opacity: var(--glow, 0);
   pointer-events: none;
   mix-blend-mode: screen;
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 .hero-highlight-grid {

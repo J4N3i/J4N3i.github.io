@@ -34,9 +34,15 @@ export const usePointerGlow = (containerRef: RefObject<HTMLElement | null>): voi
     const quickGlow = gsap.quickTo(container, '--glow', { duration: 0.6, ease: 'power3.out' });
 
     let isListening = false;
+    let heroRect: DOMRect | null = null;
+
+    const updateRect = () => {
+      heroRect = hero.getBoundingClientRect();
+    };
 
     const handlePointerMove = (e: PointerEvent) => {
-      const rect = hero.getBoundingClientRect();
+      if (!heroRect) updateRect();
+      const rect = heroRect!;
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
@@ -53,10 +59,12 @@ export const usePointerGlow = (containerRef: RefObject<HTMLElement | null>): voi
     };
 
     const handlePointerEnter = () => {
+      updateRect();
       quickGlow(1);
     };
 
     const handlePointerLeave = () => {
+      heroRect = null;
       quickGlow(0);
     };
 

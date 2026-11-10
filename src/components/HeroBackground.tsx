@@ -24,19 +24,19 @@ export const HeroBackground = () => {
 
       {/* Layer 2: Animated Colour Blobs with Parallax Wrappers */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Blob 1: Primary (top-left) - reduced size on mobile (< 768px) to minimize GPU load */}
+        {/* Blob 1: Primary (top-left) - optimized size and blur */}
         <div className="absolute -top-[5%] -left-[5%] hero-blob-parallax-1 pointer-events-none">
           <div
             data-testid="hero-blob-primary"
-            className="w-[45vw] h-[45vw] max-w-[260px] max-h-[260px] md:w-[55vw] md:h-[55vw] md:max-w-[620px] md:max-h-[620px] rounded-full bg-primary/30 blur-3xl hero-drift-a"
+            className="w-[45vw] h-[45vw] max-w-[240px] max-h-[240px] md:w-[45vw] md:h-[45vw] md:max-w-[440px] md:max-h-[440px] rounded-full bg-primary/25 blur-2xl hero-drift-a"
           />
         </div>
 
-        {/* Blob 2: Accent Violet (bottom-right) - reduced size on mobile */}
+        {/* Blob 2: Accent Violet (bottom-right) - optimized size and blur */}
         <div className="absolute -bottom-[10%] -right-[5%] hero-blob-parallax-2 pointer-events-none">
           <div
             data-testid="hero-blob-violet"
-            className="w-[40vw] h-[40vw] max-w-[240px] max-h-[240px] md:w-[50vw] md:h-[50vw] md:max-w-[580px] md:max-h-[580px] rounded-full bg-accent-violet/25 blur-3xl hero-drift-b"
+            className="w-[40vw] h-[40vw] max-w-[220px] max-h-[220px] md:w-[40vw] md:h-[40vw] md:max-w-[400px] md:max-h-[400px] rounded-full bg-accent-violet/20 blur-2xl hero-drift-b"
           />
         </div>
 
@@ -44,7 +44,7 @@ export const HeroBackground = () => {
         <div className="hidden md:block absolute top-[15%] right-[10%] hero-blob-parallax-3 pointer-events-none">
           <div
             data-testid="hero-blob-cyan"
-            className="w-[42vw] h-[42vw] max-w-[500px] max-h-[500px] rounded-full bg-accent-cyan/25 blur-3xl hero-drift-c"
+            className="w-[35vw] h-[35vw] max-w-[360px] max-h-[360px] rounded-full bg-accent-cyan/20 blur-2xl hero-drift-c"
           />
         </div>
       </div>

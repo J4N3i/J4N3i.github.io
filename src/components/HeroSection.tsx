@@ -37,11 +37,10 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
       if (headline && subtitle) {
         gsap.set([headline, subtitle], {
           opacity: 0,
-          y: 50,
-          filter: 'blur(10px)',
+          y: 20,
         });
       }
-      if (cta) gsap.set(cta, { opacity: 0, y: 30, filter: 'blur(8px)' });
+      if (cta) gsap.set(cta, { opacity: 0, y: 16 });
       if (scrollIndicator) gsap.set(scrollIndicator, { opacity: 0, y: -10 });
 
       // Start animation immediately (or with short 0.1s handoff delay if intro played)
@@ -60,7 +59,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
         tl.to(headline, {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
           duration: headlineDuration,
           ease: ANIMATION_EASING.power2Out,
         });
@@ -72,7 +70,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           {
             opacity: 1,
             y: 0,
-            filter: 'blur(0px)',
             duration: subtitleDuration,
             ease: ANIMATION_EASING.power2Out,
           },
@@ -86,8 +83,6 @@ const HeroSection = ({ ready = true, startDelay = 0 }: HeroSectionProps) => {
           {
             opacity: 1,
             y: 0,
-            filter: 'blur(0px)',
-            clearProps: 'filter',
             duration: ctaDuration,
             ease: ANIMATION_EASING.power2Out,
           },

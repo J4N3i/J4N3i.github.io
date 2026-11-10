@@ -30,23 +30,23 @@ describe('HeroBackground', () => {
     expect(screen.getByTestId('hero-vignette')).toBeInTheDocument();
     expect(screen.getByTestId('hero-bottom-fade')).toBeInTheDocument();
 
-    // Verify drift keyframe classes and static blur-3xl
+    // Verify drift keyframe classes and optimized blur-2xl
     const blobPrimary = screen.getByTestId('hero-blob-primary');
     const blobViolet = screen.getByTestId('hero-blob-violet');
     const blobCyan = screen.getByTestId('hero-blob-cyan');
 
     expect(blobPrimary.className).toContain('hero-drift-a');
-    expect(blobPrimary.className).toContain('blur-3xl');
+    expect(blobPrimary.className).toContain('blur-2xl');
     expect(blobViolet.className).toContain('hero-drift-b');
     expect(blobCyan.className).toContain('hero-drift-c');
 
     // Verify mobile optimization: blob 3 hidden on small screens, blobs 1 & 2 have smaller mobile sizes
     expect(blobCyan.parentElement?.className).toContain('hidden');
     expect(blobCyan.parentElement?.className).toContain('md:block');
-    expect(blobPrimary.className).toContain('max-w-[260px]');
-    expect(blobPrimary.className).toContain('md:max-w-[620px]');
-    expect(blobViolet.className).toContain('max-w-[240px]');
-    expect(blobViolet.className).toContain('md:max-w-[580px]');
+    expect(blobPrimary.className).toContain('max-w-[240px]');
+    expect(blobPrimary.className).toContain('md:max-w-[440px]');
+    expect(blobViolet.className).toContain('max-w-[220px]');
+    expect(blobViolet.className).toContain('md:max-w-[400px]');
 
     // Verify parallax wrapper classes
     expect(blobPrimary.parentElement?.className).toContain('hero-blob-parallax-1');
