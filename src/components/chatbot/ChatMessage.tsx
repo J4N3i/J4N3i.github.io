@@ -73,6 +73,7 @@ export const ChatMessage = ({ message, onChipClick }: ChatMessageProps) => {
 
               if (action.href) {
                 const ariaLabel = action.download ? `Download CV (${action.label})` : action.label;
+                const ariaLabel = action.download ? `Download CV (${action.label})` : action.label;
                 return (
                   <a
                     key={actionKey}

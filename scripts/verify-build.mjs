@@ -97,3 +97,4 @@ if (errors.length > 0) {
 }
 
 console.log('[verify-build] All dist/index.html SEO & build assertions passed successfully!');
+
