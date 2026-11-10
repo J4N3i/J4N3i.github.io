@@ -20,7 +20,7 @@ describe('Navigation & MobileMenu accessibility', () => {
     const nav = screen.getByRole('navigation', { name: /main navigation/i });
     expect(nav).toBeInTheDocument();
 
-    const logo = screen.getByRole('link', { name: /janeesha vishwaprabha, back to top/i });
+    const logo = screen.getByRole('link', { name: /janeesha gamage, back to top/i });
     expect(logo).toHaveAttribute('href', '#home');
 
     const downloadBtn = screen.getByRole('link', { name: /download cv/i });

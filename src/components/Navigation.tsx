@@ -81,7 +81,7 @@ const Navigation = ({ ready = true }: NavigationProps) => {
             <a
               href="#home"
               className="text-xl font-bold tracking-tight text-white flex items-center gap-2 group"
-              aria-label="Janeesha Vishwaprabha, back to top"
+              aria-label={`${profile.name}, back to top`}
             >
               <span className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/80 to-accent-violet/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xs shadow-lg group-hover:scale-110 transition-transform duration-300">
                 {profile.shortName}

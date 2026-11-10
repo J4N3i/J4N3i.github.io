@@ -4,11 +4,11 @@ import Preloader from '../Preloader';
 import { profile } from '@/data';
 
 describe('Preloader', () => {
-  it('renders monogram JV and profile name, with no fake progress bar', () => {
+  it('renders monogram JG and profile name, with no fake progress bar', () => {
     const onComplete = vi.fn();
     const { container } = render(<Preloader onComplete={onComplete} />);
 
-    expect(screen.getByText('JV')).toBeInTheDocument();
+    expect(screen.getByText('JG')).toBeInTheDocument();
     expect(screen.getByText(profile.name)).toBeInTheDocument();
 
     // Verify progress bar is removed

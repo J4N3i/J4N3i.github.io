@@ -45,7 +45,7 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
     // Headline
     const headline = screen.getByRole('heading', { level: 1, hidden: true });
     expect(headline).toBeInTheDocument();
-    expect(headline).toHaveTextContent(/Janeesha Vishwaprabha/i);
+    expect(headline).toHaveTextContent(/Janeesha Gamage/i);
 
     // Subtitle
     expect(
@@ -83,7 +83,7 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
     });
 
     // Profile photo has responsive srcset and sizes
-    const profileImg = container.querySelector('img[alt*="Janeesha Vishwaprabha"]');
+    const profileImg = container.querySelector('img[alt*="Janeesha Gamage"]');
     expect(profileImg).not.toBeNull();
     expect(profileImg).toHaveAttribute('srcset');
     expect(profileImg?.getAttribute('srcset')).toContain('profile-480.jpg');
@@ -141,7 +141,7 @@ describe('Mobile Optimization Verification (360px - 430px & 768px)', () => {
 
     const status = screen.getByRole('status', { name: /welcome introduction/i });
     expect(status).toBeInTheDocument();
-    expect(status).toHaveTextContent('JV');
+    expect(status).toHaveTextContent('JG');
   });
 
   it('skips preloader when deep link anchor hash is present', () => {

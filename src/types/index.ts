@@ -26,6 +26,8 @@ export interface QuickStat {
 
 export interface Profile {
   name: string;
+  alternateNames: string[];
+  initials: string;
   shortName: string;
   role: string;
   headline: string;

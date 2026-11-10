@@ -55,8 +55,11 @@ export const cvAi: CVOption = {
 export const cvOptions: CVOption[] = [cvDevops, cvGeneral, cvAi];
 
 export const profile: Profile = {
-  name: 'Janeesha Vishwaprabha',
-  shortName: 'JV',
+  name: 'Janeesha Gamage',
+  // TODO: add my full name variant here if I use one (e.g. with a middle name)
+  alternateNames: ['Janeesha Vishwaprabha'],
+  initials: 'JG',
+  shortName: 'JG',
   role: 'Full-Stack & DevOps Engineer',
   headline: 'I build and ship reliable web systems, from code to cloud.',
   tagline:
@@ -80,9 +83,9 @@ export const profile: Profile = {
   siteUrl: 'https://janeeshagamage.com',
   githubUrl: 'https://github.com/J4N3i',
   linkedinUrl: 'https://www.linkedin.com/in/janeesha-gamage-522717298',
-  bio: "I'm a final-year Computer Science undergraduate at SLIIT. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security.",
+  bio: "I'm Janeesha Gamage (also known as Janeesha Vishwaprabha), a final-year Computer Science undergraduate at SLIIT. I build systems across the full stack — from immersive React frontends to distributed backends, private cloud infrastructure running Proxmox and Docker, and CI/CD pipelines on Azure. I'm passionate about clean architecture, DevOps, and zero-trust security.",
   aboutParagraphs: [
-    "I'm a final-year Computer Science undergraduate at SLIIT and an active member of two student communities.",
+    "I'm Janeesha Gamage (also known as Janeesha Vishwaprabha), a final-year Computer Science undergraduate at SLIIT.",
     "I design and build systems across the full stack — from immersive React frontends with GSAP to distributed backends, cloud infrastructure on Microsoft Azure, and private self-hosted labs running Proxmox, Docker, and TrueNAS. I'm passionate about clean architecture, DevOps, and zero-trust security.",
   ],
   quickStats: [
