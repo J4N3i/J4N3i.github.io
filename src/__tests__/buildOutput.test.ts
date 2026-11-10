@@ -58,4 +58,16 @@ describe('Built Output SEO Validation (dist/index.html)', () => {
       expect(() => JSON.parse(match[1].trim())).not.toThrow();
     });
   });
+
+  it('verifies google search console verification file exists in dist and matches public', () => {
+    const publicGoogle = path.resolve(__dirname, '../../public/googlea8a0940b3ea72c6a.html');
+    const distGoogle = path.resolve(__dirname, '../../dist/googlea8a0940b3ea72c6a.html');
+    if (fs.existsSync(publicGoogle)) {
+      expect(fs.existsSync(distGoogle)).toBe(true);
+      const publicContent = fs.readFileSync(publicGoogle, 'utf-8');
+      const distContent = fs.readFileSync(distGoogle, 'utf-8');
+      expect(distContent).toBe(publicContent);
+      expect(distContent.trim()).toBe('google-site-verification: googlea8a0940b3ea72c6a.html');
+    }
+  });
 });
